@@ -1,9 +1,9 @@
-import { Button } from '@/components/Button/Button';
+import ButtonGue from './components/custom/button-gue';
 
 function App() {
   return (
     <div>
-      <Button label="Click me" onClick={() => {}} />
+      <ButtonGue />
     </div>
   );
 }
