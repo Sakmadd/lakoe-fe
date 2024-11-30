@@ -1,10 +1,26 @@
-import ButtonGue from './components/custom/button-gue';
+import { Route, Routes } from 'react-router-dom';
+import { SellerLayout } from './layouts/sellerLayout';
+import { HomePage } from './components/pages/homePage';
+import { BuyerLayout } from './layouts/buyerLayout';
+
+const loggedUser = false;
 
 function App() {
+  if (!loggedUser) {
+    return (
+      <Routes>
+        <Route path="/" element={<BuyerLayout />}>
+          <Route index element={<HomePage />} />
+        </Route>
+      </Routes>
+    );
+  }
   return (
-    <div>
-      <ButtonGue />
-    </div>
+    <Routes>
+      <Route path="/" element={<SellerLayout />}>
+        <Route index element={<HomePage />} />
+      </Route>
+    </Routes>
   );
 }
 
