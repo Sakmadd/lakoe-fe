@@ -3,7 +3,7 @@ import { SellerLayout } from './layouts/sellerLayout';
 import { HomePage } from './components/pages/homePage';
 import { BuyerLayout } from './layouts/buyerLayout';
 
-const loggedUser = false;
+const loggedUser = true;
 
 function App() {
   if (!loggedUser) {
