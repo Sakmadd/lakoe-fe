@@ -1,3 +1,4 @@
+import { loggedUser } from '@/App';
 import { Avatar } from '@/components/ui/avatar';
 import { InputGroup } from '@/components/ui/input-group';
 import { TopBarlayout } from '@/layouts/bars/topBarLayout';
@@ -9,6 +10,7 @@ import {
   MenuItem,
   MenuRoot,
   MenuTrigger,
+  Text,
 } from '@chakra-ui/react';
 import { LuSearch } from 'react-icons/lu';
 import { RiShoppingBag4Line } from 'react-icons/ri';
@@ -25,6 +27,15 @@ export function TopBar() {
         >
           <Link href="/">
             <RiShoppingBag4Line size={'40px'} />
+            <Text
+              fontWeight={'bold'}
+              fontSize={'2xl'}
+              textDecoration={'underline'}
+              textUnderlineOffset={3}
+              textDecorationColor={'rgba(230, 230, 230, 1)'}
+            >
+              Lakoe
+            </Text>
           </Link>
           <InputGroup maxWidth={'50%'} flex="1" startElement={<LuSearch />}>
             <Input placeholder="Search " />
@@ -38,18 +49,25 @@ export function TopBar() {
               />
             </MenuTrigger>
             <MenuContent pos={'absolute'} right={'3'} top={'14'}>
-              <MenuItem value="profile" cursor={'pointer'}>
-                Profile
-              </MenuItem>
-              <MenuItem value="register" cursor={'pointer'}>
-                Register
-              </MenuItem>
-              <MenuItem value="login" cursor={'pointer'}>
-                Login
-              </MenuItem>
-              <MenuItem value="logout" cursor={'pointer'}>
-                Logout
-              </MenuItem>
+              {loggedUser ? (
+                <>
+                  <MenuItem value="profile" cursor={'pointer'}>
+                    Profile
+                  </MenuItem>
+                  <MenuItem value="logout" cursor={'pointer'}>
+                    Logout
+                  </MenuItem>
+                </>
+              ) : (
+                <>
+                  <MenuItem value="register" cursor={'pointer'}>
+                    Register
+                  </MenuItem>
+                  <MenuItem value="login" cursor={'pointer'}>
+                    Login
+                  </MenuItem>
+                </>
+              )}
             </MenuContent>
           </MenuRoot>
         </Flex>
