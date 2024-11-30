@@ -8,7 +8,7 @@ import { OrderPage } from './components/pages/orderPage';
 import { SettingsPage } from './components/pages/settingsPage';
 import { ProductDetailPage } from './components/pages/productDetailPage';
 
-export const loggedUser = false;
+export const loggedUser = true;
 
 function App() {
   if (!loggedUser) {

@@ -10,10 +10,17 @@ import {
   MenuItem,
   MenuRoot,
   MenuTrigger,
+  Spacer,
   Text,
 } from '@chakra-ui/react';
+import { CgProfile } from 'react-icons/cg';
 import { LuSearch } from 'react-icons/lu';
-import { RiShoppingBag4Line } from 'react-icons/ri';
+import { MdOutlineAssignmentInd } from 'react-icons/md';
+import {
+  RiLoginBoxLine,
+  RiLogoutBoxLine,
+  RiShoppingBag4Line,
+} from 'react-icons/ri';
 
 export function TopBar() {
   return (
@@ -44,27 +51,37 @@ export function TopBar() {
             <MenuTrigger asChild>
               <Avatar
                 name="Segun Adebayo"
-                src="https://bit.ly/sage-adebayo"
+                src={
+                  loggedUser ? 'https://bit.ly/dan-abramov' : '/anon-avatar.png'
+                }
                 cursor={'pointer'}
               />
             </MenuTrigger>
-            <MenuContent pos={'absolute'} right={'3'} top={'14'}>
+            <MenuContent pos={'absolute'} right={'3'} top={'16'}>
               {loggedUser ? (
                 <>
                   <MenuItem value="profile" cursor={'pointer'}>
                     Profile
+                    <Spacer />
+                    <CgProfile />
                   </MenuItem>
                   <MenuItem value="logout" cursor={'pointer'}>
                     Logout
+                    <Spacer />
+                    <RiLogoutBoxLine />
                   </MenuItem>
                 </>
               ) : (
                 <>
                   <MenuItem value="register" cursor={'pointer'}>
                     Register
+                    <Spacer />
+                    <MdOutlineAssignmentInd />
                   </MenuItem>
                   <MenuItem value="login" cursor={'pointer'}>
                     Login
+                    <Spacer />
+                    <RiLoginBoxLine />
                   </MenuItem>
                 </>
               )}

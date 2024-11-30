@@ -23,6 +23,21 @@ export function ProductDetailVariant({
   minimum_order,
 }: productDetailVariantProps) {
   const [quantity, setQuantity] = useState<number>(minimum_order);
+  const [selectedSubVariants, setSelectedSubVariants] = useState<string[]>([]);
+
+  const handleSubVariantClick = (variantName: string, subVariant: string) => {
+    const currentIndex = selectedSubVariants.findIndex((sv) =>
+      sv.startsWith(`${variantName}:`)
+    );
+    if (currentIndex !== -1) {
+      selectedSubVariants.splice(currentIndex, 1);
+    }
+    setSelectedSubVariants([
+      ...selectedSubVariants,
+      `${variantName}:${subVariant}`,
+    ]);
+  };
+
   return (
     <>
       {variants.map((variant) => (
@@ -31,7 +46,19 @@ export function ProductDetailVariant({
             <Text padding={'.5rem'}>{variant.variantName}</Text>
             <Flex gap={'.2rem'} flexWrap={'wrap'}>
               {variant.subVariants.map((subVariant) => (
-                <Button variant={'outline'} size={'sm'}>
+                <Button
+                  variant={
+                    selectedSubVariants.includes(
+                      `${variant.variantName}:${subVariant}`
+                    )
+                      ? 'solid'
+                      : 'outline'
+                  }
+                  size={'sm'}
+                  onClick={() =>
+                    handleSubVariantClick(variant.variantName, subVariant)
+                  }
+                >
                   {subVariant}
                 </Button>
               ))}
