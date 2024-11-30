@@ -6,8 +6,9 @@ import { DashboardPage } from './components/pages/dashboardPage';
 import { ProductPage } from './components/pages/productPage';
 import { OrderPage } from './components/pages/orderPage';
 import { SettingsPage } from './components/pages/settingsPage';
+import { ProductDetailPage } from './components/pages/productDetailPage';
 
-export const loggedUser = true;
+export const loggedUser = false;
 
 function App() {
   if (!loggedUser) {
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<BuyerLayout />}>
           <Route index element={<HomePage />} />
+          <Route path="/:productName" element={<ProductDetailPage />} />
         </Route>
       </Routes>
     );

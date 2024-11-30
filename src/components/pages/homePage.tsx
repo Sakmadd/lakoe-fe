@@ -1,13 +1,14 @@
 import { MainContent } from '@/layouts/mainContent';
-import { Box } from '@chakra-ui/react';
+import { ContentContainer } from '../fragments/container/contentContainer';
+import { ProductContainer } from '../fragments/product/productContainer';
 
 export function HomePage() {
   return (
     <>
       <MainContent>
-        <Box height={'400vh'}>
-          <h1>Home Page</h1>
-        </Box>
+        <ContentContainer>
+          <ProductContainer />
+        </ContentContainer>
       </MainContent>
     </>
   );

@@ -14,7 +14,7 @@ export function LeftBarLayout({ children }: LeftBarProps) {
         pos={'sticky'}
         top={'20'}
         width={'100%'}
-        padding={'2rem'}
+        padding={'1rem'}
         backgroundColor={'rgba(255, 255, 255, 1)'}
         height={'90vh'}
       >

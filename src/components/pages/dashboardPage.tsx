@@ -1,13 +1,13 @@
 import { MainContent } from '@/layouts/mainContent';
-import { Box } from '@chakra-ui/react';
+import { ContentContainer } from '../fragments/container/contentContainer';
 
 export function DashboardPage() {
   return (
     <>
       <MainContent>
-        <Box height={'400vh'}>
+        <ContentContainer>
           <h1>Dashboard Page</h1>
-        </Box>
+        </ContentContainer>
       </MainContent>
     </>
   );

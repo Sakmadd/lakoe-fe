@@ -11,9 +11,10 @@ export function MainContent({ children }: MainBarProps) {
       as={'section'}
       borderColor={'rgba(230, 230, 230, 1)'}
       borderWidth={'0px 1px 0px 1px'}
-      minHeight={'100vh'}
+      minHeight={'90vh'}
       width={'full'}
       backgroundColor={'rgba(248, 248, 248, 1)'}
+      padding={'1rem'}
     >
       {children}
     </Box>

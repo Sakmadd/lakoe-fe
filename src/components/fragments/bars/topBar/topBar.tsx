@@ -22,7 +22,7 @@ export function TopBar() {
         <Flex
           width={'full'}
           justifyContent={'space-between'}
-          paddingX={'3%'}
+          paddingX={'2%'}
           paddingY={'.5%'}
         >
           <Link href="/">
