@@ -10,13 +10,13 @@ export function SellerLayout() {
       <Box>
         <TopBar />
         <Grid templateColumns={'repeat(20, 1fr)'}>
-          <GridItem colSpan={3} display={{ base: 'none', xl: 'block' }}>
+          <GridItem colSpan={3}>
             <NavBar />
           </GridItem>
           <GridItem colSpan={14}>
             <Outlet />
           </GridItem>
-          <GridItem colSpan={3} display={{ base: 'none', lg: 'block' }}>
+          <GridItem colSpan={3}>
             <SideBar />
           </GridItem>
         </Grid>
