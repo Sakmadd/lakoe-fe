@@ -1,6 +1,6 @@
 import { MainContent } from '@/layouts/mainContent';
 import { ContentContainer } from '../fragments/container/contentContainer';
-import { DashboardStats } from '../fragments/dsahboard/dashboardStats/dashboardStats';
+import { DashboardStats } from '../fragments/dashboard/dashboardStats/dashboardStats';
 
 export function DashboardPage() {
   return (

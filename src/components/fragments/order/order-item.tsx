@@ -1,37 +1,24 @@
 import { Box, Image, Text } from '@chakra-ui/react';
-import { Tag } from '@/components/ui/tag';
-import { Button } from '@/components/ui/button';
+import { OrderActionButton } from './order-action-button';
+import { OrderStatus } from './order-status';
+import { formatRupiah } from '@/utils/format-rp';
+import { OrderType } from '@/types/types';
 
-export default function OrderBox() {
+interface Props {
+  order: OrderType;
+}
+
+export default function OrderItem({ order }: Props) {
   return (
     <Box border="0.1rem solid #e6e6e6" borderRadius="0.5rem">
       <Box display="flex" justifyContent="space-between" padding="0.8rem">
         <Box display="flex" flexDirection="column" gap="0.5rem">
-          <Tag
-            variant="solid"
-            colorPalette="yellow"
-            size="sm"
-            width="fit-content"
-            fontWeight="semibold"
-          >
-            Unpaid
-          </Tag>
+          <OrderStatus status={order.status} />
           <Text color="grey" fontSize="0.8rem" fontFamily="sans-serif">
-            INV/20230809/MPL/00000239
+            {order.invoice}
           </Text>
         </Box>
-        <Box display="flex" alignItems="center">
-          <Button
-            backgroundColor="transparent"
-            border="1px solid #e6e6e6"
-            color="black"
-            borderRadius="2rem"
-            fontSize="0.8rem"
-            height="2rem"
-          >
-            Contact Customers
-          </Button>
-        </Box>
+        <OrderActionButton order={order} />
       </Box>
       <Box
         borderTop="0.1rem solid #e6e6e6"
@@ -41,11 +28,12 @@ export default function OrderBox() {
         <Box padding="0.5rem" display="flex" gap="0.5rem">
           <Image
             width="4rem"
-            borderRadius="1rem"
+            borderRadius=".3rem"
             objectFit="cover"
             height="4rem"
             border="0.1rem solid #e6e6e6"
-            src="https://down-id.img.susercontent.com/file/sg-11134201-22110-xhtlq7aviojvf9"
+            src={order.image.src}
+            alt={order.image.alt}
           />
           <Box
             display="flex"
@@ -58,7 +46,7 @@ export default function OrderBox() {
               fontSize="0.8rem"
               fontFamily="sans-serif"
             >
-              NAMA BAJU BOY - S
+              {order.name}
             </Text>
             <Text
               fontWeight="light"
@@ -66,7 +54,7 @@ export default function OrderBox() {
               color="gray"
               fontFamily="sans-serif"
             >
-              1 Item
+              {order.quantity} Items
             </Text>
           </Box>
         </Box>
@@ -85,7 +73,7 @@ export default function OrderBox() {
             fontFamily="sans-serif"
             fontWeight="semibold"
           >
-            Rp190.000
+            {formatRupiah(order.total_price)}
           </Text>
         </Box>
       </Box>

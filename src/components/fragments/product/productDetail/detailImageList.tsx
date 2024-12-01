@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Image } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 
 export type imagesType = {
@@ -17,7 +17,25 @@ export function DetailImageList({
   onImageClick,
 }: DetailImageListProps) {
   const [startIndex, setStartIndex] = useState(0);
-  const maxVisible = 5;
+  const [maxVisible, setMaxVisible] = useState(5); // Default value
+
+  // Menyesuaikan maxVisible berdasarkan ukuran layar
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 480) {
+        setMaxVisible(3);
+      } else if (window.innerWidth <= 1496) {
+        setMaxVisible(4);
+      } else {
+        setMaxVisible(5);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handlePrev = () => {
     setStartIndex((prev) => Math.max(prev - 1, 0));
@@ -30,14 +48,15 @@ export function DetailImageList({
   const visibleImages = images.slice(startIndex, startIndex + maxVisible);
 
   return (
-    <Flex align="center" gap="1rem">
+    <Flex align="center" gap="1rem" justify="center">
       <Flex
         gap=".6rem"
         paddingTop={'.5rem'}
         alignItems={'center'}
         position="relative"
+        width="100%"
+        maxWidth="500px"
       >
-        {/* Tombol Navigasi Sebelumnya */}
         <Button
           onClick={handlePrev}
           disabled={startIndex === 0}
@@ -54,12 +73,12 @@ export function DetailImageList({
           <GrFormPrevious />
         </Button>
 
-        {/* Gambar */}
-        <Flex justifyContent="center" gap="0.6rem">
+        <Flex justifyContent="center" gap="0.6rem" width="100%">
           {visibleImages.map((image, index) => (
             <Box
               key={index}
-              width="70px"
+              width="20%"
+              minWidth="70px"
               height="70px"
               border="1px solid"
               borderColor="gray.200"
