@@ -1,9 +1,9 @@
 import { LeftBarLayout } from '@/layouts/bars/leftBarLayout';
 import { Flex, Spacer } from '@chakra-ui/react';
+import { AiOutlineProduct } from 'react-icons/ai';
+import { FiPackage } from 'react-icons/fi';
 import { TbDashboard, TbSettings2, TbSmartHome } from 'react-icons/tb';
 import { NavButton } from './navButton';
-import { AiOutlineProduct } from 'react-icons/ai';
-import { LuShoppingBasket } from 'react-icons/lu';
 
 export function NavBar() {
   return (
@@ -27,7 +27,7 @@ export function NavBar() {
             <AiOutlineProduct />
           </NavButton>
           <NavButton text="Order" href="/orders">
-            <LuShoppingBasket />
+            <FiPackage />
           </NavButton>
           <Spacer />
           <NavButton text="Settings" href="/settings">

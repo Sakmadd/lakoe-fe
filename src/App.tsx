@@ -1,12 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
-import { SellerLayout } from './layouts/sellerLayout';
-import { HomePage } from './components/pages/homePage';
-import { BuyerLayout } from './layouts/buyerLayout';
 import { DashboardPage } from './components/pages/dashboardPage';
-import { ProductPage } from './components/pages/productPage';
+import { HomePage } from './components/pages/homePage';
 import { OrderPage } from './components/pages/orderPage';
-import { SettingsPage } from './components/pages/settingsPage';
 import { ProductDetailPage } from './components/pages/productDetailPage';
+import { ProductPage } from './components/pages/productPage';
+import { SettingsPage } from './components/pages/settingsPage';
+import { BuyerLayout } from './layouts/buyerLayout';
+import { SellerLayout } from './layouts/sellerLayout';
 
 export const loggedUser = true;
 
@@ -25,6 +25,7 @@ function App() {
     <Routes>
       <Route path="/" element={<SellerLayout />}>
         <Route index element={<HomePage />} />
+        <Route path="/:productName" element={<ProductDetailPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/products" element={<ProductPage />} />
         <Route path="/orders" element={<OrderPage />} />

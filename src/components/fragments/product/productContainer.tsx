@@ -1,21 +1,59 @@
 import { Flex } from '@chakra-ui/react';
 import { ProductCard } from './productCard';
+import { formatRupiah } from '@/utils/format-rp';
 
 export function ProductContainer() {
   return (
     <>
       <Flex flexWrap={'wrap'} gap={'1rem'} justifyContent={'center'}>
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        {products.map((product) => (
+          <ProductCard
+            url={product.url}
+            image={product.image}
+            title={product.title}
+            price={formatRupiah(product.price)}
+          />
+        ))}
       </Flex>
     </>
   );
 }
+
+const products = [
+  {
+    title: 'SOFA MANTAP BANGET AJG',
+    price: 1000000,
+    url: '/apaaja',
+    image: {
+      src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+      alt: 'Green double couch with wooden legs',
+    },
+  },
+  {
+    title: 'SOFA MANTAP BANGET AJG',
+    price: 1000000,
+    url: '/apaaja',
+    image: {
+      src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+      alt: 'Green double couch with wooden legs',
+    },
+  },
+  {
+    title: 'SOFA MANTAP BANGET AJG',
+    price: 1000000,
+    url: '/apaaja',
+    image: {
+      src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+      alt: 'Green double couch with wooden legs',
+    },
+  },
+  {
+    title: 'SOFA MANTAP BANGET AJG',
+    price: 1000000,
+    url: '/apaaja',
+    image: {
+      src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+      alt: 'Green double couch with wooden legs',
+    },
+  },
+];

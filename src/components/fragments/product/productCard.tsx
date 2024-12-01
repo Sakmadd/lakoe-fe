@@ -1,6 +1,16 @@
 import { Box, Card, Image, Text } from '@chakra-ui/react';
+import { imagesType } from './productDetail/detailImageList';
+import { useNavigate } from 'react-router-dom';
 
-export function ProductCard() {
+interface ProductCardProps {
+  title: string;
+  price: string;
+  image: imagesType;
+  url: string;
+}
+
+export function ProductCard({ title, price, image, url }: ProductCardProps) {
+  const navigate = useNavigate();
   return (
     <>
       <Card.Root
@@ -15,12 +25,13 @@ export function ProductCard() {
           transform: 'translateY(-2px)',
         }}
         transition={'transform .1s ease-in-out'}
+        onClick={() => navigate(url)}
       >
         <Box height={'70%'} width={'100%'}>
           <Image
             objectFit={'cover'}
-            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            alt="Green double couch with wooden legs"
+            src={image.src}
+            alt={image.alt}
             width={'100%'}
             height={'100%'}
           />
@@ -31,7 +42,7 @@ export function ProductCard() {
             fontWeight={'normal'}
             letterSpacing={'wide'}
           >
-            LIVING ROOM SOFA
+            {title}
           </Card.Title>
           <Text
             textStyle="1xl"
@@ -39,7 +50,7 @@ export function ProductCard() {
             letterSpacing="tight"
             mt="2"
           >
-            Rp. 1.000.000
+            {price}
           </Text>
         </Card.Body>
       </Card.Root>
