@@ -1,13 +1,13 @@
 import { MainContent } from '@/layouts/mainContent';
 import { ContentContainer } from '../fragments/container/contentContainer';
-import { ProductContainer } from '../fragments/product/productContainer';
+import { ProductList } from '../fragments/product-detail/product-list';
 
 export function HomePage() {
   return (
     <>
       <MainContent>
         <ContentContainer>
-          <ProductContainer />
+          <ProductList />
         </ContentContainer>
       </MainContent>
     </>

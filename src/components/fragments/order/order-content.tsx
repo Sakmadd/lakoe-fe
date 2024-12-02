@@ -1,7 +1,7 @@
 import { dummyOrders } from '@/dummy-data/dummyData';
 import { OrderGrouper } from '@/utils/order-grouper';
 import { Tabs, Text } from '@chakra-ui/react';
-import { TabsContent } from './tabs-content';
+import { TabsOrderContent } from './tabs-order-content';
 
 export function OrderContent() {
   const groupedOrders = OrderGrouper({ orders: dummyOrders });
@@ -21,43 +21,43 @@ export function OrderContent() {
           <Tabs.Trigger value="completed">Order Completed</Tabs.Trigger>
           <Tabs.Trigger value="canceled">Canceled Orders</Tabs.Trigger>
         </Tabs.List>
-        <TabsContent
+        <TabsOrderContent
           couriers={couriers}
           sorts={sorts}
           orders={dummyOrders ? dummyOrders : []}
           tabs_value={'all'}
         />
-        <TabsContent
+        <TabsOrderContent
           couriers={couriers}
           sorts={sorts}
           orders={groupedOrders.unpaid ? groupedOrders.unpaid : []}
           tabs_value={'unpaid'}
         />
-        <TabsContent
+        <TabsOrderContent
           couriers={couriers}
           sorts={sorts}
           orders={groupedOrders.new ? groupedOrders.new : []}
           tabs_value={'new'}
         />
-        <TabsContent
+        <TabsOrderContent
           couriers={couriers}
           sorts={sorts}
           orders={groupedOrders.ready ? groupedOrders.ready : []}
           tabs_value={'ready'}
         />
-        <TabsContent
+        <TabsOrderContent
           couriers={couriers}
           sorts={sorts}
           orders={groupedOrders.delivery ? groupedOrders.delivery : []}
           tabs_value={'delivery'}
         />
-        <TabsContent
+        <TabsOrderContent
           couriers={couriers}
           sorts={sorts}
           orders={groupedOrders.canceled ? groupedOrders.canceled : []}
           tabs_value={'canceled'}
         />
-        <TabsContent
+        <TabsOrderContent
           couriers={couriers}
           sorts={sorts}
           orders={groupedOrders.completed ? groupedOrders.completed : []}

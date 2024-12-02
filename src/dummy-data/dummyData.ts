@@ -135,3 +135,66 @@ export const dummyOrders = [
     updatedAt: '2024-08-02T02:05:07.303Z',
   },
 ];
+
+export const dummyProducts = [
+  {
+    id: '1',
+    title: 'SMARTPHONE PRO MAX',
+    price: 999.99,
+    stock: 15,
+    sku: 'SPM-2024',
+    image: {
+      src: 'https://down-id.img.susercontent.com/file/sg-11134201-22110-xhtlq7aviojvf9',
+      alt: 'Smartphone Pro Max',
+    },
+    url: 'https://example.com/products/smartphone-pro-max',
+  },
+  {
+    id: '2',
+    title: 'WIRELESS HEADPHONES',
+    price: 199.99,
+    stock: 50,
+    sku: 'WH-2024',
+    image: {
+      src: 'https://down-id.img.susercontent.com/file/sg-11134201-22110-xhtlq7aviojvf9',
+      alt: 'Wireless Headphones',
+    },
+    url: 'https://example.com/products/wireless-headphones',
+  },
+  {
+    id: '3',
+    title: 'GAMING LAPTOP',
+    price: 1499.99,
+    stock: 10,
+    sku: 'GL-2024',
+    image: {
+      src: 'https://down-id.img.susercontent.com/file/sg-11134201-22110-xhtlq7aviojvf9',
+      alt: 'Gaming Laptop',
+    },
+    url: 'https://example.com/products/gaming-laptop',
+  },
+  {
+    id: '4',
+    title: 'SMARTWATCH SERIES 5',
+    price: 299.99,
+    stock: 30,
+    sku: 'SS5-2024',
+    image: {
+      src: 'https://down-id.img.susercontent.com/file/sg-11134201-22110-xhtlq7aviojvf9',
+      alt: 'Smartwatch Series 5',
+    },
+    url: 'https://example.com/products/smartwatch-series-5',
+  },
+  {
+    id: '5',
+    title: '4K ACTION CAMERA',
+    price: 499.99,
+    stock: 20,
+    sku: 'AC4K-2024',
+    image: {
+      src: 'https://down-id.img.susercontent.com/file/sg-11134201-22110-xhtlq7aviojvf9',
+      alt: '4K Action Camera',
+    },
+    url: 'https://example.com/products/4k-action-camera',
+  },
+];

@@ -15,3 +15,13 @@ export interface ImageType {
   alt: string;
   src: string;
 }
+
+export interface ProductType {
+  id: string;
+  title: string;
+  price: number;
+  stock: number;
+  sku: string;
+  image: ImageType;
+  url: string;
+}

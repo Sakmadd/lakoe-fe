@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/react';
 import { ProductCard } from './productCard';
 import { formatRupiah } from '@/utils/format-rp';
 
-export function ProductContainer() {
+export function ProductList() {
   return (
     <>
       <Flex flexWrap={'wrap'} gap={'1rem'} justifyContent={'center'}>

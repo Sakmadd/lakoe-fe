@@ -8,7 +8,7 @@ interface Props {
   searchInput: string;
 }
 
-export function useTabContent({
+export function useFilterOrderContent({
   orders,
   selectedCourier,
   selectedSort,
