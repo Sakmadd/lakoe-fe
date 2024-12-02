@@ -22,9 +22,18 @@ type courierType = {
 interface Props {
   couriers: courierType[];
   sorts: sortType[];
+  setSelectedCourier: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedSort: React.Dispatch<React.SetStateAction<string>>;
+  setSearchInput: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function OrderFilter({ couriers, sorts }: Props) {
+export function OrderFilter({
+  couriers,
+  sorts,
+  setSelectedCourier,
+  setSelectedSort,
+  setSearchInput,
+}: Props) {
   const courierCollection = createListCollection({
     items: couriers,
   });
@@ -33,8 +42,18 @@ export function OrderFilter({ couriers, sorts }: Props) {
   });
   return (
     <Box display="flex" gap="0.5rem" position="relative">
-      <Input placeholder="Search Order" type="text" width="50%" />
-      <SelectRoot collection={courierCollection} width="25%" pos={'relative'}>
+      <Input
+        placeholder="Search Order"
+        type="text"
+        width="50%"
+        onChange={(e) => setSearchInput(e.target.value)}
+      />
+      <SelectRoot
+        collection={courierCollection}
+        width="25%"
+        pos={'relative'}
+        onValueChange={(value) => setSelectedCourier(value.value[0].toString())}
+      >
         <SelectTrigger>
           <SelectValueText placeholder="Courier" />
         </SelectTrigger>
@@ -53,7 +72,12 @@ export function OrderFilter({ couriers, sorts }: Props) {
           ))}
         </SelectContent>
       </SelectRoot>
-      <SelectRoot collection={sortCollection} width="25%" pos={'relative'}>
+      <SelectRoot
+        collection={sortCollection}
+        width="25%"
+        pos={'relative'}
+        onValueChange={(value) => setSelectedSort(value.value[0].toString())}
+      >
         <SelectTrigger>
           <SelectValueText placeholder="Sort" />
         </SelectTrigger>

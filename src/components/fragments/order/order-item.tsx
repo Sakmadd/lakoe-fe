@@ -3,12 +3,14 @@ import { OrderActionButton } from './order-action-button';
 import { OrderStatus } from './order-status';
 import { formatRupiah } from '@/utils/format-rp';
 import { OrderType } from '@/types/types';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   order: OrderType;
 }
 
 export default function OrderItem({ order }: Props) {
+  const navigate = useNavigate();
   return (
     <Box border="0.1rem solid #e6e6e6" borderRadius="0.5rem">
       <Box display="flex" justifyContent="space-between" padding="0.8rem">
@@ -24,6 +26,10 @@ export default function OrderItem({ order }: Props) {
         borderTop="0.1rem solid #e6e6e6"
         display="flex"
         justifyContent="space-between"
+        onClick={() => {
+          navigate(`/orders/${order.id}`);
+        }}
+        cursor={'pointer'}
       >
         <Box padding="0.5rem" display="flex" gap="0.5rem">
           <Image

@@ -1,32 +1,22 @@
-import { Box } from '@chakra-ui/react';
-import { OrderFilter } from './order-filter';
-import OrderItem from './order-item';
 import { OrderType } from '@/types/types';
+import { Box } from '@chakra-ui/react';
+import React from 'react';
+import OrderItem from './order-item';
 
 interface Props {
   orders: OrderType[];
+  filter: React.ReactNode;
 }
 
-export default function OrderList({ orders }: Props) {
+export default function OrderList({ orders, filter }: Props) {
   return (
     <Box display="flex" flexDirection="column" gap="0.5rem">
-      <OrderFilter couriers={couriers} sorts={sorts} />
+      {filter}
       <Box display="flex" flexDirection="column" gap="0.8rem">
         {orders.map((order) => (
-          <OrderItem order={order} />
+          <OrderItem key={order.id} order={order} />
         ))}
       </Box>
     </Box>
   );
 }
-
-const couriers = [
-  { label: 'Jne', value: 'jne' },
-  { label: 'Anter aja', value: 'anteraja' },
-  { label: 'Jnt', value: 'jnt' },
-];
-
-const sorts = [
-  { label: 'Newest', value: 'new' },
-  { label: 'Oldest', value: 'old' },
-];

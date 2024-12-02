@@ -6,6 +6,9 @@ export interface OrderType {
   quantity: number;
   total_price: number;
   image: ImageType;
+  courier: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ImageType {

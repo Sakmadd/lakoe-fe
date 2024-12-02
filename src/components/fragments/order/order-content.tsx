@@ -1,7 +1,7 @@
 import { dummyOrders } from '@/dummy-data/dummyData';
 import { OrderGrouper } from '@/utils/order-grouper';
 import { Tabs, Text } from '@chakra-ui/react';
-import OrderList from './order-list';
+import { TabsContent } from './tabs-content';
 
 export function OrderContent() {
   const groupedOrders = OrderGrouper({ orders: dummyOrders });
@@ -21,28 +21,60 @@ export function OrderContent() {
           <Tabs.Trigger value="completed">Order Completed</Tabs.Trigger>
           <Tabs.Trigger value="canceled">Canceled Orders</Tabs.Trigger>
         </Tabs.List>
-        <Tabs.Content value="all">
-          <OrderList orders={dummyOrders} />
-        </Tabs.Content>
-        <Tabs.Content value="unpaid">
-          <OrderList orders={groupedOrders.unpaid} />
-        </Tabs.Content>
-        <Tabs.Content value="new">
-          <OrderList orders={groupedOrders.new} />
-        </Tabs.Content>
-        <Tabs.Content value="ready">
-          <OrderList orders={groupedOrders.ready} />
-        </Tabs.Content>
-        <Tabs.Content value="delivery">
-          <OrderList orders={groupedOrders.delivery} />
-        </Tabs.Content>
-        <Tabs.Content value="completed">
-          <OrderList orders={groupedOrders.completed} />
-        </Tabs.Content>
-        <Tabs.Content value="canceled">
-          <OrderList orders={groupedOrders.canceled} />
-        </Tabs.Content>
+        <TabsContent
+          couriers={couriers}
+          sorts={sorts}
+          orders={dummyOrders ? dummyOrders : []}
+          tabs_value={'all'}
+        />
+        <TabsContent
+          couriers={couriers}
+          sorts={sorts}
+          orders={groupedOrders.unpaid ? groupedOrders.unpaid : []}
+          tabs_value={'unpaid'}
+        />
+        <TabsContent
+          couriers={couriers}
+          sorts={sorts}
+          orders={groupedOrders.new ? groupedOrders.new : []}
+          tabs_value={'new'}
+        />
+        <TabsContent
+          couriers={couriers}
+          sorts={sorts}
+          orders={groupedOrders.ready ? groupedOrders.ready : []}
+          tabs_value={'ready'}
+        />
+        <TabsContent
+          couriers={couriers}
+          sorts={sorts}
+          orders={groupedOrders.delivery ? groupedOrders.delivery : []}
+          tabs_value={'delivery'}
+        />
+        <TabsContent
+          couriers={couriers}
+          sorts={sorts}
+          orders={groupedOrders.canceled ? groupedOrders.canceled : []}
+          tabs_value={'canceled'}
+        />
+        <TabsContent
+          couriers={couriers}
+          sorts={sorts}
+          orders={groupedOrders.completed ? groupedOrders.completed : []}
+          tabs_value={'completed'}
+        />
       </Tabs.Root>
     </>
   );
 }
+
+const couriers = [
+  { label: 'Jne', value: 'jne' },
+  { label: 'Anter aja', value: 'anteraja' },
+  { label: 'Jnt', value: 'jnt' },
+];
+
+const sorts = [
+  { label: 'Newest', value: 'new' },
+  { label: 'Oldest', value: 'old' },
+];

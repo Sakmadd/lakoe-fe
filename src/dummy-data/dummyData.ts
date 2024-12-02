@@ -2,7 +2,7 @@ export const dummyOrders = [
   {
     id: 1,
     name: 'Order 1',
-    status: 'canceled',
+    status: 'new',
     invoice: 'INV/20230809/MPL/00000239',
     quantity: 4,
     total_price: 2200000,
@@ -10,6 +10,9 @@ export const dummyOrders = [
       src: 'https://down-id.img.susercontent.com/file/sg-11134201-22110-xhtlq7aviojvf9',
       alt: 'gambar keren nih',
     },
+    courier: 'jne',
+    createdAt: '2024-12-02T02:05:07.303Z',
+    updatedAt: '2024-12-02T02:05:07.303Z',
   },
   {
     id: 2,
@@ -22,6 +25,9 @@ export const dummyOrders = [
       src: 'https://down-id.img.susercontent.com/file/sg-11134201-22110-xhtlq7aviojvf9',
       alt: 'gambar keren nih',
     },
+    courier: 'anteraja',
+    createdAt: '2024-12-02T02:05:07.303Z',
+    updatedAt: '2024-12-02T02:05:07.303Z',
   },
   {
     id: 3,
@@ -34,6 +40,9 @@ export const dummyOrders = [
       src: 'https://down-id.img.susercontent.com/file/sg-11134201-22110-xhtlq7aviojvf9',
       alt: 'gambar keren nih',
     },
+    courier: 'jne',
+    createdAt: '2024-11-02T02:05:07.303Z',
+    updatedAt: '2024-11-02T02:05:07.303Z',
   },
   {
     id: 4,
@@ -46,6 +55,9 @@ export const dummyOrders = [
       src: 'https://down-id.img.susercontent.com/file/sg-11134201-22110-xhtlq7aviojvf9',
       alt: 'gambar keren nih',
     },
+    courier: 'jnt',
+    createdAt: '2024-11-02T02:05:07.303Z',
+    updatedAt: '2024-11-02T02:05:07.303Z',
   },
   {
     id: 5,
@@ -58,6 +70,9 @@ export const dummyOrders = [
       src: 'https://down-id.img.susercontent.com/file/sg-11134201-22110-xhtlq7aviojvf9',
       alt: 'gambar keren nih',
     },
+    courier: 'jnt',
+    createdAt: '2024-10-02T02:05:07.303Z',
+    updatedAt: '2024-10-02T02:05:07.303Z',
   },
   {
     id: 6,
@@ -70,6 +85,9 @@ export const dummyOrders = [
       src: 'https://down-id.img.susercontent.com/file/sg-11134201-22110-xhtlq7aviojvf9',
       alt: 'gambar keren nih',
     },
+    courier: 'jne',
+    createdAt: '2024-10-02T02:05:07.303Z',
+    updatedAt: '2024-10-02T02:05:07.303Z',
   },
   {
     id: 7,
@@ -82,6 +100,9 @@ export const dummyOrders = [
       src: 'https://down-id.img.susercontent.com/file/sg-11134201-22110-xhtlq7aviojvf9',
       alt: 'gambar keren nih',
     },
+    courier: 'anteraja',
+    createdAt: '2024-09-02T02:05:07.303Z',
+    updatedAt: '2024-09-02T02:05:07.303Z',
   },
   {
     id: 8,
@@ -94,18 +115,9 @@ export const dummyOrders = [
       src: 'https://down-id.img.susercontent.com/file/sg-11134201-22110-xhtlq7aviojvf9',
       alt: 'gambar keren nih',
     },
-  },
-  {
-    id: 9,
-    name: 'Order 9',
-    status: 'completed',
-    invoice: 'INV/20230809/MPL/00000239',
-    quantity: 4,
-    total_price: 2200000,
-    image: {
-      src: 'https://down-id.img.susercontent.com/file/sg-11134201-22110-xhtlq7aviojvf9',
-      alt: 'gambar keren nih',
-    },
+    courier: 'anteraja',
+    createdAt: '2024-09-02T02:05:07.303Z',
+    updatedAt: '2024-09-02T02:05:07.303Z',
   },
   {
     id: 10,
@@ -118,5 +130,8 @@ export const dummyOrders = [
       src: 'https://down-id.img.susercontent.com/file/sg-11134201-22110-xhtlq7aviojvf9',
       alt: 'gambar keren nih',
     },
+    courier: 'jnt',
+    createdAt: '2024-08-02T02:05:07.303Z',
+    updatedAt: '2024-08-02T02:05:07.303Z',
   },
 ];

@@ -43,6 +43,7 @@ export function OrderActionButton({ order }: Props) {
     <>
       <Box display="flex" alignItems="center">
         <Button
+          _hover={{ backgroundColor: '#e6e6e6' }}
           backgroundColor="transparent"
           border="1px solid #e6e6e6"
           color="black"

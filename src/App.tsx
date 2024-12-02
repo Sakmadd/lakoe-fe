@@ -17,6 +17,7 @@ function App() {
         <Route path="/" element={<BuyerLayout />}>
           <Route index element={<HomePage />} />
           <Route path="/:productName" element={<ProductDetailPage />} />
+          <Route path="/orders/:orderId" element={<div>order detail</div>} />
         </Route>
       </Routes>
     );
@@ -26,6 +27,7 @@ function App() {
       <Route path="/" element={<SellerLayout />}>
         <Route index element={<HomePage />} />
         <Route path="/:productName" element={<ProductDetailPage />} />
+        <Route path="/orders/:orderId" element={<div>order detail</div>} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/products" element={<ProductPage />} />
         <Route path="/orders" element={<OrderPage />} />
