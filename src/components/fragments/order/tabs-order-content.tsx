@@ -1,9 +1,9 @@
+import { useFilterOrderContent } from '@/hooks/useTabContent';
 import { OrderType } from '@/types/types';
 import { Tabs } from '@chakra-ui/react';
 import { useState } from 'react';
-import { OrderFilter } from './order-filter';
 import OrderList from './order-list';
-import { useTabContent } from '@/hooks/useTabContent';
+import { FilterBar } from '../common/filter-bar';
 
 interface Props {
   orders: OrderType[];
@@ -12,12 +12,17 @@ interface Props {
   sorts: { label: string; value: string }[];
 }
 
-export function TabsContent({ orders, tabs_value, couriers, sorts }: Props) {
+export function TabsOrderContent({
+  orders,
+  tabs_value,
+  couriers,
+  sorts,
+}: Props) {
   const [selectedCourier, setSelectedCourier] = useState<string>('');
-  const [selectedSort, setSelectedSort] = useState<string>('new');
+  const [selectedSort, setSelectedSort] = useState<string>('');
   const [searchInput, setSearchInput] = useState<string>('');
 
-  const { filteredOrders } = useTabContent({
+  const { filteredOrders } = useFilterOrderContent({
     orders,
     selectedCourier,
     selectedSort,
@@ -29,13 +34,16 @@ export function TabsContent({ orders, tabs_value, couriers, sorts }: Props) {
       <Tabs.Content value={tabs_value}>
         <OrderList
           filter={
-            <OrderFilter
+            <FilterBar
+              filterFor="Orders"
+              selectedFirstSort={selectedCourier}
+              selectedSecondSort={selectedSort}
+              setFirstSort={setSelectedCourier}
+              setSecondSort={setSelectedSort}
               setSearchInput={setSearchInput}
-              setSelectedCourier={setSelectedCourier}
-              setSelectedSort={setSelectedSort}
               key={tabs_value}
-              couriers={couriers}
-              sorts={sorts}
+              firstSort={couriers}
+              secondSort={sorts}
             />
           }
           orders={filteredOrders}

@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   createListCollection,
   Input,
   SelectContent,
@@ -8,6 +9,7 @@ import {
   SelectTrigger,
   SelectValueText,
 } from '@chakra-ui/react';
+import { TiDelete } from 'react-icons/ti';
 
 type sortType = {
   label: string;
@@ -20,30 +22,37 @@ type courierType = {
 };
 
 interface Props {
-  couriers: courierType[];
-  sorts: sortType[];
-  setSelectedCourier: React.Dispatch<React.SetStateAction<string>>;
-  setSelectedSort: React.Dispatch<React.SetStateAction<string>>;
+  filterFor: 'Products' | 'Orders';
+  firstSort: courierType[];
+  secondSort: sortType[];
+  selectedFirstSort: string;
+  selectedSecondSort: string;
+  setFirstSort: React.Dispatch<React.SetStateAction<string>>;
+  setSecondSort: React.Dispatch<React.SetStateAction<string>>;
   setSearchInput: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function OrderFilter({
-  couriers,
-  sorts,
-  setSelectedCourier,
-  setSelectedSort,
+export function FilterBar({
+  filterFor,
+  firstSort,
+  secondSort,
+  setFirstSort,
+  setSecondSort,
   setSearchInput,
+  selectedFirstSort,
+  selectedSecondSort,
 }: Props) {
   const courierCollection = createListCollection({
-    items: couriers,
+    items: firstSort,
   });
   const sortCollection = createListCollection({
-    items: sorts,
+    items: secondSort,
   });
+
   return (
     <Box display="flex" gap="0.5rem" position="relative">
       <Input
-        placeholder="Search Order"
+        placeholder={`Search ${filterFor}`}
         type="text"
         width="50%"
         onChange={(e) => setSearchInput(e.target.value)}
@@ -52,10 +61,22 @@ export function OrderFilter({
         collection={courierCollection}
         width="25%"
         pos={'relative'}
-        onValueChange={(value) => setSelectedCourier(value.value[0].toString())}
+        onValueChange={(value) => setFirstSort(value.value[0].toString())}
       >
         <SelectTrigger>
-          <SelectValueText placeholder="Courier" />
+          <SelectValueText>
+            {selectedFirstSort ||
+              `${filterFor == 'Products' ? 'Category' : 'Courier'}`}
+          </SelectValueText>
+          {selectedFirstSort && (
+            <Button
+              variant={'ghost'}
+              size={'xs'}
+              onClick={() => setFirstSort('')}
+            >
+              <TiDelete />
+            </Button>
+          )}
         </SelectTrigger>
         <SelectContent
           top={11}
@@ -76,10 +97,19 @@ export function OrderFilter({
         collection={sortCollection}
         width="25%"
         pos={'relative'}
-        onValueChange={(value) => setSelectedSort(value.value[0].toString())}
+        onValueChange={(value) => setSecondSort(value.value[0].toString())}
       >
         <SelectTrigger>
-          <SelectValueText placeholder="Sort" />
+          <SelectValueText>{selectedSecondSort || 'Sort'} </SelectValueText>
+          {selectedSecondSort && (
+            <Button
+              variant={'ghost'}
+              size={'xs'}
+              onClick={() => setSecondSort('')}
+            >
+              <TiDelete />
+            </Button>
+          )}
         </SelectTrigger>
         <SelectContent
           top={11}
