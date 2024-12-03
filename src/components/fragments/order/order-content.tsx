@@ -1,4 +1,4 @@
-import { dummyOrders } from '@/dummy-data/dummyData';
+import { dummyCouriers, dummyOrders, dummySorts } from '@/dummy-data/dummyData';
 import { OrderGrouper } from '@/utils/order-grouper';
 import { Tabs, Text } from '@chakra-ui/react';
 import { TabsOrderContent } from './tabs-order-content';
@@ -22,44 +22,44 @@ export function OrderContent() {
           <Tabs.Trigger value="canceled">Canceled Orders</Tabs.Trigger>
         </Tabs.List>
         <TabsOrderContent
-          couriers={couriers}
-          sorts={sorts}
+          couriers={dummyCouriers}
+          sorts={dummySorts}
           orders={dummyOrders ? dummyOrders : []}
           tabs_value={'all'}
         />
         <TabsOrderContent
-          couriers={couriers}
-          sorts={sorts}
+          couriers={dummyCouriers}
+          sorts={dummySorts}
           orders={groupedOrders.unpaid ? groupedOrders.unpaid : []}
           tabs_value={'unpaid'}
         />
         <TabsOrderContent
-          couriers={couriers}
-          sorts={sorts}
+          couriers={dummyCouriers}
+          sorts={dummySorts}
           orders={groupedOrders.new ? groupedOrders.new : []}
           tabs_value={'new'}
         />
         <TabsOrderContent
-          couriers={couriers}
-          sorts={sorts}
+          couriers={dummyCouriers}
+          sorts={dummySorts}
           orders={groupedOrders.ready ? groupedOrders.ready : []}
           tabs_value={'ready'}
         />
         <TabsOrderContent
-          couriers={couriers}
-          sorts={sorts}
+          couriers={dummyCouriers}
+          sorts={dummySorts}
           orders={groupedOrders.delivery ? groupedOrders.delivery : []}
           tabs_value={'delivery'}
         />
         <TabsOrderContent
-          couriers={couriers}
-          sorts={sorts}
+          couriers={dummyCouriers}
+          sorts={dummySorts}
           orders={groupedOrders.canceled ? groupedOrders.canceled : []}
           tabs_value={'canceled'}
         />
         <TabsOrderContent
-          couriers={couriers}
-          sorts={sorts}
+          couriers={dummyCouriers}
+          sorts={dummySorts}
           orders={groupedOrders.completed ? groupedOrders.completed : []}
           tabs_value={'completed'}
         />
@@ -67,14 +67,3 @@ export function OrderContent() {
     </>
   );
 }
-
-const couriers = [
-  { label: 'Jne', value: 'jne' },
-  { label: 'Anter aja', value: 'anteraja' },
-  { label: 'Jnt', value: 'jnt' },
-];
-
-const sorts = [
-  { label: 'Newest', value: 'new' },
-  { label: 'Oldest', value: 'old' },
-];

@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ProductType } from '@/types/types';
+import { CategoryType, ProductType } from '@/types/types';
 import { Tabs } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FilterBar } from '../common/filter-bar';
 import ProductList from './product-list';
+import { useFilterProductContent } from '@/hooks/useFilterProductContent';
 
 interface Props {
   products: ProductType[];
   tabs_value: string;
-  categories: { label: string; value: string }[];
+  categories: CategoryType[];
   sorts: { label: string; value: string }[];
 }
 
@@ -21,6 +22,13 @@ export function TabsProductContent({
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [selectedSort, setSelectedSort] = useState<string>('');
   const [searchInput, setSearchInput] = useState<string>('');
+
+  const { filteredProducts } = useFilterProductContent({
+    products,
+    selectedCategory,
+    selectedSort,
+    searchInput,
+  });
 
   return (
     <>
@@ -39,7 +47,7 @@ export function TabsProductContent({
               secondSort={sorts}
             />
           }
-          products={products}
+          products={filteredProducts}
         />
       </Tabs.Content>
     </>

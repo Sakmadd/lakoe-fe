@@ -1,14 +1,14 @@
-import { useFilterOrderContent } from '@/hooks/useTabContent';
-import { OrderType } from '@/types/types';
+import { useFilterOrderContent } from '@/hooks/useFilterOrderContent';
+import { CourierType, OrderType } from '@/types/types';
 import { Tabs } from '@chakra-ui/react';
 import { useState } from 'react';
-import OrderList from './order-list';
 import { FilterBar } from '../common/filter-bar';
+import OrderList from './order-list';
 
 interface Props {
   orders: OrderType[];
   tabs_value: string;
-  couriers: { label: string; value: string }[];
+  couriers: CourierType[];
   sorts: { label: string; value: string }[];
 }
 

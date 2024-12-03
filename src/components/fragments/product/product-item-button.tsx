@@ -3,9 +3,10 @@ import { Button } from '@chakra-ui/react';
 interface Props {
   icon?: React.ReactNode;
   children?: React.ReactNode;
+  onClick?: () => void;
 }
 
-export function ProductItemButton({ children, icon }: Props) {
+export function ProductItemButton({ children, icon, onClick }: Props) {
   return (
     <>
       <Button
@@ -14,6 +15,7 @@ export function ProductItemButton({ children, icon }: Props) {
         borderRadius={'full'}
         size={'xs'}
         fontWeight={'semibold'}
+        onClick={onClick}
       >
         {icon}
         {children}

@@ -22,6 +22,23 @@ export interface ProductType {
   price: number;
   stock: number;
   sku: string;
+  category: CategoryType;
   image: ImageType;
   url: string;
+  is_active: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CategoryType {
+  id: string;
+  label: string;
+  value: string;
+  parent_id: string | null;
+}
+
+export interface CourierType {
+  id: string;
+  label: string;
+  value: string;
 }

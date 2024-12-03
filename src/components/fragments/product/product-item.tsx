@@ -7,6 +7,7 @@ import { RiLink } from 'react-icons/ri';
 import { Checkbox } from '../../ui/checkbox';
 import { Switch } from '../../ui/switch';
 import { ProductItemButton } from './product-item-button';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   product: ProductType;
@@ -19,6 +20,7 @@ export function ProductItem({
   checkedProduct,
   setCheckedProduct,
 }: Props) {
+  const navigate = useNavigate();
   const isChecked = checkedProduct.some((p) => p.id === product.id);
 
   const handleCheckboxChange = () => {
@@ -28,6 +30,10 @@ export function ProductItem({
       setCheckedProduct((prev) => [...prev, product]);
     }
   };
+
+  function handleSwitchClick(id: string) {
+    console.log(id);
+  }
 
   return (
     <Box border="0.1rem solid #e6e6e6" borderRadius="0.5rem">
@@ -78,6 +84,7 @@ export function ProductItem({
               <ProductItemButton children={'Edit Price'} />
               <ProductItemButton children={'Edit Stock'} />
               <ProductItemButton
+                onClick={() => navigate(product.url)}
                 children={'See Live Product'}
                 icon={<RiLink />}
               />
@@ -93,7 +100,11 @@ export function ProductItem({
               onChange={handleCheckboxChange}
             />
             <Spacer />
-            <Switch size={'lg'} />
+            <Switch
+              defaultChecked={product.is_active}
+              size={'lg'}
+              onCheckedChange={() => handleSwitchClick(product.id)}
+            />
           </Flex>
         </Box>
       </Box>

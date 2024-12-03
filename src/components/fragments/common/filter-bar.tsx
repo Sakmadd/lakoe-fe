@@ -42,10 +42,10 @@ export function FilterBar({
   selectedFirstSort,
   selectedSecondSort,
 }: Props) {
-  const courierCollection = createListCollection({
+  const firstSortCollection = createListCollection({
     items: firstSort,
   });
-  const sortCollection = createListCollection({
+  const secondSortCollection = createListCollection({
     items: secondSort,
   });
 
@@ -58,7 +58,7 @@ export function FilterBar({
         onChange={(e) => setSearchInput(e.target.value)}
       />
       <SelectRoot
-        collection={courierCollection}
+        collection={firstSortCollection}
         width="25%"
         pos={'relative'}
         onValueChange={(value) => setFirstSort(value.value[0].toString())}
@@ -86,15 +86,15 @@ export function FilterBar({
           boxShadow="md"
           width={'100%'}
         >
-          {courierCollection.items.map((courier) => (
-            <SelectItem item={courier} key={courier.value}>
-              {courier.label}
+          {firstSortCollection.items.map((sort) => (
+            <SelectItem item={sort} key={sort.value}>
+              {sort.label}
             </SelectItem>
           ))}
         </SelectContent>
       </SelectRoot>
       <SelectRoot
-        collection={sortCollection}
+        collection={secondSortCollection}
         width="25%"
         pos={'relative'}
         onValueChange={(value) => setSecondSort(value.value[0].toString())}
@@ -119,7 +119,7 @@ export function FilterBar({
           boxShadow="md"
           width={'100%'}
         >
-          {sortCollection.items.map((sort) => (
+          {secondSortCollection.items.map((sort) => (
             <SelectItem item={sort} key={sort.value}>
               {sort.label}
             </SelectItem>
