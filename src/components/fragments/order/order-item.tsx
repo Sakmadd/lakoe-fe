@@ -11,8 +11,14 @@ interface Props {
 
 export default function OrderItem({ order }: Props) {
   const navigate = useNavigate();
+
   return (
-    <Box border="0.1rem solid #e6e6e6" borderRadius="0.5rem">
+    <Box
+      border="0.1rem solid #e6e6e6"
+      borderRadius="0.5rem"
+      onClick={() => navigate(`/orders/${order.id}`)}
+      cursor="pointer"
+    >
       <Box display="flex" justifyContent="space-between" padding="0.8rem">
         <Box display="flex" flexDirection="column" gap="0.5rem">
           <OrderStatus status={order.status} />

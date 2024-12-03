@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { DashboardPage } from './components/pages/dashboardPage';
 import { HomePage } from './components/pages/homePage';
+import OrderDetail from './components/pages/order-detail';
 import { OrderPage } from './components/pages/orderPage';
 import { ProductDetailPage } from './components/pages/productDetailPage';
 import { ProductPage } from './components/pages/productPage';
@@ -27,11 +28,12 @@ function App() {
       <Route path="/" element={<SellerLayout />}>
         <Route index element={<HomePage />} />
         <Route path="/:productName" element={<ProductDetailPage />} />
-        <Route path="/orders/:orderId" element={<div>order detail</div>} />
+        {/* <Route path="/orders/:orderId" element={<OrderItem} /> */}
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/products" element={<ProductPage />} />
         <Route path="/orders" element={<OrderPage />} />
         <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/orders/:id" element={<OrderDetail />} />
       </Route>
     </Routes>
   );

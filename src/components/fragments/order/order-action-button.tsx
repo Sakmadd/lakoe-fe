@@ -1,4 +1,5 @@
 import { Box, Button } from '@chakra-ui/react';
+import React from 'react';
 
 interface Props {
   order: {
@@ -16,7 +17,9 @@ export function OrderActionButton({ order }: Props) {
   const handlerReadyOrder = () => console.log('Informing customer...');
   const handlerDeliveryOrder = () => console.log('Tracking shipment...');
   const handlerCompletedOrder = () => console.log('Contacting customer...');
-  const handlerCanceledOrder = () => console.log('Handling canceled order...');
+  const handlerCanceledOrder = () => {
+    console.log('Handling canceled order...');
+  };
 
   const actionMap: Record<string, { handler: () => void; buttonText: string }> =
     {
@@ -39,6 +42,11 @@ export function OrderActionButton({ order }: Props) {
     buttonText: 'No Action',
   };
 
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    handler();
+  };
+
   return (
     <>
       <Box display="flex" alignItems="center">
@@ -50,7 +58,7 @@ export function OrderActionButton({ order }: Props) {
           borderRadius="2rem"
           fontSize="0.8rem"
           height="2rem"
-          onClick={handler}
+          onClick={handleClick}
         >
           {buttonText}
         </Button>
