@@ -59,7 +59,6 @@ export function OrderActionButton({ order }: Props) {
           fontSize="0.8rem"
           height="2rem"
           onClick={handleClick}
-          _hover={{ backgroundColor: '#e6e6e6' }}
         >
           {buttonText}
         </Button>
