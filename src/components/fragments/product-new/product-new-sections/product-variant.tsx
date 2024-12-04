@@ -5,12 +5,20 @@ import { ContentContainer } from '../../container/contentContainer';
 import { AddVariantDialog } from '../product-new-fields/field-add-variant-dialog';
 import { VariantCheckbox } from '../product-new-fields/variant-checkbox';
 import TagFieldInput from '../product-new-fields/tag-field-input';
+
 export function ProductVariantSection() {
   const [variantList, setVariantList] = useState<VariantUIType[]>([]);
+  const [variantOptions, setVariantOptions] = useState<
+    Record<string, string[]>
+  >({});
 
   useEffect(() => {
-    console.log(variantList);
-  }, [variantList]);
+    console.log(variantOptions); // Debug hasil
+  }, [variantOptions]);
+
+  const handleOptionsChange = (name: string, options: string[]) => {
+    setVariantOptions((prev) => ({ ...prev, [name]: options }));
+  };
 
   return (
     <ContentContainer>
@@ -34,17 +42,23 @@ export function ProductVariantSection() {
           {variantList.map((variant) => (
             <VariantCheckbox
               setVariantList={setVariantList}
-              key={variant.id}
+              key={variant.name} // Ganti ID dengan name
               variantlist={variantList}
               variant={variant}
             />
           ))}
         </Flex>
-        {variantList.map((variant) => {
-          return variant.is_checked ? (
-            <TagFieldInput label={variant.name} required />
-          ) : null;
-        })}
+        {variantList.map((variant) =>
+          variant.is_checked ? (
+            <TagFieldInput
+              key={variant.name} // Ganti ID dengan name
+              label={variant.name}
+              required
+              variantName={variant.name}
+              onOptionsChange={handleOptionsChange}
+            />
+          ) : null
+        )}
       </Flex>
     </ContentContainer>
   );
