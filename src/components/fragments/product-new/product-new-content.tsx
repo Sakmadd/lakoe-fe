@@ -4,6 +4,8 @@ import { ProductDetailSection } from './product-new-sections/product-detail';
 import { ProductVariantSection } from './product-new-sections/product-variant';
 import { ProductPriceSection } from './product-new-sections/product-price';
 import { ProductManagementSection } from './product-new-sections/product-management';
+import { ProductWeightShipmentSection } from './product-new-sections/product-weight-shipment';
+import { ProductSaveSection } from './product-new-sections/product-save';
 
 export function ProductNewContent() {
   return (
@@ -13,6 +15,8 @@ export function ProductNewContent() {
       <ProductVariantSection />
       <ProductPriceSection />
       <ProductManagementSection />
+      <ProductWeightShipmentSection />
+      <ProductSaveSection />
     </Flex>
   );
 }

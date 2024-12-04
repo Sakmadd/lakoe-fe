@@ -1,23 +1,25 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { FieldInput } from '../product-new-fields/field-input';
+import { ContentContainer } from '../../container/contentContainer';
+import { FieldInputAddon } from '../product-new-fields/field-input-addon';
+import { FieldInputDimension } from '../product-new-fields/field-input-dimension';
 
 export function ProductWeightShipmentSection() {
   return (
     <>
-      <Flex flexDir="column" gap="1rem">
-        <Text fontSize="1xl" fontWeight="bold">
-          Product Management
-        </Text>
-        <Flex gap={'1rem'}>
-          <FieldInput
-            label="Product Stock"
-            type="number"
-            defaultValue="1"
+      <ContentContainer>
+        <Flex flexDir="column" gap="1rem">
+          <Text fontSize="1xl" fontWeight="bold">
+            Wight & Dimension
+          </Text>
+          <FieldInputAddon
+            label="Product Weight"
             required
+            type="number"
+            rightAddon="Grams"
           />
-          <FieldInput label="SKU (Stok Keeping Unit)" placeholder="Enter SKU" />
+          <FieldInputDimension />
         </Flex>
-      </Flex>
+      </ContentContainer>
     </>
   );
 }

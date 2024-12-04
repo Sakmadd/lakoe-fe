@@ -2,6 +2,7 @@ import { Field } from '@/components/ui/field';
 import { Group, Input, InputAddon } from '@chakra-ui/react';
 
 interface Props {
+  type?: string;
   required?: boolean;
   label: string;
   placeholder?: string;
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export function FieldInputAddon({
+  type,
   required,
   leftAddon,
   placeholder,
@@ -21,7 +23,7 @@ export function FieldInputAddon({
       <Field label={label} required={required} color={'gray'}>
         <Group attached width="100%">
           {leftAddon && <InputAddon>{leftAddon}</InputAddon>}
-          <Input placeholder={placeholder} />
+          <Input placeholder={placeholder} type={type} />
           {rightAddon && <InputAddon>{rightAddon}</InputAddon>}
         </Group>
       </Field>
