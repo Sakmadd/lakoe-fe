@@ -8,6 +8,7 @@ import { ProductPage } from './components/pages/productPage';
 import { SettingsPage } from './components/pages/settingsPage';
 import { BuyerLayout } from './layouts/buyerLayout';
 import { SellerLayout } from './layouts/sellerLayout';
+import { ProductNewPage } from './components/pages/product-new-page';
 
 export const loggedUser = true;
 
@@ -28,6 +29,7 @@ function App() {
       <Route path="/" element={<SellerLayout />}>
         <Route index element={<HomePage />} />
         <Route path="/:productName" element={<ProductDetailPage />} />
+        <Route path="/products/new" element={<ProductNewPage />} />
         {/* <Route path="/orders/:orderId" element={<OrderItem} /> */}
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/products" element={<ProductPage />} />
