@@ -1,13 +1,16 @@
-import { VariantUIType } from '@/types/types';
 import { Box, Button, Flex, Spacer, Text } from '@chakra-ui/react';
 import { FaRegEdit } from 'react-icons/fa';
 import { ProductVariantItem } from './product-variant-item';
+import { useEffect } from 'react';
 
 interface Props {
-  variantList: VariantUIType[];
+  variantOptions: { name: string; options: string }[];
 }
+export function ProductVariantListSection({ variantOptions }: Props) {
+  useEffect(() => {
+    console.log(variantOptions);
+  });
 
-export function ProductVariantListSection({ variantList }: Props) {
   return (
     <Flex flexDir="column" gap="1rem">
       <Flex alignItems={'center'}>
@@ -21,19 +24,18 @@ export function ProductVariantListSection({ variantList }: Props) {
         </Box>
         <Spacer />
         <Button
-          colorPalette={'gray'}
-          variant="surface"
-          borderRadius={'full'}
-          onClick={() => console.log('ba')}
+          colorScheme="gray"
+          variant="outline"
+          borderRadius="full"
+          onClick={() => console.log('Edit All Variant')}
         >
           <FaRegEdit />
           Edit All Variant
         </Button>
       </Flex>
-      {variantList.map(
-        (variant) =>
-          variant.is_checked && <ProductVariantItem key={variant.id} />
-      )}
+      {variantOptions.map((variantOption) => (
+        <ProductVariantItem variantOption={variantOption} />
+      ))}
     </Flex>
   );
 }

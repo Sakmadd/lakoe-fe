@@ -3,13 +3,18 @@ import { Flex, Separator, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FieldInputAddon } from '../product-new-fields/field-input-addon';
 
-export function ProductVariantItem() {
+interface Props {
+  variantOption: { name: string; options: string };
+}
+
+export function ProductVariantItem({ variantOption }: Props) {
   const [isActive, setIsActive] = useState(false);
+
   return (
     <>
       <Flex alignItems={'center'} gap={'1rem'}>
         <Text fontWeight={'bold'} fontSize={'sm'}>
-          Variant - SubVariant
+          {`${variantOption.name} - ${variantOption.options ? variantOption.options : ''}`}
         </Text>
         <Flex alignItems={'center'} gap={'.5rem'}>
           <Switch onCheckedChange={() => setIsActive(!isActive)} />
