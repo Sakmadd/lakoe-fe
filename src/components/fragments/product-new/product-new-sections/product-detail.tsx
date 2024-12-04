@@ -11,7 +11,7 @@ export function ProductDetailSection() {
           Product Detail
         </Text>
         <FieldInputDescription />
-        <FieldInputImage />
+        <FieldInputImage label="Product Image" />
       </Flex>
     </ContentContainer>
   );

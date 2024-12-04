@@ -42,3 +42,18 @@ export interface CourierType {
   label: string;
   value: string;
 }
+
+export interface VariantType {
+  id: string;
+  name: string;
+  options?: VariantOptionType[];
+}
+
+export interface VariantOptionType {
+  id: string;
+  name: string;
+}
+
+export interface VariantUIType extends VariantType {
+  is_checked: boolean;
+}

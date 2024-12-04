@@ -45,8 +45,8 @@ export function ProductItem({
             borderRadius=".3rem"
             objectFit="cover"
             border="0.1rem solid #e6e6e6"
-            src={product.image.src}
-            alt={product.image.alt}
+            src={product.image!.src}
+            alt={product.image!.alt}
           />
           <Flex flexDirection="column" justifyContent="center" gap={'.1rem'}>
             <Text fontWeight="semibold" fontSize="1rem" fontFamily="sans-serif">

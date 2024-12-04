@@ -10,7 +10,11 @@ import { useState } from 'react';
 import { BiImageAdd } from 'react-icons/bi';
 import { imagesType } from '../../product-detail/productDetail/detailImageList';
 
-export function FieldInputImage() {
+interface Prosp {
+  label?: string;
+}
+
+export function FieldInputImage({ label }: Prosp) {
   const [imageList, setImageList] = useState<imagesType[]>([]);
 
   const handleImageUpload = (event: FileUploadFileAcceptDetails) => {
@@ -29,7 +33,7 @@ export function FieldInputImage() {
 
   return (
     <>
-      <Field label="Product Image" required color={'gray'}>
+      <Field label={label} required color={'gray'}>
         <Flex width={'100%'} gap={'1rem'} justifyContent={'center'}>
           {imageList.map((image, index) => (
             <Image
@@ -39,7 +43,7 @@ export function FieldInputImage() {
               width={'10rem'}
               height={'10rem'}
               borderRadius={'1rem'}
-              border={'0.1rem solid #e6e6e6'}
+              border={'0.1rem solid c'}
             />
           ))}
           {imageList.length < 5 && (

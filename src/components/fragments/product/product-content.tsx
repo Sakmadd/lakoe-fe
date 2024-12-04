@@ -7,9 +7,11 @@ import { Button, Flex, Spacer, Tabs, Text } from '@chakra-ui/react';
 import { FaPlusCircle } from 'react-icons/fa';
 import { TabsProductContent } from './tabs-product-content';
 import { ProductGrouper } from '@/utils/product-grouper';
+import { useNavigate } from 'react-router-dom';
 
 export function ProductContent() {
   const groupedProduct = ProductGrouper({ products: dummyProducts });
+  const navigate = useNavigate();
   return (
     <>
       <>
@@ -18,7 +20,12 @@ export function ProductContent() {
             Product List
           </Text>
           <Spacer />
-          <Button colorPalette={'gray'} variant="surface" borderRadius={'full'}>
+          <Button
+            colorPalette={'gray'}
+            variant="surface"
+            borderRadius={'full'}
+            onClick={() => navigate('/products/new')}
+          >
             <FaPlusCircle />
             Add Product
           </Button>

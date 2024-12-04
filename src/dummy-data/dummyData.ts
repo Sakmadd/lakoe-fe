@@ -457,3 +457,94 @@ export const dummySorts = [
   { label: 'Newest', value: 'new' },
   { label: 'Oldest', value: 'old' },
 ];
+
+export const dummyVariants = [
+  {
+    id: 'variant-1',
+    name: 'color',
+    variantOption: [
+      {
+        id: 'variant-1-1',
+        image: { src: 'https://example.com/images/white.jpg', alt: 'White' },
+        variantOptionValue: [
+          {
+            name: 'White',
+            sku: 'SKU123123',
+            weight: 2,
+            stock: 10,
+            price: 100000,
+            is_active: true,
+          },
+        ],
+      },
+      {
+        id: 'name',
+        image: { src: 'https://example.com/images/white.jpg', alt: 'Blacl' },
+        variantOptionValue: [
+          {
+            name: 'White',
+            sku: 'SKU123123',
+            weight: 2,
+            stock: 10,
+            price: 100000,
+            is_active: true,
+          },
+        ],
+      },
+      {
+        id: 'name',
+        image: { src: 'https://example.com/images/white.jpg', alt: 'White' },
+        variantOptionValue: [
+          {
+            name: 'White',
+            sku: 'SKU123123',
+            weight: 2,
+            stock: 10,
+            price: 100000,
+            is_active: true,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'variant-2',
+    name: 'size',
+    variantOption: [
+      {
+        id: 'name',
+        image: { src: 'https://example.com/images/white.jpg', alt: 'White' },
+        variantOptionValue: [
+          {
+            name: 'White',
+            sku: 'SKU123123',
+            weight: 2,
+            stock: 10,
+            price: 100000,
+            is_active: true,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'variant-3',
+    name: 'package size',
+    variantOption: [
+      {
+        id: 'name',
+        image: { src: 'https://example.com/images/white.jpg', alt: 'White' },
+        variantOptionValue: [
+          {
+            name: 'White',
+            sku: 'SKU123123',
+            weight: 2,
+            stock: 10,
+            price: 100000,
+            is_active: true,
+          },
+        ],
+      },
+    ],
+  },
+];
