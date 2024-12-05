@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useFilterProductContent } from '@/hooks/use-filter-product-content';
 import { CategoryType, ProductType } from '@/types/types';
 import { Tabs } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FilterBar } from '../common/filter-bar';
 import ProductList from './product-list';
-import { useFilterProductContent } from '@/hooks/useFilterProductContent';
 
 interface Props {
   products: ProductType[];

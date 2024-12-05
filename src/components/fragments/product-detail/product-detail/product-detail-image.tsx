@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
-import { DetailImageHero } from './detailImageHero';
-import { DetailImageList, imagesType } from './detailImageList';
+import { DetailImageHero } from './detail-image-hero';
+import { DetailImageList, imagesType } from './detail-image-list';
 import { useState } from 'react';
 
 export function ProductDetailImage() {

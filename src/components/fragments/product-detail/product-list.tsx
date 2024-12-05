@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import { ProductCard } from './productCard';
+import { ProductCard } from './product-card';
 import { formatRupiah } from '@/utils/format-rp';
 
 export function ProductList() {
