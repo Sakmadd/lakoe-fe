@@ -19,6 +19,7 @@ export interface ImageType {
 export interface ProductType {
   id: string;
   name: string;
+  description: string;
   price: number;
   stock: number;
   sku: string;
@@ -26,6 +27,11 @@ export interface ProductType {
   image: ImageType;
   url: string;
   is_active: boolean;
+  minimum_order: number;
+  weight: number;
+  length: number;
+  width: number;
+  height: number;
   createdAt: string;
   updatedAt: string;
 }

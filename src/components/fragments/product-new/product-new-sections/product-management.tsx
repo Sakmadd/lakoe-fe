@@ -1,8 +1,14 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { FieldInput } from '../product-new-fields/field-input';
 import { ContentContainer } from '../../container/contentContainer';
+import { UseFormRegister } from 'react-hook-form';
+import { ProductType } from '@/types/types';
 
-export function ProductManagementSection() {
+interface Props {
+  register: UseFormRegister<ProductType>;
+}
+
+export function ProductManagementSection({ register }: Props) {
   return (
     <>
       <ContentContainer>
@@ -16,10 +22,15 @@ export function ProductManagementSection() {
               type="number"
               defaultValue="1"
               required
+              register={register}
+              registerName="stock"
             />
             <FieldInput
               label="SKU (Stok Keeping Unit)"
               placeholder="Enter SKU"
+              required
+              register={register}
+              registerName="sku"
             />
           </Flex>
         </Flex>
