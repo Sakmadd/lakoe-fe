@@ -6,7 +6,7 @@ import { ContentContainer } from '../../container/contentContainer';
 export function ProductDetailSection() {
   return (
     <ContentContainer>
-      <Flex flexDir="column" gap="1rem">
+      <Flex flexDir="column" gap={'1rem'}>
         <Text fontSize="1xl" fontWeight="bold">
           Product Detail
         </Text>
