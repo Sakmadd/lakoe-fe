@@ -50,7 +50,7 @@ export function ProductItem({
           />
           <Flex flexDirection="column" justifyContent="center" gap={'.1rem'}>
             <Text fontWeight="semibold" fontSize="1rem" fontFamily="sans-serif">
-              {product.title}
+              {product.name}
             </Text>
             <Flex alignItems={'center'} gap={'.5rem'}>
               <Text

@@ -139,7 +139,7 @@ export const dummyOrders = [
 export const dummyProducts = [
   {
     id: '1',
-    title: 'SMARTPHONE PRO MAX',
+    name: 'SMARTPHONE PRO MAX',
     is_active: true,
     price: 999.99,
     stock: 15,
@@ -160,7 +160,7 @@ export const dummyProducts = [
   },
   {
     id: '2',
-    title: 'ULTRABOOK X9',
+    name: 'ULTRABOOK X9',
     is_active: false,
     price: 1299.99,
     stock: 10,
@@ -181,7 +181,7 @@ export const dummyProducts = [
   },
   {
     id: '3',
-    title: 'TABLET GEN 3',
+    name: 'TABLET GEN 3',
     is_active: false,
     price: 499.99,
     stock: 25,
@@ -202,7 +202,7 @@ export const dummyProducts = [
   },
   {
     id: '4',
-    title: 'HD CAMERA 4K',
+    name: 'HD CAMERA 4K',
     is_active: false,
     price: 399.99,
     stock: 20,
@@ -223,7 +223,7 @@ export const dummyProducts = [
   },
   {
     id: '5',
-    title: 'WIRELESS HEADPHONES X',
+    name: 'WIRELESS HEADPHONES X',
     is_active: false,
     price: 199.99,
     stock: 50,
@@ -244,7 +244,7 @@ export const dummyProducts = [
   },
   {
     id: '6',
-    title: 'DOUBLE DOOR REFRIGERATOR',
+    name: 'DOUBLE DOOR REFRIGERATOR',
     is_active: false,
     price: 899.99,
     stock: 8,
@@ -265,7 +265,7 @@ export const dummyProducts = [
   },
   {
     id: '7',
-    title: 'WASHING MACHINE PLUS',
+    name: 'WASHING MACHINE PLUS',
     is_active: false,
     price: 499.99,
     stock: 12,

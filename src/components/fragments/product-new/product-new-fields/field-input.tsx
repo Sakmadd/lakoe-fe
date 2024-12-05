@@ -1,5 +1,7 @@
 import { Field } from '@/components/ui/field';
+import { ProductType } from '@/types/types';
 import { Input } from '@chakra-ui/react';
+import { UseFormRegister } from 'react-hook-form';
 
 interface Props {
   defaultValue?: string;
@@ -7,6 +9,8 @@ interface Props {
   required?: boolean;
   placeholder?: string;
   label?: string;
+  register: UseFormRegister<ProductType>;
+  registerName: keyof ProductType;
 }
 
 export function FieldInput({
@@ -15,6 +19,8 @@ export function FieldInput({
   label,
   type,
   defaultValue,
+  register,
+  registerName,
 }: Props) {
   return (
     <>
@@ -23,6 +29,7 @@ export function FieldInput({
           placeholder={placeholder}
           type={type}
           defaultValue={defaultValue}
+          {...register(registerName)}
         />
       </Field>
     </>

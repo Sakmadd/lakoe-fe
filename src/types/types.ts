@@ -18,11 +18,11 @@ export interface ImageType {
 
 export interface ProductType {
   id: string;
-  title: string;
+  name: string;
   price: number;
   stock: number;
   sku: string;
-  category: CategoryType;
+  category_id: string;
   image: ImageType;
   url: string;
   is_active: boolean;
@@ -69,20 +69,4 @@ export interface VariantOptionCombinationType {
 
 export interface VariantCombinationFormType {
   variants: VariantOptionCombinationType[];
-}
-
-export interface ProductType {
-  category_id: string;
-  name: string;
-  sku: string;
-  price: number;
-  url_name: string;
-  description: string;
-  stock: number;
-  weight: number;
-  minimum_order: number;
-  is_active: boolean;
-  length: number;
-  width: number;
-  height: number;
 }
