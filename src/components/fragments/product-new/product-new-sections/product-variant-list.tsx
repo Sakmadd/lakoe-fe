@@ -1,16 +1,11 @@
 import { Box, Button, Flex, Spacer, Text } from '@chakra-ui/react';
 import { FaRegEdit } from 'react-icons/fa';
 import { ProductVariantItem } from './product-variant-item';
-import { useEffect } from 'react';
 
 interface Props {
-  variantOptions: { name: string; options: string }[];
+  variantOptions: string[];
 }
 export function ProductVariantListSection({ variantOptions }: Props) {
-  useEffect(() => {
-    console.log(variantOptions);
-  });
-
   return (
     <Flex flexDir="column" gap="1rem">
       <Flex alignItems={'center'}>

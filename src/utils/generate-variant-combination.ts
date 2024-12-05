@@ -1,33 +1,23 @@
-export function generateVariantCombination(
+export function generateVariantCombinations(
   options: Record<string, string[]>
-): { name: string; options: string }[] {
-  const result: { name: string; options: string }[] = [];
+): string[] {
+  const result: string[] = [];
+  const optionKeys = Object.keys(options);
 
-  // Ambil semua kategori (misalnya "color", "size")
-  const optionNames = Object.keys(options);
+  if (optionKeys.length === 0) return result;
 
-  // Fungsi rekursif untuk menggabungkan semua kombinasi
   const combine = (index: number, currentCombination: string[]) => {
-    if (index === optionNames.length) {
-      // Gabungkan kategori dan opsi menjadi objek { name, options }
-      result.push({
-        name: currentCombination[0], // Nilai kategori pertama (misalnya "red")
-        options: currentCombination[1], // Nilai opsi kedua (misalnya "s")
-      });
+    if (index === optionKeys.length) {
+      result.push(currentCombination.join(' - ').trim());
       return;
     }
 
-    // Ambil opsi untuk kategori saat ini
-    const currentOptions = options[optionNames[index]];
-
+    const currentOptions = options[optionKeys[index]];
     for (const option of currentOptions) {
-      // Lanjutkan rekursi dengan menambahkan opsi saat ini ke kombinasi
       combine(index + 1, [...currentCombination, option]);
     }
   };
 
-  // Mulai rekursi dari index 0
   combine(0, []);
-
   return result;
 }

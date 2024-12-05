@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { FieldInputAddon } from '../product-new-fields/field-input-addon';
 
 interface Props {
-  variantOption: { name: string; options: string };
+  variantOption: string;
 }
 
 export function ProductVariantItem({ variantOption }: Props) {
@@ -14,7 +14,7 @@ export function ProductVariantItem({ variantOption }: Props) {
     <>
       <Flex alignItems={'center'} gap={'1rem'}>
         <Text fontWeight={'bold'} fontSize={'sm'}>
-          {`${variantOption.name} - ${variantOption.options ? variantOption.options : ''}`}
+          {variantOption}
         </Text>
         <Flex alignItems={'center'} gap={'.5rem'}>
           <Switch onCheckedChange={() => setIsActive(!isActive)} />

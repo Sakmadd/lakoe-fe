@@ -18,11 +18,18 @@ import { FaPlusCircle } from 'react-icons/fa';
 import { RiResetRightLine } from 'react-icons/ri';
 
 interface Props {
+  setVariants: React.Dispatch<React.SetStateAction<VariantUIType[]>>;
+  setVariantOptions: React.Dispatch<
+    React.SetStateAction<Record<string, string[]>>
+  >;
   variantList: VariantUIType[];
-  setVariantList: React.Dispatch<React.SetStateAction<VariantUIType[]>>;
 }
 
-export function AddVariantDialog({ variantList, setVariantList }: Props) {
+export function AddVariantDialog({
+  variantList,
+  setVariants,
+  setVariantOptions,
+}: Props) {
   const [newVariantName, setNewVariantName] = useState('');
 
   function handleAddVariant() {
@@ -37,9 +44,14 @@ export function AddVariantDialog({ variantList, setVariantList }: Props) {
       is_checked: false,
     };
 
-    setVariantList([...variantList, newVariant]);
+    setVariants([...variantList, newVariant]);
 
     setNewVariantName('');
+  }
+
+  function handleResetVariant() {
+    setVariants([]);
+    setVariantOptions({});
   }
 
   return (
@@ -86,7 +98,7 @@ export function AddVariantDialog({ variantList, setVariantList }: Props) {
           colorPalette="gray"
           variant="surface"
           borderRadius="full"
-          onClick={() => setVariantList([])}
+          onClick={() => handleResetVariant()}
         >
           <RiResetRightLine />
           Reset Variant
