@@ -57,3 +57,16 @@ export interface VariantOptionType {
 export interface VariantUIType extends VariantType {
   is_checked: boolean;
 }
+
+export interface VariantOptionCombinationType {
+  name: string;
+  is_active: boolean;
+  price: number;
+  stock: number;
+  sku: string;
+  weight: number;
+}
+
+export interface VariantCombinationFormType {
+  variants: VariantOptionCombinationType[];
+}

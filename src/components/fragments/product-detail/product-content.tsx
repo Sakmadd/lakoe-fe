@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react';
-import { ProductDetailImage } from './product-detail/product-detail-image';
-import { ProductDetailText } from './product-detail/product-detail-text';
+import { ProductDetailImage } from './productDetail/product-detail-image';
+import { ProductDetailText } from './productDetail/product-detail-text';
 
 export function ProductDetailContent() {
   return (
