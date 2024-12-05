@@ -29,7 +29,10 @@ export function ProductVariantListSection({ variantOptions }: Props) {
         </Button>
       </Flex>
       {variantOptions.map((variantOption) => (
-        <ProductVariantItem variantOption={variantOption} />
+        <ProductVariantItem
+          variantOption={variantOption}
+          key={variantOption + Math.random()}
+        />
       ))}
     </Flex>
   );

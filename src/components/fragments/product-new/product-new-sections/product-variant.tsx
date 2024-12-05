@@ -1,7 +1,5 @@
-import { VariantUIType } from '@/types/types';
-import { generateVariantCombinations } from '@/utils/generate-variant-combination';
+import { useVariants } from '@/hooks/useVariant';
 import { Box, Flex, Spacer, Text } from '@chakra-ui/react';
-import { useState, useMemo } from 'react';
 import { ContentContainer } from '../../container/contentContainer';
 import { AddVariantDialog } from '../product-new-fields/field-add-variant-dialog';
 import TagFieldInput from '../product-new-fields/tag-field-input';
@@ -9,14 +7,13 @@ import { VariantCheckbox } from '../product-new-fields/variant-checkbox';
 import { ProductVariantListSection } from './product-variant-list';
 
 export function ProductVariantSection() {
-  const [variants, setVariants] = useState<VariantUIType[]>([]);
-  const [variantOptions, setVariantOptions] = useState<
-    Record<string, string[]>
-  >({});
-
-  const variantOptionsString = useMemo(() => {
-    return generateVariantCombinations(variantOptions);
-  }, [variantOptions]);
+  const {
+    setVariantOptions,
+    variants,
+    setVariants,
+    variantOptionCombinations,
+    variantOptions,
+  } = useVariants();
 
   const handleOptionsChange = (name: string, options: string[]) => {
     setVariantOptions((prev) => ({ ...prev, [name]: options }));
@@ -63,7 +60,9 @@ export function ProductVariantSection() {
           ) : null
         )}
         {variantOptions && Object.keys(variantOptions).length > 0 && (
-          <ProductVariantListSection variantOptions={variantOptionsString} />
+          <ProductVariantListSection
+            variantOptions={variantOptionCombinations}
+          />
         )}
       </Flex>
     </ContentContainer>

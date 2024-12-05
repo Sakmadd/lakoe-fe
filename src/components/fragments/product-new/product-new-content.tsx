@@ -1,11 +1,11 @@
 import { Flex } from '@chakra-ui/react';
-import { ProductInformationSection } from './product-new-sections/product-information';
 import { ProductDetailSection } from './product-new-sections/product-detail';
-import { ProductVariantSection } from './product-new-sections/product-variant';
-import { ProductPriceSection } from './product-new-sections/product-price';
+import { ProductInformationSection } from './product-new-sections/product-information';
 import { ProductManagementSection } from './product-new-sections/product-management';
-import { ProductWeightShipmentSection } from './product-new-sections/product-weight-shipment';
+import { ProductPriceSection } from './product-new-sections/product-price';
 import { ProductSaveSection } from './product-new-sections/product-save';
+import { ProductVariantSection } from './product-new-sections/product-variant';
+import { ProductWeightShipmentSection } from './product-new-sections/product-weight-shipment';
 
 export function ProductNewContent() {
   return (
