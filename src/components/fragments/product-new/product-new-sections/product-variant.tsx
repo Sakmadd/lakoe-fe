@@ -8,11 +8,11 @@ import { ProductVariantListSection } from './product-variant-list';
 
 export function ProductVariantSection() {
   const {
-    setVariantOptions,
     variants,
-    setVariants,
-    variantOptionCombinations,
     variantOptions,
+    variantOptionCombinations,
+    setVariantOptions,
+    setVariants,
     getValues,
     handleSubmit,
     register,
