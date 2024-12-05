@@ -1,4 +1,4 @@
-import { useFilterProductContent } from '@/hooks/useFilterProductContent';
+import { useFilterProductContent } from '@/hooks/use-filter-product-content';
 import { CategoryType, ProductType } from '@/types/types';
 import { Tabs } from '@chakra-ui/react';
 import { useState } from 'react';

@@ -1,5 +1,5 @@
 import { Button, Flex, Spacer, Text } from '@chakra-ui/react';
-import { ProductDetailVariant } from './productDetailVariant';
+import { ProductDetailVariant } from './product-detail-variant';
 
 export function ProductDetailText() {
   return (

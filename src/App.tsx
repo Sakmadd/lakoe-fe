@@ -1,14 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
-import { DashboardPage } from './components/pages/dashboardPage';
-import { HomePage } from './components/pages/homePage';
-import OrderDetail from './components/pages/order-detail';
-import { OrderPage } from './components/pages/orderPage';
-import { ProductDetailPage } from './components/pages/productDetailPage';
-import { ProductPage } from './components/pages/productPage';
-import { SettingsPage } from './components/pages/settingsPage';
 import { BuyerLayout } from './layouts/buyerLayout';
+import { HomePage } from './components/pages/home-page';
+import { ProductDetailPage } from './components/pages/product-detail-page';
 import { SellerLayout } from './layouts/sellerLayout';
 import { ProductNewPage } from './components/pages/product-new-page';
+import { DashboardPage } from './components/pages/dashboard-page';
+import { ProductPage } from './components/pages/product-page';
+import { OrderPage } from './components/pages/order-page';
+import { SettingsPage } from './components/pages/settings-page';
+import OrderDetail from './components/pages/order-detail';
 
 export const loggedUser = true;
 

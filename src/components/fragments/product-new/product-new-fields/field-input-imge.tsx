@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { BiImageAdd } from 'react-icons/bi';
-import { imagesType } from '../../product-detail/productDetail/detailImageList';
+import { imagesType } from '../../product-detail/product-detail/detail-image-list';
 
 interface Prosp {
   label?: string;

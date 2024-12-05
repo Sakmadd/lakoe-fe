@@ -1,10 +1,10 @@
-import { useVariants } from '@/hooks/useVariant';
 import { Box, Flex, Spacer, Text } from '@chakra-ui/react';
 import { ContentContainer } from '../../container/contentContainer';
 import { AddVariantDialog } from '../product-new-fields/field-add-variant-dialog';
 import TagFieldInput from '../product-new-fields/tag-field-input';
 import { VariantCheckbox } from '../product-new-fields/variant-checkbox';
 import { ProductVariantListSection } from './product-variant-list';
+import { useVariants } from '@/hooks/use-variant';
 
 export function ProductVariantSection() {
   const {
