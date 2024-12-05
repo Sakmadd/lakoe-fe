@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button';
-import { CheckboxCard } from '@/components/ui/checkbox-card';
 import {
   DialogActionTrigger,
   DialogBody,
@@ -11,17 +10,49 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Field } from '@/components/ui/field';
-import { Flex, Group, Input, InputAddon } from '@chakra-ui/react';
+import { VariantCombinationFormType } from '@/types/types';
+import { Flex } from '@chakra-ui/react';
+import { UseFormGetValues, UseFormSetValue } from 'react-hook-form';
 import { FaRegEdit } from 'react-icons/fa';
+import { EditAllVariantsForm } from './global-form';
+import { useState } from 'react';
 
 interface Props {
   variantOptionCombinations: string[];
+  getValues: UseFormGetValues<VariantCombinationFormType>;
+  setValue: UseFormSetValue<VariantCombinationFormType>;
 }
 
 export function EditAllVariantCombinationsDialog({
   variantOptionCombinations,
+  setValue,
 }: Props) {
+  const [fakeLoad, setFakeLoad] = useState(false);
+
+  const handleApplyChanges = () => {
+    setFakeLoad(true);
+    const price = (document.getElementById('global-price') as HTMLInputElement)
+      ?.value;
+    const sku = (document.getElementById('global-sku') as HTMLInputElement)
+      ?.value;
+    const stock = (document.getElementById('global-stock') as HTMLInputElement)
+      ?.value;
+    const weight = (
+      document.getElementById('global-weight') as HTMLInputElement
+    )?.value;
+
+    variantOptionCombinations.forEach((_, index) => {
+      if (price) setValue(`variants.${index}.price`, Number(price));
+      if (sku) setValue(`variants.${index}.sku`, sku);
+      if (stock) setValue(`variants.${index}.stock`, Number(stock));
+      if (weight) setValue(`variants.${index}.weight`, Number(weight));
+    });
+
+    setTimeout(() => {
+      setFakeLoad(false);
+    }, 100);
+  };
+
   return (
     <>
       <DialogRoot size={'lg'}>
@@ -34,62 +65,19 @@ export function EditAllVariantCombinationsDialog({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Edit All Variant</DialogTitle>
-            <Flex flexWrap={'wrap'} gap={'.5rem'} paddingTop={'1rem'}>
-              {variantOptionCombinations.map((combination) => (
-                <CheckboxCard
-                  size={'sm'}
-                  cursor="pointer"
-                  variant="surface"
-                  maxHeight={'40px'}
-                  minWidth={'200px'}
-                  label={combination}
-                  key={combination}
-                  value={combination}
-                />
-              ))}
-            </Flex>
           </DialogHeader>
           <DialogBody>
             <Flex width={'100%'} gap={'1rem'}>
-              <Flex flexDir={'column'} gap={'1rem'} width={'60%'}>
-                <Field label={'Price'} required color={'gray'}>
-                  <Group attached width="100%">
-                    <Input type={'number'} placeholder="Enter price" />
-                    <InputAddon>Rp</InputAddon>
-                  </Group>
-                </Field>
-
-                <Field
-                  label={'SKU (Stock Keeping Unit)'}
-                  required
-                  color={'gray'}
-                >
-                  <Group attached width="100%">
-                    <Input placeholder="Enter SKU" />
-                  </Group>
-                </Field>
-              </Flex>
-              <Flex flexDir={'column'} gap={'1rem'} width={'40%'}>
-                <Field label={'Product Stock'} required color={'gray'}>
-                  <Group attached width="100%">
-                    <Input type={'number'} placeholder="Enter stock" />
-                  </Group>
-                </Field>
-
-                <Field label={'Product Weight'} required color={'gray'}>
-                  <Group attached width="100%">
-                    <Input type={'number'} placeholder="Enter weight" />
-                    <InputAddon>Gram</InputAddon>
-                  </Group>
-                </Field>
-              </Flex>
+              <EditAllVariantsForm />
             </Flex>
           </DialogBody>
           <DialogFooter>
             <DialogActionTrigger asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline">Done</Button>
             </DialogActionTrigger>
-            <Button>Save</Button>
+            <Button onClick={handleApplyChanges} loading={fakeLoad}>
+              Apply To All Variants
+            </Button>
           </DialogFooter>
           <DialogCloseTrigger />
         </DialogContent>

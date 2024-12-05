@@ -18,8 +18,6 @@ export function FieldInputImage({ label }: Prosp) {
   const [imageList, setImageList] = useState<imagesType[]>([]);
 
   const handleImageUpload = (event: FileUploadFileAcceptDetails) => {
-    console.log(imageList);
-
     if (event.files) {
       const files = Array.from(event.files);
       const newImages = files.map((file) => ({

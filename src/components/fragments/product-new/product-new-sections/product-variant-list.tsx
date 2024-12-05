@@ -7,8 +7,8 @@ import {
   UseFormRegister,
   UseFormSetValue,
 } from 'react-hook-form';
-import { EditAllVariantCombinationsDialog } from '../product-new-fields/edit-all-variant-dialog';
 import { ProductVariantItem } from './product-variant-item';
+import { EditAllVariantCombinationsDialog } from '../product-new-fields/edit-all-variant-dialog';
 
 interface Props {
   variantOptionCombinations: string[];
@@ -21,6 +21,7 @@ interface Props {
 export function ProductVariantListSection({
   variantOptionCombinations,
   register,
+  getValues,
   handleSubmit,
   setValue,
 }: Props) {
@@ -42,9 +43,12 @@ export function ProductVariantListSection({
           </Box>
           <Spacer />
           <EditAllVariantCombinationsDialog
+            getValues={getValues}
+            setValue={setValue}
             variantOptionCombinations={variantOptionCombinations}
           />
         </Flex>
+
         {variantOptionCombinations.map((combination, index) => (
           <ProductVariantItem
             setValue={setValue}

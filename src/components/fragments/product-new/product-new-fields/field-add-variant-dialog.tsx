@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dialog';
 import { Field } from '@/components/ui/field';
 import { VariantUIType } from '@/types/types';
-import { Input } from '@chakra-ui/react';
+import { Flex, Input } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
 import { RiResetRightLine } from 'react-icons/ri';
@@ -56,54 +56,56 @@ export function AddVariantDialog({
 
   return (
     <>
-      {variantList.length < 3 && (
-        <DialogRoot>
-          <DialogTrigger asChild>
-            <Button colorPalette="gray" variant="surface" borderRadius="full">
-              <FaPlusCircle />
-              Add Variant
-            </Button>
-          </DialogTrigger>
+      <Flex gap="1rem">
+        {variantList.length < 3 && (
+          <DialogRoot>
+            <DialogTrigger asChild>
+              <Button colorPalette="gray" variant="surface" borderRadius="full">
+                <FaPlusCircle />
+                Add Variant
+              </Button>
+            </DialogTrigger>
 
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add Variant</DialogTitle>
-            </DialogHeader>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Add Variant</DialogTitle>
+              </DialogHeader>
 
-            <DialogBody>
-              <Field label="Add Variant" required>
-                <Input
-                  placeholder="Add Variant Name"
-                  variant="outline"
-                  value={newVariantName}
-                  onChange={(e) => setNewVariantName(e.target.value)}
-                />
-              </Field>
-            </DialogBody>
+              <DialogBody>
+                <Field label="Add Variant" required>
+                  <Input
+                    placeholder="Add Variant Name"
+                    variant="outline"
+                    value={newVariantName}
+                    onChange={(e) => setNewVariantName(e.target.value)}
+                  />
+                </Field>
+              </DialogBody>
 
-            <DialogFooter>
-              <DialogActionTrigger asChild>
-                <Button variant="outline">Cancel</Button>
-              </DialogActionTrigger>
+              <DialogFooter>
+                <DialogActionTrigger asChild>
+                  <Button variant="outline">Cancel</Button>
+                </DialogActionTrigger>
 
-              <Button onClick={handleAddVariant}>Save</Button>
-            </DialogFooter>
+                <Button onClick={handleAddVariant}>Save</Button>
+              </DialogFooter>
 
-            <DialogCloseTrigger />
-          </DialogContent>
-        </DialogRoot>
-      )}
-      {variantList.length >= 3 && (
-        <Button
-          colorPalette="gray"
-          variant="surface"
-          borderRadius="full"
-          onClick={() => handleResetVariant()}
-        >
-          <RiResetRightLine />
-          Reset Variant
-        </Button>
-      )}
+              <DialogCloseTrigger />
+            </DialogContent>
+          </DialogRoot>
+        )}
+        {variantList.length >= 2 && (
+          <Button
+            colorPalette="red"
+            variant="surface"
+            borderRadius="full"
+            onClick={() => handleResetVariant()}
+          >
+            <RiResetRightLine />
+            Reset Variant
+          </Button>
+        )}
+      </Flex>
     </>
   );
 }

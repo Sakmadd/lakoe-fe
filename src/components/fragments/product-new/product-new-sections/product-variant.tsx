@@ -5,8 +5,6 @@ import { AddVariantDialog } from '../product-new-fields/field-add-variant-dialog
 import TagFieldInput from '../product-new-fields/tag-field-input';
 import { VariantCheckbox } from '../product-new-fields/variant-checkbox';
 import { ProductVariantListSection } from './product-variant-list';
-import { useForm } from 'react-hook-form';
-import { VariantCombinationFormType } from '@/types/types';
 
 export function ProductVariantSection() {
   const {
@@ -15,21 +13,11 @@ export function ProductVariantSection() {
     setVariants,
     variantOptionCombinations,
     variantOptions,
+    getValues,
+    handleSubmit,
+    register,
+    setValue,
   } = useVariants();
-
-  const { register, handleSubmit, getValues, setValue } =
-    useForm<VariantCombinationFormType>({
-      defaultValues: {
-        variants: variantOptionCombinations.map(() => ({
-          name: '',
-          is_active: true,
-          price: 0,
-          stock: 0,
-          sku: '',
-          weight: 0,
-        })),
-      },
-    });
 
   const handleOptionsChange = (name: string, options: string[]) => {
     setVariantOptions((prev) => ({ ...prev, [name]: options }));
