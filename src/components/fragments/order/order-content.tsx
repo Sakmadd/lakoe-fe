@@ -1,7 +1,7 @@
 import { dummyCouriers, dummyOrders, dummySorts } from '@/dummy-data/dummyData';
 import { OrderGrouper } from '@/utils/order-grouper';
 import { Tabs, Text } from '@chakra-ui/react';
-import { TabsOrderContent } from './tabs-order-content';
+import { TabsOrderContent } from './order-tabs-content';
 
 export function OrderContent() {
   const groupedOrders = OrderGrouper({ orders: dummyOrders });

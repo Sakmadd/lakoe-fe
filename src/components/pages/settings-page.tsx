@@ -1,13 +1,11 @@
 import { MainContent } from '@/layouts/mainContent';
-import { ContentContainer } from '../fragments/container/contentContainer';
+import SettingsContent from '../fragments/settings/settings-content';
 
 export function SettingsPage() {
   return (
     <>
       <MainContent>
-        <ContentContainer>
-          <h1>Settings Page</h1>
-        </ContentContainer>
+        <SettingsContent />
       </MainContent>
     </>
   );
