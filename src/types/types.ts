@@ -32,6 +32,8 @@ export interface ProductType {
   length: number;
   width: number;
   height: number;
+  variants: VariantType[];
+  variant_option_combinations: VariantOptionCombinationType[];
   createdAt: string;
   updatedAt: string;
 }
@@ -58,6 +60,8 @@ export interface VariantType {
 export interface VariantOptionType {
   id: string;
   name: string;
+  src?: string;
+  alt?: string;
 }
 
 export interface VariantUIType extends VariantType {
@@ -76,3 +80,56 @@ export interface VariantOptionCombinationType {
 export interface VariantCombinationFormType {
   variants: VariantOptionCombinationType[];
 }
+
+export const variants: VariantType[] = [
+  {
+    id: '1',
+    name: 'color',
+    options: [
+      {
+        id: '1',
+        name: 'red',
+        alt: 'red',
+        src: 'https://example.com/images/white.jpg',
+      },
+      {
+        id: '2',
+        name: 'green',
+        alt: 'green',
+        src: 'https://example.com/images/white.jpg',
+      },
+      {
+        id: '3',
+        name: 'blue',
+        alt: 'blue',
+        src: 'https://example.com/images/white.jpg',
+      },
+    ],
+  },
+  {
+    id: '1',
+    name: 'size',
+    options: [
+      {
+        id: '1',
+        name: 's',
+        alt: 's',
+        src: 'https://example.com/images/white.jpg',
+      },
+      {
+        id: '2',
+        name: 'm',
+        alt: 'm',
+        src: 'https://example.com/images/white.jpg',
+      },
+      {
+        id: '3',
+        name: 'l',
+        alt: 'l',
+        src: 'https://example.com/images/white.jpg',
+      },
+    ],
+  },
+];
+
+export const variant_option_combinations: VariantOptionCombinationType[] = [];

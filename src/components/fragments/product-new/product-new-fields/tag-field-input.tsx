@@ -89,6 +89,7 @@ export default function TagFieldInput({
           ref={ref_input}
           size={'lg'}
           onKeyDown={handleKeyDown}
+          required={false}
         />
       </Flex>
     </Field>
