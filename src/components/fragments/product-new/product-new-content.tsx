@@ -9,7 +9,7 @@ import { ProductManagementSection } from './product-new-sections/product-managem
 import { ProductWeightShipmentSection } from './product-new-sections/product-weight-shipment';
 
 export function ProductNewContent() {
-  const { register, handleSubmit } = useForm<ProductType>({
+  const { register, handleSubmit, control } = useForm<ProductType>({
     defaultValues: {
       name: '',
       url: '',
@@ -25,7 +25,11 @@ export function ProductNewContent() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Flex flexDir={'column'} gap={'.5rem'}>
-        <ProductInformationSection register={register} setValue={register} />
+        <ProductInformationSection
+          register={register}
+          setValue={register}
+          control={control}
+        />
         <ProductDetailSection register={register} />
         {/* <ProductVariantSection /> */}
         <ProductPriceSection register={register} />
