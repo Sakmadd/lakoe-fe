@@ -7,19 +7,12 @@ import { ProductDetailSection } from './product-new-sections/product-detail';
 import { ProductPriceSection } from './product-new-sections/product-price';
 import { ProductManagementSection } from './product-new-sections/product-management';
 import { ProductWeightShipmentSection } from './product-new-sections/product-weight-shipment';
+import { ProductVariantSection } from './product-new-sections/product-variant';
+import { useVariants } from '@/hooks/use-variant';
 
 export function ProductNewContent() {
-  const { register, handleSubmit, control } = useForm<ProductType>({
-    defaultValues: {
-      name: '',
-      url: '',
-      category_id: '',
-      is_active: true,
-      price: 0,
-      sku: '',
-      stock: 0,
-    },
-  });
+  const variantsHooks = useVariants();
+  const { register, handleSubmit, control } = useForm<ProductType>();
   const onSubmit: SubmitHandler<ProductType> = (data) => console.log(data);
 
   return (
@@ -31,7 +24,7 @@ export function ProductNewContent() {
           control={control}
         />
         <ProductDetailSection register={register} />
-        {/* <ProductVariantSection /> */}
+        <ProductVariantSection hooks={variantsHooks} />
         <ProductPriceSection register={register} />
         <ProductManagementSection register={register} />
         <ProductWeightShipmentSection register={register} />

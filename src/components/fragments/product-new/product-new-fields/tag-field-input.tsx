@@ -39,6 +39,17 @@ export default function TagFieldInput({
     }
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const newText = ref_input.current!.value.trim().replace(',', '');
+    if (['Enter', ','].includes(event.key)) {
+      event.preventDefault();
+      if (newText) {
+        setVariantOption((prev) => [...prev, newText]);
+        ref_input.current!.value = '';
+      }
+    }
+  };
+
   useEffect(() => {
     ref_input.current?.focus();
     window.addEventListener('keyup', handleKeyUp);
@@ -77,6 +88,7 @@ export default function TagFieldInput({
           outline={'none'}
           ref={ref_input}
           size={'lg'}
+          onKeyDown={handleKeyDown}
         />
       </Flex>
     </Field>
