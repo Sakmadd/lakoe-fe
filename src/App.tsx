@@ -9,6 +9,7 @@ import { ProductPage } from './components/pages/product-page';
 import { OrderPage } from './components/pages/order-page';
 import { SettingsPage } from './components/pages/settings-page';
 import OrderDetail from './components/pages/order-detail';
+import SettingsShop from './components/pages/settings-shop';
 
 export const loggedUser = true;
 
@@ -36,6 +37,7 @@ function App() {
         <Route path="/orders" element={<OrderPage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/orders/:id" element={<OrderDetail />} />
+        <Route path="/settings/shop" element={<SettingsShop />} />
       </Route>
     </Routes>
   );
