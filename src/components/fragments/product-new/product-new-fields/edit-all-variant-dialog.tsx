@@ -31,21 +31,29 @@ export function EditAllVariantCombinationsDialog({
 
   const handleApplyChanges = () => {
     setFakeLoad(true);
-    const price = (document.getElementById('global-price') as HTMLInputElement)
-      ?.value;
+
+    const parseInput = (value: string) => {
+      const parsed = parseFloat(value);
+      return isNaN(parsed) ? null : parsed;
+    };
+
+    const price = parseInput(
+      (document.getElementById('global-price') as HTMLInputElement)?.value
+    );
     const sku = (document.getElementById('global-sku') as HTMLInputElement)
       ?.value;
-    const stock = (document.getElementById('global-stock') as HTMLInputElement)
-      ?.value;
-    const weight = (
-      document.getElementById('global-weight') as HTMLInputElement
-    )?.value;
+    const stock = parseInput(
+      (document.getElementById('global-stock') as HTMLInputElement)?.value
+    );
+    const weight = parseInput(
+      (document.getElementById('global-weight') as HTMLInputElement)?.value
+    );
 
     variantOptionCombinations.forEach((_, index) => {
-      if (price) setValue(`variants.${index}.price`, Number(price));
+      if (price !== null) setValue(`variants.${index}.price`, price);
       if (sku) setValue(`variants.${index}.sku`, sku);
-      if (stock) setValue(`variants.${index}.stock`, Number(stock));
-      if (weight) setValue(`variants.${index}.weight`, Number(weight));
+      if (stock !== null) setValue(`variants.${index}.stock`, stock);
+      if (weight !== null) setValue(`variants.${index}.weight`, weight);
     });
 
     setTimeout(() => {

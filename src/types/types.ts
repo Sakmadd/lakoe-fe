@@ -132,4 +132,77 @@ export const variants: VariantType[] = [
   },
 ];
 
-export const variant_option_combinations: VariantOptionCombinationType[] = [];
+export const variant_option_combinations: VariantOptionCombinationType[] = [
+  {
+    name: 'red-s',
+    is_active: true,
+    price: 1000,
+    stock: 10,
+    sku: 'red-s',
+    weight: 1,
+  },
+  {
+    name: 'red-m',
+    is_active: true,
+    price: 1000,
+    stock: 10,
+    sku: 'red-m',
+    weight: 1,
+  },
+  {
+    name: 'red-l',
+    is_active: true,
+    price: 1000,
+    stock: 10,
+    sku: 'red-l',
+    weight: 1,
+  },
+  {
+    name: 'green-s',
+    is_active: true,
+    price: 1000,
+    stock: 10,
+    sku: 'green-s',
+    weight: 1,
+  },
+  {
+    name: 'green-m',
+    is_active: true,
+    price: 1000,
+    stock: 10,
+    sku: 'green-m',
+    weight: 1,
+  },
+  {
+    name: 'green-l',
+    is_active: true,
+    price: 1000,
+    stock: 10,
+    sku: 'green-l',
+    weight: 1,
+  },
+  {
+    name: 'blue-s',
+    is_active: true,
+    price: 1000,
+    stock: 10,
+    sku: 'blue-s',
+    weight: 1,
+  },
+  {
+    name: 'blue-m',
+    is_active: true,
+    price: 1000,
+    stock: 10,
+    sku: 'blue-m',
+    weight: 1,
+  },
+  {
+    name: 'blue-l',
+    is_active: true,
+    price: 1000,
+    stock: 10,
+    sku: 'blue-l',
+    weight: 1,
+  },
+];

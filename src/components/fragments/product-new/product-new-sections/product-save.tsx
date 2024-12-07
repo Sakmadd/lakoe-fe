@@ -1,8 +1,26 @@
 import { Button, Flex, Spacer } from '@chakra-ui/react';
 import { ContentContainer } from '../../container/contentContainer';
 import { useNavigate } from 'react-router-dom';
+import { UseFormHandleSubmit } from 'react-hook-form';
+import {
+  VariantCombinationFormType,
+  VariantOptionCombinationType,
+} from '@/types/types';
 
-export function ProductSaveSection() {
+interface Props {
+  variantsHandleSubmit: UseFormHandleSubmit<
+    VariantCombinationFormType,
+    undefined
+  >;
+  setVariantOptionCombinations: React.Dispatch<
+    React.SetStateAction<VariantOptionCombinationType[]>
+  >;
+}
+
+export function ProductSaveSection({
+  variantsHandleSubmit,
+  setVariantOptionCombinations,
+}: Props) {
   const navigate = useNavigate();
   return (
     <>
@@ -12,7 +30,14 @@ export function ProductSaveSection() {
           <Button variant={'outline'} onClick={() => navigate(-1)}>
             Cancel
           </Button>
-          <Button type="submit">Save Product</Button>
+          <Button
+            type="submit"
+            onClick={variantsHandleSubmit((data) => {
+              setVariantOptionCombinations(data.variants);
+            })}
+          >
+            Save Product
+          </Button>
         </Flex>
       </ContentContainer>
     </>

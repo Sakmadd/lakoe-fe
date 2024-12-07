@@ -1,4 +1,5 @@
 import { Field } from '@/components/ui/field';
+import { Switch } from '@/components/ui/switch';
 import { VariantCombinationFormType } from '@/types/types';
 import {
   Flex,
@@ -8,28 +9,33 @@ import {
   Separator,
   Text,
 } from '@chakra-ui/react';
-import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { Switch } from '@/components/ui/switch';
+import {
+  UseFormGetValues,
+  UseFormRegister,
+  UseFormSetValue,
+} from 'react-hook-form';
 
 interface Props {
   variantOption: string;
   register: UseFormRegister<VariantCombinationFormType>;
   setValue: UseFormSetValue<VariantCombinationFormType>;
   index: number;
+  getValues: UseFormGetValues<VariantCombinationFormType>;
 }
 
 export function ProductVariantItem({
   variantOption,
   register,
-  setValue,
   index,
+  setValue,
 }: Props) {
   const [isActive, setIsActive] = useState(true);
+
   useEffect(() => {
-    setValue(`variants.${index}.name`, variantOption);
     setValue(`variants.${index}.is_active`, isActive);
-  }, [variantOption, index, setValue, isActive]);
+    setValue(`variants.${index}.name`, variantOption);
+  }, [register, index, setValue, isActive, variantOption]);
 
   return (
     <>
@@ -49,6 +55,7 @@ export function ProductVariantItem({
           )}
         </Flex>
       </Flex>
+
       <Flex width={'100%'} gap={'1rem'}>
         <Flex flexDir={'column'} gap={'1rem'} width={'60%'}>
           <Input
@@ -62,9 +69,7 @@ export function ProductVariantItem({
             <Group attached width="100%">
               <Input
                 type={'number'}
-                {...register(`variants.${index}.price`, {
-                  valueAsNumber: true,
-                })}
+                {...register(`variants.${index}.price`)}
                 placeholder="Enter price"
               />
               <InputAddon>Rp</InputAddon>
@@ -80,6 +85,7 @@ export function ProductVariantItem({
             </Group>
           </Field>
         </Flex>
+
         <Flex flexDir={'column'} gap={'1rem'} width={'40%'}>
           <Field label={'Product Stock'} required color={'gray'}>
             <Group attached width="100%">
