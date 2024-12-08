@@ -18,14 +18,22 @@ export interface ImageType {
 
 export interface ProductType {
   id: string;
-  title: string;
+  name: string;
+  description: string;
   price: number;
   stock: number;
   sku: string;
-  category: CategoryType;
-  image: ImageType;
+  category_id: string;
+  images: ImageType[];
   url: string;
   is_active: boolean;
+  minimum_order: number;
+  weight: number;
+  length: number;
+  width: number;
+  height: number;
+  variants?: VariantType[];
+  variant_option_combinations?: VariantOptionCombinationType[];
   createdAt: string;
   updatedAt: string;
 }
@@ -52,8 +60,149 @@ export interface VariantType {
 export interface VariantOptionType {
   id: string;
   name: string;
+  src?: string;
+  alt?: string;
 }
 
 export interface VariantUIType extends VariantType {
   is_checked: boolean;
 }
+
+export interface VariantOptionCombinationType {
+  name: string;
+  is_active: boolean;
+  price: number;
+  stock: number;
+  sku: string;
+  weight: number;
+}
+
+export interface VariantCombinationFormType {
+  variants: VariantOptionCombinationType[];
+}
+
+export const variants: VariantType[] = [
+  {
+    id: '1',
+    name: 'color',
+    options: [
+      {
+        id: '1',
+        name: 'red',
+        alt: 'red',
+        src: 'https://example.com/images/white.jpg',
+      },
+      {
+        id: '2',
+        name: 'green',
+        alt: 'green',
+        src: 'https://example.com/images/white.jpg',
+      },
+      {
+        id: '3',
+        name: 'blue',
+        alt: 'blue',
+        src: 'https://example.com/images/white.jpg',
+      },
+    ],
+  },
+  {
+    id: '1',
+    name: 'size',
+    options: [
+      {
+        id: '1',
+        name: 's',
+        alt: 's',
+        src: 'https://example.com/images/white.jpg',
+      },
+      {
+        id: '2',
+        name: 'm',
+        alt: 'm',
+        src: 'https://example.com/images/white.jpg',
+      },
+      {
+        id: '3',
+        name: 'l',
+        alt: 'l',
+        src: 'https://example.com/images/white.jpg',
+      },
+    ],
+  },
+];
+
+export const variant_option_combinations: VariantOptionCombinationType[] = [
+  {
+    name: 'red-s',
+    is_active: true,
+    price: 1000,
+    stock: 10,
+    sku: 'red-s',
+    weight: 1,
+  },
+  {
+    name: 'red-m',
+    is_active: true,
+    price: 1000,
+    stock: 10,
+    sku: 'red-m',
+    weight: 1,
+  },
+  {
+    name: 'red-l',
+    is_active: true,
+    price: 1000,
+    stock: 10,
+    sku: 'red-l',
+    weight: 1,
+  },
+  {
+    name: 'green-s',
+    is_active: true,
+    price: 1000,
+    stock: 10,
+    sku: 'green-s',
+    weight: 1,
+  },
+  {
+    name: 'green-m',
+    is_active: true,
+    price: 1000,
+    stock: 10,
+    sku: 'green-m',
+    weight: 1,
+  },
+  {
+    name: 'green-l',
+    is_active: true,
+    price: 1000,
+    stock: 10,
+    sku: 'green-l',
+    weight: 1,
+  },
+  {
+    name: 'blue-s',
+    is_active: true,
+    price: 1000,
+    stock: 10,
+    sku: 'blue-s',
+    weight: 1,
+  },
+  {
+    name: 'blue-m',
+    is_active: true,
+    price: 1000,
+    stock: 10,
+    sku: 'blue-m',
+    weight: 1,
+  },
+  {
+    name: 'blue-l',
+    is_active: true,
+    price: 1000,
+    stock: 10,
+    sku: 'blue-l',
+    weight: 1,
+  },
+];

@@ -1,6 +1,7 @@
-import { useState, useMemo, useEffect } from 'react';
-import { VariantUIType } from '@/types/types';
+import { VariantCombinationFormType, VariantUIType } from '@/types/types';
 import { generateVariantCombinations } from '@/utils/generate-variant-combination';
+import { useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 export function useVariants() {
   const [variants, setVariants] = useState<VariantUIType[]>([]);
@@ -12,14 +13,19 @@ export function useVariants() {
     return generateVariantCombinations(variantOptions);
   }, [variantOptions]);
 
-  useEffect(() => {
-    console.log('variants', variants);
-    console.log(
-      'variant options',
-      Object.values(variantOptions).map((option) => option)
-    );
-    console.log('variant options combinations', variantOptionCombinations);
-  }, [variantOptions, variantOptionCombinations, variants]);
+  const { register, handleSubmit, getValues, setValue } =
+    useForm<VariantCombinationFormType>({
+      defaultValues: {
+        variants: variantOptionCombinations.map(() => ({
+          name: '',
+          is_active: true,
+          price: 0,
+          stock: 0,
+          sku: '',
+          weight: 0,
+        })),
+      },
+    });
 
   return {
     variants,
@@ -27,5 +33,9 @@ export function useVariants() {
     variantOptions,
     setVariantOptions,
     variantOptionCombinations,
+    register,
+    handleSubmit,
+    getValues,
+    setValue,
   };
 }

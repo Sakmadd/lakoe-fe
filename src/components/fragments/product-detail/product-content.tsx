@@ -1,13 +1,17 @@
 import { Flex } from '@chakra-ui/react';
-import { ProductDetailImage } from './product-detail/product-detail-image';
-import { ProductDetailText } from './product-detail/product-detail-text';
+import { ProductDetailImage } from './productDetail/product-detail-image';
+import { ProductDetailText } from './productDetail/product-detail-text';
+import { ProductType } from '@/types/types';
+interface Props {
+  product: ProductType;
+}
 
-export function ProductDetailContent() {
+export function ProductDetailContent({ product }: Props) {
   return (
     <>
       <Flex gap={'2rem'} padding={'1rem'}>
-        <ProductDetailImage />
-        <ProductDetailText />
+        <ProductDetailImage product={product} />
+        <ProductDetailText product={product} />
       </Flex>
     </>
   );

@@ -1,5 +1,5 @@
 import { Box, Card, Image, Text } from '@chakra-ui/react';
-import { imagesType } from './product-detail/detail-image-list';
+import { imagesType } from './productDetail/detail-image-list';
 import { useNavigate } from 'react-router-dom';
 
 interface ProductCardProps {

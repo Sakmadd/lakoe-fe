@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { BiImageAdd } from 'react-icons/bi';
-import { imagesType } from '../../product-detail/product-detail/detail-image-list';
+import { imagesType } from '../../product-detail/productDetail/detail-image-list';
 
 interface Prosp {
   label?: string;
@@ -18,8 +18,6 @@ export function FieldInputImage({ label }: Prosp) {
   const [imageList, setImageList] = useState<imagesType[]>([]);
 
   const handleImageUpload = (event: FileUploadFileAcceptDetails) => {
-    console.log(imageList);
-
     if (event.files) {
       const files = Array.from(event.files);
       const newImages = files.map((file) => ({
