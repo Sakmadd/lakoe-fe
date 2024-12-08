@@ -1,28 +1,12 @@
-import { NumberInputField } from '@/components/ui/number-input';
-import {
-  Button,
-  Flex,
-  NumberInputRoot,
-  Separator,
-  Text,
-} from '@chakra-ui/react';
+import { VariantType } from '@/types/types';
+import { Button, Flex, Separator, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 
-type variantType = {
-  variantName: string;
-  subVariants: string[];
-};
-
 interface productDetailVariantProps {
-  variants: variantType[];
-  minimum_order: number;
+  variants: VariantType[];
 }
 
-export function ProductDetailVariant({
-  variants,
-  minimum_order,
-}: productDetailVariantProps) {
-  const [quantity, setQuantity] = useState<number>(minimum_order);
+export function ProductDetailVariant({ variants }: productDetailVariantProps) {
   const [selectedSubVariants, setSelectedSubVariants] = useState<string[]>([]);
 
   const handleSubVariantClick = (variantName: string, subVariant: string) => {
@@ -43,23 +27,23 @@ export function ProductDetailVariant({
       {variants.map((variant) => (
         <>
           <Flex marginY={'1rem'} alignItems={'center'} gap={'2rem'}>
-            <Text padding={'.5rem'}>{variant.variantName}</Text>
+            <Text padding={'.5rem'}>{variant.name}</Text>
             <Flex gap={'.2rem'} flexWrap={'wrap'}>
-              {variant.subVariants.map((subVariant) => (
+              {variant.options!.map((option) => (
                 <Button
                   variant={
                     selectedSubVariants.includes(
-                      `${variant.variantName}:${subVariant}`
+                      `${variant.name}:${option.name}`
                     )
                       ? 'solid'
                       : 'outline'
                   }
                   size={'sm'}
                   onClick={() =>
-                    handleSubVariantClick(variant.variantName, subVariant)
+                    handleSubVariantClick(variant.name, option.name)
                   }
                 >
-                  {subVariant}
+                  {option.name}
                 </Button>
               ))}
             </Flex>
@@ -67,25 +51,6 @@ export function ProductDetailVariant({
           <Separator />
         </>
       ))}
-      <Flex marginY={'1rem'} alignItems={'center'} gap={'2rem'}>
-        <Text padding={'.5rem'}>Quantity</Text>
-        <Flex gap={'.2rem'}>
-          <Button
-            variant={'outline'}
-            onClick={() =>
-              quantity > minimum_order && setQuantity(quantity - 1)
-            }
-          >
-            -
-          </Button>
-          <NumberInputRoot value={quantity.toString()}>
-            <NumberInputField />
-          </NumberInputRoot>
-          <Button variant={'outline'} onClick={() => setQuantity(quantity + 1)}>
-            +
-          </Button>
-        </Flex>
-      </Flex>
     </>
   );
 }

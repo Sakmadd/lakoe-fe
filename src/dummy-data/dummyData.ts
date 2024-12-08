@@ -1,3 +1,5 @@
+import { ProductType } from '@/types/types';
+
 export const dummyOrders = [
   {
     id: 1,
@@ -548,3 +550,177 @@ export const dummyVariants = [
     ],
   },
 ];
+
+export const dummyProductDetail: ProductType = {
+  id: '1',
+  name: 'HANDPHONE MANTAP JIWA BERGELORA',
+  url: 'handphone-mantap-jiwa-bergelora',
+  category_id: 'cat-5',
+  description:
+    'qwdawdawdawdawdawwadaawdawdwadawdawdawdawdawdawdwadawdawdawddawdawdwad',
+  images: [
+    {
+      src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
+      alt: 'Green double couch with wooden legs',
+    },
+    {
+      src: 'https://static.retailworldvn.com/Products/Images/12220/317112/smartphone-samsung-galaxy-a05s-6gb-128gb-silver-thumb-600x600.jpg',
+      alt: 'ai ni bro',
+    },
+    {
+      src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
+      alt: 'Green double couch with wooden legs',
+    },
+    {
+      src: 'https://static.retailworldvn.com/Products/Images/12220/317112/smartphone-samsung-galaxy-a05s-6gb-128gb-silver-thumb-600x600.jpg',
+      alt: 'ai ni bro',
+    },
+    {
+      src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
+      alt: 'Green double couch with wooden legs',
+    },
+    {
+      src: 'https://static.retailworldvn.com/Products/Images/12220/317112/smartphone-samsung-galaxy-a05s-6gb-128gb-silver-thumb-600x600.jpg',
+      alt: 'ai ni bro',
+    },
+    {
+      src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
+      alt: 'Green double couch with wooden legs',
+    },
+  ],
+  is_active: true,
+  minimum_order: 1,
+  price: 2500000,
+  stock: 1000,
+  sku: 'SKU-H2231',
+  weight: 440,
+  length: 10,
+  width: 40,
+  height: 100,
+  variants: [
+    {
+      id: '0.9807274506986017',
+      name: 'color',
+      options: [
+        {
+          id: '1',
+          name: 'red',
+          alt: 'red',
+          src: '',
+        },
+        {
+          id: '2',
+          name: 'green',
+          alt: 'green',
+          src: '',
+        },
+        {
+          id: '3',
+          name: 'blue',
+          alt: 'blue',
+          src: '',
+        },
+      ],
+    },
+    {
+      id: '0.5014468539236281',
+      name: 'storage',
+      options: [
+        {
+          id: '1',
+          name: '64GB',
+          alt: '64GB',
+          src: '',
+        },
+        {
+          id: '2',
+          name: '128GB',
+          alt: '128GB',
+          src: '',
+        },
+        {
+          id: '3',
+          name: '256GB',
+          alt: '256GB',
+          src: '',
+        },
+      ],
+    },
+  ],
+  variant_option_combinations: [
+    {
+      name: 'red - 64GB',
+      price: 2500000,
+      sku: 'SKU-H2231',
+      stock: 200,
+      weight: 440,
+      is_active: true,
+    },
+    {
+      name: 'red - 128GB',
+      price: 2500000,
+      sku: 'SKU-H2231',
+      stock: 200,
+      weight: 440,
+      is_active: true,
+    },
+    {
+      name: 'red - 256GB',
+      price: 2500000,
+      sku: 'SKU-H2231',
+      stock: 200,
+      weight: 440,
+      is_active: true,
+    },
+    {
+      name: 'green - 64GB',
+      price: 2500000,
+      sku: 'SKU-H2231',
+      stock: 200,
+      weight: 440,
+      is_active: true,
+    },
+    {
+      name: 'green - 128GB',
+      price: 2500000,
+      sku: 'SKU-H2231',
+      stock: 200,
+      weight: 440,
+      is_active: true,
+    },
+    {
+      name: 'green - 256GB',
+      price: 2500000,
+      sku: 'SKU-H2231',
+      stock: 200,
+      weight: 440,
+      is_active: true,
+    },
+    {
+      name: 'blue - 64GB',
+      price: 2500000,
+      sku: 'SKU-H2231',
+      stock: 200,
+      weight: 440,
+      is_active: true,
+    },
+    {
+      name: 'blue - 128GB',
+      price: 2500000,
+      sku: 'SKU-H2231',
+      stock: 200,
+      weight: 440,
+      is_active: true,
+    },
+    {
+      name: 'blue - 256GB',
+      price: 2500000,
+      sku: 'SKU-H2231',
+      stock: 200,
+      weight: 440,
+      is_active: true,
+    },
+  ],
+  createdAt: '2024-01-01T00:00:00.000Z',
+  updatedAt: '2024-01-01T00:00:00.000Z',
+};

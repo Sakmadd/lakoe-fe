@@ -24,7 +24,7 @@ export interface ProductType {
   stock: number;
   sku: string;
   category_id: string;
-  image: ImageType;
+  images: ImageType[];
   url: string;
   is_active: boolean;
   minimum_order: number;
@@ -32,8 +32,8 @@ export interface ProductType {
   length: number;
   width: number;
   height: number;
-  variants: VariantType[];
-  variant_option_combinations: VariantOptionCombinationType[];
+  variants?: VariantType[];
+  variant_option_combinations?: VariantOptionCombinationType[];
   createdAt: string;
   updatedAt: string;
 }
