@@ -1,16 +1,18 @@
-import { MainContent } from '@/layouts/mainContent';
-import { ContentContainer } from '../fragments/container/contentContainer';
-import { ProductDetailContent } from '../fragments/product-detail/product-content';
 import { dummyProductDetail } from '@/dummy-data/dummyData';
+import { MainContent } from '@/layouts/mainContent';
+import { Flex } from '@chakra-ui/react';
+import { ProductDetailContent } from '../fragments/product-detail/product-content';
+import { ProductSpecification } from '../fragments/product-detail/productDetail/product-specification';
 
 export function ProductDetailPage() {
   const product = dummyProductDetail;
   return (
     <>
       <MainContent>
-        <ContentContainer>
+        <Flex flexDir={'column'} gap={'1rem'}>
           <ProductDetailContent product={product} />
-        </ContentContainer>
+          <ProductSpecification product={product} />
+        </Flex>
       </MainContent>
     </>
   );

@@ -147,7 +147,7 @@ export const dummyProducts = [
     stock: 15,
     sku: 'SPM-2024',
     image: {
-      src: 'https://down-id.img.susercontent.com/file/sg-11134201-22110-xhtlq7aviojvf9',
+      src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
       alt: 'Smartphone Pro Max',
     },
     url: '/smartphone-pro-max',
@@ -168,7 +168,7 @@ export const dummyProducts = [
     stock: 10,
     sku: 'UBX9-2024',
     image: {
-      src: 'https://example.com/images/ultrabook-x9.jpg',
+      src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
       alt: 'Ultrabook X9',
     },
     url: '/ultrabook-x9',
@@ -189,7 +189,7 @@ export const dummyProducts = [
     stock: 25,
     sku: 'TABGEN3-2024',
     image: {
-      src: 'https://example.com/images/tablet-gen-3.jpg',
+      src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
       alt: 'Tablet Gen 3',
     },
     url: '/tablet-gen-3',
@@ -210,7 +210,7 @@ export const dummyProducts = [
     stock: 20,
     sku: 'CAM4K-2024',
     image: {
-      src: 'https://example.com/images/hd-camera-4k.jpg',
+      src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
       alt: 'HD Camera 4K',
     },
     url: '/hd-camera-4k',
@@ -231,7 +231,7 @@ export const dummyProducts = [
     stock: 50,
     sku: 'WHX-2024',
     image: {
-      src: 'https://example.com/images/wireless-headphones-x.jpg',
+      src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
       alt: 'Wireless Headphones X',
     },
     url: '/wireless-headphones-x',
@@ -252,7 +252,7 @@ export const dummyProducts = [
     stock: 8,
     sku: 'DDR-2024',
     image: {
-      src: 'https://example.com/images/double-door-refrigerator.jpg',
+      src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
       alt: 'Double Door Refrigerator',
     },
     url: '/double-door-refrigerator',
@@ -273,7 +273,7 @@ export const dummyProducts = [
     stock: 12,
     sku: 'WMPLUS-2024',
     image: {
-      src: 'https://example.com/images/washing-machine-plus.jpg',
+      src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
       alt: 'Washing Machine Plus',
     },
     url: '/washing-machine-plus',

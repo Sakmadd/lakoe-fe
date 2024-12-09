@@ -6,7 +6,7 @@ import {
   NumberInputField,
   NumberInputRoot,
 } from '@/components/ui/number-input';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Props {
   product: ProductType;
@@ -14,6 +14,13 @@ interface Props {
 
 export function ProductDetailText({ product }: Props) {
   const [quantity, setQuantity] = useState<number>(product.minimum_order);
+  const [selectedVariantOption, setSelectedVariantOption] = useState<string[]>(
+    []
+  );
+
+  useEffect(() => {
+    console.log(selectedVariantOption);
+  });
 
   return (
     <>
@@ -24,7 +31,7 @@ export function ProductDetailText({ product }: Props) {
             width={'full'}
             backgroundColor={'rgba(248, 248, 248, 1)'}
             padding={'1rem'}
-            fontWeight={'bold'}
+            fontWeight={'semibold'}
             letterSpacing={'wide'}
             fontSize={'3xl'}
             borderRadius={'.2rem'}
@@ -33,10 +40,16 @@ export function ProductDetailText({ product }: Props) {
           </Text>
         </Flex>
         {product.variants && (
-          <ProductDetailVariant variants={product.variants} />
+          <ProductDetailVariant
+            selectedVariantOption={selectedVariantOption}
+            setSelectedVariantOption={setSelectedVariantOption}
+            variants={product.variants}
+          />
         )}
         <Flex marginY={'1rem'} alignItems={'center'} gap={'2rem'}>
-          <Text padding={'.5rem'}>Quantity</Text>
+          <Text padding={'.5rem'} minWidth={'7rem'}>
+            Quantity
+          </Text>
           <Flex gap={'.2rem'}>
             <Button
               variant={'outline'}
