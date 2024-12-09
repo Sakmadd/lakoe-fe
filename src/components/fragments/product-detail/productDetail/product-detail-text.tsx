@@ -1,12 +1,12 @@
-import { Button, Flex, Spacer, Text } from '@chakra-ui/react';
-import { ProductDetailVariant } from './product-detail-variant';
-import { ProductType } from '@/types/types';
-import { formatRupiah } from '@/utils/format-rp';
 import {
   NumberInputField,
   NumberInputRoot,
 } from '@/components/ui/number-input';
-import { useEffect, useState } from 'react';
+import { ProductType } from '@/types/types';
+import { formatRupiah } from '@/utils/format-rp';
+import { Button, Flex, Spacer, Text } from '@chakra-ui/react';
+import { useState } from 'react';
+import { ProductDetailVariant } from './product-detail-variant';
 
 interface Props {
   product: ProductType;
@@ -20,10 +20,6 @@ export function ProductDetailText({
   setSelectedVariantOption,
 }: Props) {
   const [quantity, setQuantity] = useState<number>(product.minimum_order);
-
-  useEffect(() => {
-    console.log(selectedVariantOption);
-  });
 
   return (
     <>

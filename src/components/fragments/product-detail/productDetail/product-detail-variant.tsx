@@ -1,5 +1,6 @@
 import { VariantType } from '@/types/types';
 import { Button, Flex, Separator, Text } from '@chakra-ui/react';
+import { Fragment } from 'react/jsx-runtime';
 
 interface productDetailVariantProps {
   variants: VariantType[];
@@ -28,7 +29,7 @@ export function ProductDetailVariant({
   return (
     <>
       {variants.map((variant) => (
-        <>
+        <Fragment key={variant.name}>
           <Flex alignItems={'center'}>
             <Flex
               marginY={'1rem'}
@@ -61,7 +62,7 @@ export function ProductDetailVariant({
           </Flex>
 
           <Separator />
-        </>
+        </Fragment>
       ))}
     </>
   );

@@ -650,7 +650,7 @@ export const dummyProductDetail: ProductType = {
   variant_option_combinations: [
     {
       name: 'red - 64GB',
-      price: 2500000,
+      price: 1500000,
       sku: 'SKU-H2231',
       stock: 200,
       weight: 440,
@@ -658,7 +658,7 @@ export const dummyProductDetail: ProductType = {
     },
     {
       name: 'red - 128GB',
-      price: 2500000,
+      price: 2000000,
       sku: 'SKU-H2231',
       stock: 200,
       weight: 440,
@@ -690,7 +690,7 @@ export const dummyProductDetail: ProductType = {
     },
     {
       name: 'green - 256GB',
-      price: 2500000,
+      price: 3500000,
       sku: 'SKU-H2231',
       stock: 200,
       weight: 440,
@@ -706,7 +706,7 @@ export const dummyProductDetail: ProductType = {
     },
     {
       name: 'blue - 128GB',
-      price: 2500000,
+      price: 4000000,
       sku: 'SKU-H2231',
       stock: 200,
       weight: 440,
@@ -714,7 +714,7 @@ export const dummyProductDetail: ProductType = {
     },
     {
       name: 'blue - 256GB',
-      price: 2500000,
+      price: 6500000,
       sku: 'NGENTOT',
       stock: 200,
       weight: 440,
