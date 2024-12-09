@@ -30,6 +30,7 @@ export function ProductSpecification({ product }: Props) {
               <Text color={'grey'}>Length</Text>
               <Text color={'grey'}>Width</Text>
               <Text color={'grey'}>Height</Text>
+              <Text color={'grey'}>SKU</Text>
             </Flex>
             <Flex paddingX={'1rem'} flexDir={'column'} gap={'1rem'}>
               <Text>{product.category_id}</Text>
@@ -38,6 +39,7 @@ export function ProductSpecification({ product }: Props) {
               <Text>{product.length} Cm</Text>
               <Text>{product.width} Cm</Text>
               <Text>{product.height} Cm</Text>
+              <Text>{product.sku}</Text>
             </Flex>
           </Flex>
           <Flex flexDir={'column'} gap={'1rem'}>

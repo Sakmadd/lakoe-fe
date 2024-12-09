@@ -10,13 +10,16 @@ import { useEffect, useState } from 'react';
 
 interface Props {
   product: ProductType;
+  setSelectedVariantOption: React.Dispatch<React.SetStateAction<string[]>>;
+  selectedVariantOption: string[];
 }
 
-export function ProductDetailText({ product }: Props) {
+export function ProductDetailText({
+  product,
+  selectedVariantOption,
+  setSelectedVariantOption,
+}: Props) {
   const [quantity, setQuantity] = useState<number>(product.minimum_order);
-  const [selectedVariantOption, setSelectedVariantOption] = useState<string[]>(
-    []
-  );
 
   useEffect(() => {
     console.log(selectedVariantOption);

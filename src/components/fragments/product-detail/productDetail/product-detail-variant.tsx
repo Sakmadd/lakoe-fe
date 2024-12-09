@@ -14,14 +14,14 @@ export function ProductDetailVariant({
 }: productDetailVariantProps) {
   const handleSubVariantClick = (variantName: string, subVariant: string) => {
     const currentIndex = selectedVariantOption.findIndex((sv) =>
-      sv.startsWith(`${variantName}:`)
+      sv.startsWith(`${variantName} -`)
     );
     if (currentIndex !== -1) {
       selectedVariantOption.splice(currentIndex, 1);
     }
     setSelectedVariantOption([
       ...selectedVariantOption,
-      `${variantName}:${subVariant}`,
+      `${variantName} - ${subVariant}`,
     ]);
   };
 
@@ -44,7 +44,7 @@ export function ProductDetailVariant({
                   key={option.id}
                   variant={
                     selectedVariantOption.includes(
-                      `${variant.name}:${option.name}`
+                      `${variant.name} - ${option.name}`
                     )
                       ? 'solid'
                       : 'outline'

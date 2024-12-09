@@ -553,7 +553,7 @@ export const dummyVariants = [
 
 export const dummyProductDetail: ProductType = {
   id: '1',
-  name: 'HANDPHONE MANTAP JIWA BERGELORA',
+  name: 'HANDPHONE MANTAP JIWA BERGELORA BOOM BOOM BOOM 🔥🔥🔥',
   url: 'handphone-mantap-jiwa-bergelora',
   category_id: 'cat-5',
   description:
@@ -654,7 +654,7 @@ export const dummyProductDetail: ProductType = {
       sku: 'SKU-H2231',
       stock: 200,
       weight: 440,
-      is_active: true,
+      is_active: false,
     },
     {
       name: 'red - 128GB',
@@ -715,7 +715,7 @@ export const dummyProductDetail: ProductType = {
     {
       name: 'blue - 256GB',
       price: 2500000,
-      sku: 'SKU-H2231',
+      sku: 'NGENTOT',
       stock: 200,
       weight: 440,
       is_active: true,
