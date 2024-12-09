@@ -4,7 +4,7 @@ import { HomePage } from './components/pages/home-page';
 import { ProductDetailPage } from './components/pages/product-detail-page';
 import { SellerLayout } from './layouts/sellerLayout';
 import { ProductNewPage } from './components/pages/product-new-page';
-import { DashboardPage } from './components/pages/dashboard-page';
+import { DashboardPage } from './components/pages/seller-dashboard-page';
 import { ProductPage } from './components/pages/product-page';
 import { OrderPage } from './components/pages/order-page';
 import { SettingsPage } from './components/pages/settings-page';
