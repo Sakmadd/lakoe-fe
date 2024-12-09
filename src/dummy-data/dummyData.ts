@@ -652,7 +652,7 @@ export const dummyProductDetail: ProductType = {
       name: 'red - 64GB',
       price: 1500000,
       sku: 'SKU-H2231',
-      stock: 200,
+      stock: 10,
       weight: 440,
       is_active: false,
     },

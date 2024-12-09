@@ -32,14 +32,14 @@ export function ProductDetailVariant({
         <Fragment key={variant.name}>
           <Flex alignItems={'center'}>
             <Flex
-              marginY={'1rem'}
+              marginY={'.5rem'}
               alignItems={'center'}
               key={variant.name}
               minWidth={'9rem'}
             >
               <Text padding={'.5rem'}>{variant.name}</Text>
             </Flex>
-            <Flex gap={'.2rem'} flexWrap={'wrap'}>
+            <Flex gap={'.5rem'} flexWrap={'wrap'}>
               {variant.options!.map((option) => (
                 <Button
                   key={option.id}
