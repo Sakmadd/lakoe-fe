@@ -724,3 +724,10 @@ export const dummyProductDetail: ProductType = {
   createdAt: '2024-01-01T00:00:00.000Z',
   updatedAt: '2024-01-01T00:00:00.000Z',
 };
+
+export const dummyLoggedUser = {
+  id: 1,
+  name: 'Miguel',
+  email: 'bCfDy@example.com',
+  role: 'ADMIN',
+};
