@@ -174,7 +174,7 @@ export default function SettingsInformation() {
             gap="0.5rem"
             alignItems="center"
           >
-            {store.file ? (
+            {image ? (
               <Image src={imageReader} width="100%" height="100%" />
             ) : (
               <>
