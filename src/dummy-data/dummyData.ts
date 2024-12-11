@@ -1,4 +1,4 @@
-import { ProductType } from '@/types/types';
+import { ProductType, UserType } from '@/types/types';
 
 export const dummyOrders = [
   {
@@ -723,4 +723,12 @@ export const dummyProductDetail: ProductType = {
   ],
   createdAt: '2024-01-01T00:00:00.000Z',
   updatedAt: '2024-01-01T00:00:00.000Z',
+};
+
+export const dummyLoggedUser: UserType = {
+  id: '2',
+  shop_id: '3',
+  name: 'Miguel',
+  email: 'bCfDy@example.com',
+  role: 'SELLER',
 };

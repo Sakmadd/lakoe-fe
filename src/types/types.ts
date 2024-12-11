@@ -1,3 +1,23 @@
+export interface UserType {
+  id: string;
+  shop_id: string;
+  name: string;
+  email: string;
+  password?: string;
+  role: string;
+}
+
+export interface recipientType {
+  name: string;
+  email: string;
+  address: string;
+  phone: string;
+  district: string;
+  city: string;
+  longitude: string;
+  latitude: string;
+}
+
 export interface OrderType {
   id: number;
   name: string;
