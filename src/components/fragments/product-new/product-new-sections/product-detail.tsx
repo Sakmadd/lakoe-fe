@@ -16,7 +16,14 @@ export function ProductDetailSection({ register }: Props) {
         <Text fontSize="1xl" fontWeight="bold">
           Product Detail
         </Text>
-        <FieldInputDescription register={register} />
+        <FieldInputDescription
+          registerName="description"
+          label="Description"
+          placeholder="Enter description"
+          maxLength={3000}
+          required
+          register={register}
+        />
         <FieldInputImage label="Product Image" />
       </Flex>
     </ContentContainer>

@@ -1,19 +1,18 @@
 import { Field } from '@/components/ui/field';
-import { ProductType } from '@/types/types';
 import { Input } from '@chakra-ui/react';
-import { UseFormRegister } from 'react-hook-form';
+import { UseFormRegister, FieldValues, Path } from 'react-hook-form';
 
-interface Props {
+interface Props<T extends FieldValues> {
   defaultValue?: string;
   type?: string;
   required?: boolean;
   placeholder?: string;
   label?: string;
-  register: UseFormRegister<ProductType>;
-  registerName: keyof ProductType;
+  register: UseFormRegister<T>;
+  registerName: Path<T>;
 }
 
-export function FieldInput({
+export function FieldInput<T extends FieldValues>({
   required,
   placeholder,
   label,
@@ -21,7 +20,7 @@ export function FieldInput({
   defaultValue,
   register,
   registerName,
-}: Props) {
+}: Props<T>) {
   return (
     <>
       <Field label={label} required={required} color={'gray'}>

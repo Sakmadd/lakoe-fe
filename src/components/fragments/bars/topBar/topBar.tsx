@@ -24,10 +24,14 @@ import {
 
 const loggedUser = dummyLoggedUser;
 
-export function TopBar() {
+interface Props {
+  display?: string;
+}
+
+export function TopBar({ display }: Props) {
   return (
     <>
-      <TopBarlayout>
+      <TopBarlayout display={display}>
         <Flex
           width={'full'}
           justifyContent={'space-between'}

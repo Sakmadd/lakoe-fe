@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 import { Accordion, HStack } from '@chakra-ui/react';
 import * as React from 'react';
 import { LuChevronDown } from 'react-icons/lu';
@@ -30,7 +31,7 @@ export const AccordionItemTrigger = React.forwardRef<
   );
 });
 
-type AccordionItemContentProps = Accordion.ItemContentProps;
+interface AccordionItemContentProps extends Accordion.ItemContentProps {}
 
 export const AccordionItemContent = React.forwardRef<
   HTMLDivElement,
