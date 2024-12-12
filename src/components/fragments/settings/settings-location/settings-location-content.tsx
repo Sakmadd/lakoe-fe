@@ -11,7 +11,7 @@ import {
 import {
   settingsLocationSchema,
   SettingsLocationType,
-} from '@/validators/settings-location';
+} from '@/validators/settings/settings-location';
 import { Box, Image, Input, Text, Textarea } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import 'leaflet/dist/leaflet.css';

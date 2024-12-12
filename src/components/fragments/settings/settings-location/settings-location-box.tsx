@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { SettingsLocationType } from '@/validators/settings-location';
+import { SettingsLocationType } from '@/validators/settings/settings-location';
 import { Box, Input, Text, Textarea, Image } from '@chakra-ui/react';
 import { FaRegEdit } from 'react-icons/fa';
 import { LuTrash } from 'react-icons/lu';

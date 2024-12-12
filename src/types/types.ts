@@ -31,6 +31,20 @@ export interface OrderType {
   updatedAt: string;
 }
 
+export interface OrderDetailType {
+  id: number;
+  name: string;
+  status: string;
+  invoice: string;
+  customer: string;
+  createdAt: string;
+  address: string;
+  courier: string;
+  image: ImageType;
+  quantity: number;
+  total_price: number;
+}
+
 export interface ImageType {
   alt: string;
   src: string;

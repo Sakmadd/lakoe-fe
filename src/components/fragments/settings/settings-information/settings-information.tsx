@@ -6,7 +6,7 @@ import { FileUploadRoot, FileUploadTrigger } from '@/components/ui/file-upload';
 import {
   settingsInformationSchema,
   SettingsInformationType,
-} from '@/validators/settings-information';
+} from '@/validators/settings/settings-information';
 import {
   Box,
   FileUploadFileAcceptDetails,

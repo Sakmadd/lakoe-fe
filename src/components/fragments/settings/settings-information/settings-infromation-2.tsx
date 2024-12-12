@@ -12,7 +12,7 @@ import { LuImage } from 'react-icons/lu';
 import {
   settingsInformationSchema,
   SettingsInformationType,
-} from '@/validators/settings-information';
+} from '@/validators/settings/settings-information';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';

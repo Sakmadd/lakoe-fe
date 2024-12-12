@@ -24,12 +24,12 @@ export function StatsCard({ icon, text, stats, color }: StatsCardProps) {
       >
         <Box display="flex" alignItems="center" gap="0.5rem">
           {icon}
-          <Text fontSize="1rem" fontWeight="semibold" fontFamily="sans-serif">
+          <Text fontSize="0.8rem" fontWeight="semibold" fontFamily="sans-serif">
             {text}
           </Text>
         </Box>
         <Box>
-          <Text fontSize="1.3rem" fontWeight="semibold" fontFamily="sans-serif">
+          <Text fontSize="1.5rem" fontWeight="semibold" fontFamily="sans-serif">
             {stats}
           </Text>
         </Box>

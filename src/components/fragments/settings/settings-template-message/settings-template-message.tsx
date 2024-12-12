@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react';
 import {
   settingsTemplateSchema,
   SettingsTemplateTypes,
-} from '@/validators/settings-template';
+} from '@/validators/settings/settings-template';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import SettingsDeleteDialog from '../components/settings-delete-dialog';
