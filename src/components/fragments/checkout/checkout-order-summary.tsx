@@ -1,3 +1,5 @@
+import { ProductType } from '@/types/types';
+import { formatRupiah } from '@/utils/format-rp';
 import {
   Box,
   Button,
@@ -11,7 +13,11 @@ import {
 import { useState } from 'react';
 import { FaArrowRightLong } from 'react-icons/fa6';
 
-export function CheckoutOrderSummary() {
+interface Props {
+  product: ProductType;
+}
+
+export function CheckoutOrderSummary({ product }: Props) {
   const [charCount, setCharCount] = useState(0);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -41,9 +47,16 @@ export function CheckoutOrderSummary() {
           </Text>
           <Flex flexDir={'column'} fontWeight={'semibold'} gap={'.5rem'}>
             <Flex>
-              <Text color={'grey'}>Total Price (6)</Text>
+              <Text color={'grey'}>
+                Total Price ({product.checkout_quantity})
+              </Text>
               <Spacer />
-              <Text>Rp. 2.000.000</Text>
+              <Text>
+                {formatRupiah(
+                  product.selected_combination!.price *
+                    product.checkout_quantity!
+                )}
+              </Text>
             </Flex>
             <Flex>
               <Text color={'grey'}>Shipment Costs</Text>

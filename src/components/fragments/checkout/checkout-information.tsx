@@ -1,4 +1,4 @@
-import { recipientType } from '@/types/types';
+import { ProductType, recipientType } from '@/types/types';
 import {
   Box,
   Button,
@@ -21,12 +21,14 @@ import {
   AccordionItemTrigger,
   AccordionRoot,
 } from '@/components/ui/accordion';
+import { formatRupiah } from '@/utils/format-rp';
 
 interface Props {
+  product: ProductType;
   register: UseFormRegister<recipientType>;
 }
 
-export function CheckoutInformation({ register }: Props) {
+export function CheckoutInformation({ register, product }: Props) {
   return (
     <>
       <Flex width={'65%'} flexDir={'column'} gap={'1rem'}>
@@ -108,22 +110,27 @@ export function CheckoutInformation({ register }: Props) {
                 <Icon fontSize="lg">
                   <LuTags />
                 </Icon>
-                Order 1
+                Order
               </AccordionItemTrigger>
               <AccordionItemContent padding={'1rem'}>
                 <Flex flexDir={'column'} gap={'1rem'}>
                   <Text>Jakarta Barat</Text>
                   <Flex gap={'1rem'}>
-                    <Image
-                      src="https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg"
-                      maxWidth={'100px'}
-                    />
+                    <Image src={product.images[0].src} maxWidth={'100px'} />
                     <Flex flexDir={'column'}>
-                      <Text>HANPDHONE PALING KECE SEJAGT RAYA</Text>
+                      <Text>{product.name}</Text>
                       <Text fontWeight={'thin'} fontSize={'sm'}>
-                        - 2 Items (200gr)
+                        - {product.checkout_quantity} Items (
+                        {product.selected_combination!.weight *
+                          product.checkout_quantity!}
+                        gr)
                       </Text>
-                      <Text fontWeight={'semibold'}>Rp. 2.000.000</Text>
+                      <Text fontWeight={'semibold'}>
+                        {formatRupiah(
+                          product.selected_combination!.price *
+                            product.checkout_quantity!
+                        )}
+                      </Text>
                     </Flex>
                   </Flex>
                   <Flex flexDir={'column'} gap={'1rem'}>
@@ -148,7 +155,10 @@ export function CheckoutInformation({ register }: Props) {
                         <AccordionItemTrigger cursor={'pointer'}>
                           Subtotal
                           <Spacer />
-                          Rp. 2.000.000
+                          {formatRupiah(
+                            product.selected_combination!.price *
+                              product.checkout_quantity!
+                          )}
                         </AccordionItemTrigger>
                         <AccordionItemContent padding={'1rem'}>
                           <Flex
@@ -158,7 +168,12 @@ export function CheckoutInformation({ register }: Props) {
                           >
                             <Text color={'grey'}>Subtotal (Items)</Text>
                             <Spacer />
-                            <Text color={'grey'}>Rp. 2.000.000</Text>
+                            <Text color={'grey'}>
+                              {formatRupiah(
+                                product.selected_combination!.price *
+                                  product.checkout_quantity!
+                              )}
+                            </Text>
                           </Flex>
                         </AccordionItemContent>
                       </AccordionItem>
