@@ -8,9 +8,9 @@ export default function SettingsContent() {
       {
         title: 'Shop',
         nav: [
-          { text: 'Shop', path: '/settings/shop' },
-          { text: 'Delivery', path: '/' },
-          { text: 'Payment method', path: '/' },
+          { text: 'Shop Settings', path: '/settings/shop' },
+          { text: 'Delivery Settings', path: '/' },
+          { text: 'Payment Method Settings', path: '/' },
         ],
       },
     ],
@@ -24,8 +24,8 @@ export default function SettingsContent() {
             Settings
           </Text>
         </ContentContainer>
-        {collapseData.listNav1.map((data) => (
-          <SettingsColapsable title={data.title} nav={data.nav} />
+        {collapseData.listNav1.map((data, index) => (
+          <SettingsColapsable key={index} title={data.title} nav={data.nav} />
         ))}
       </Box>
     </>

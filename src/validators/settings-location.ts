@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const settingsLocationSchema = z
   .object({
     id: z.string(),
+    main: z.boolean().optional(),
     shop: z.string().min(1, 'Store name cannot be empty'),
     postal: z.string().min(1, 'Postal code cannot be empty'),
     address: z.string().min(1, 'Address cannot be empty'),
