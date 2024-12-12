@@ -1,4 +1,20 @@
-import { recipientType } from '@/types/types';
+import {
+  AccordionItem,
+  AccordionItemContent,
+  AccordionItemTrigger,
+  AccordionRoot,
+} from '@/components/ui/accordion';
+import {
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogRoot,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { ProductType, recipientType } from '@/types/types';
+import { formatRupiah } from '@/utils/format-rp';
 import {
   Box,
   Button,
@@ -12,21 +28,16 @@ import {
 } from '@chakra-ui/react';
 import { UseFormRegister } from 'react-hook-form';
 import { LuTags } from 'react-icons/lu';
-import { FieldInput } from '../fragments/product-new/product-new-fields/field-input';
-import { FieldInputAddon } from '../fragments/product-new/product-new-fields/field-input-addon';
-import { FieldInputDescription } from '../fragments/product-new/product-new-fields/field-input-description';
-import {
-  AccordionItem,
-  AccordionItemContent,
-  AccordionItemTrigger,
-  AccordionRoot,
-} from '../ui/accordion';
+import { FieldInput } from '../product-new/product-new-fields/field-input';
+import { FieldInputAddon } from '../product-new/product-new-fields/field-input-addon';
+import { FieldInputDescription } from '../product-new/product-new-fields/field-input-description';
 
 interface Props {
+  product: ProductType;
   register: UseFormRegister<recipientType>;
 }
 
-export function CheckoutInformation({ register }: Props) {
+export function CheckoutInformation({ register, product }: Props) {
   return (
     <>
       <Flex width={'65%'} flexDir={'column'} gap={'1rem'}>
@@ -78,10 +89,27 @@ export function CheckoutInformation({ register }: Props) {
           <FieldInput
             required
             register={register}
+            registerName={'province'}
+            label="Province"
+          />
+          <FieldInput
+            required
+            register={register}
+            registerName={'city'}
+            label="City"
+          />
+          <FieldInput
+            required
+            register={register}
             registerName={'district'}
             label="Disctrict"
           />
-          <FieldInput register={register} registerName={'city'} label="City" />
+          <FieldInput
+            required
+            register={register}
+            registerName={'subdistrict'}
+            label="Subdistrict"
+          />
           <FieldInputDescription
             registerName="address"
             label="Address Detail"
@@ -108,33 +136,60 @@ export function CheckoutInformation({ register }: Props) {
                 <Icon fontSize="lg">
                   <LuTags />
                 </Icon>
-                Order 1
+                Order
               </AccordionItemTrigger>
               <AccordionItemContent padding={'1rem'}>
                 <Flex flexDir={'column'} gap={'1rem'}>
                   <Text>Jakarta Barat</Text>
                   <Flex gap={'1rem'}>
-                    <Image
-                      src="https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg"
-                      maxWidth={'100px'}
-                    />
+                    <Image src={product.images[0].src} maxWidth={'100px'} />
                     <Flex flexDir={'column'}>
-                      <Text>HANPDHONE PALING KECE SEJAGT RAYA</Text>
+                      <Text>{product.name}</Text>
                       <Text fontWeight={'thin'} fontSize={'sm'}>
-                        - 2 Items (200gr)
+                        - {product.checkout_quantity} Items (
+                        {product.selected_combination!.weight *
+                          product.checkout_quantity!}
+                        gr)
                       </Text>
-                      <Text fontWeight={'semibold'}>Rp. 2.000.000</Text>
+                      <Text fontWeight={'semibold'}>
+                        {formatRupiah(
+                          product.selected_combination!.price *
+                            product.checkout_quantity!
+                        )}
+                      </Text>
                     </Flex>
                   </Flex>
                   <Flex flexDir={'column'} gap={'1rem'}>
                     <Separator />
-                    <Button
-                      maxWidth={'30%'}
-                      backgroundColor={'blue.500'}
-                      fontWeight={'bold'}
+                    <DialogRoot
+                      key={'md'}
+                      size={'md'}
+                      scrollBehavior={'inside'}
+                      motionPreset={'slide-in-bottom'}
                     >
-                      Select Your Shipments
-                    </Button>
+                      <DialogTrigger asChild>
+                        <Button
+                          maxWidth={'30%'}
+                          backgroundColor={'blue.500'}
+                          fontWeight={'bold'}
+                        >
+                          Select Your Shipments
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle textAlign={'center'}>
+                            <Text paddingBottom={'1rem'}>
+                              Choose Your Shipments
+                            </Text>
+                            <Separator size={'md'} />
+                          </DialogTitle>
+                        </DialogHeader>
+                        <DialogBody>shitmen</DialogBody>
+                        <DialogCloseTrigger />
+                      </DialogContent>
+                    </DialogRoot>
+
                     <Separator />
                   </Flex>
                   <Flex flexDir={'column'}>
@@ -148,7 +203,10 @@ export function CheckoutInformation({ register }: Props) {
                         <AccordionItemTrigger cursor={'pointer'}>
                           Subtotal
                           <Spacer />
-                          Rp. 2.000.000
+                          {formatRupiah(
+                            product.selected_combination!.price *
+                              product.checkout_quantity!
+                          )}
                         </AccordionItemTrigger>
                         <AccordionItemContent padding={'1rem'}>
                           <Flex
@@ -158,7 +216,12 @@ export function CheckoutInformation({ register }: Props) {
                           >
                             <Text color={'grey'}>Subtotal (Items)</Text>
                             <Spacer />
-                            <Text color={'grey'}>Rp. 2.000.000</Text>
+                            <Text color={'grey'}>
+                              {formatRupiah(
+                                product.selected_combination!.price *
+                                  product.checkout_quantity!
+                              )}
+                            </Text>
                           </Flex>
                         </AccordionItemContent>
                       </AccordionItem>

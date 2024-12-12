@@ -6,14 +6,20 @@ export interface UserType {
   password?: string;
   role: string;
 }
+export interface imagesType {
+  src: string;
+  alt: string;
+}
 
 export interface recipientType {
   name: string;
   email: string;
   address: string;
   phone: string;
-  district: string;
+  province: string;
   city: string;
+  district: string;
+  subdistrict: string;
   longitude: string;
   latitude: string;
 }
@@ -54,6 +60,9 @@ export interface ProductType {
   height: number;
   variants?: VariantType[];
   variant_option_combinations?: VariantOptionCombinationType[];
+  selected_variant?: string[];
+  selected_combination?: VariantOptionCombinationType;
+  checkout_quantity?: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -89,6 +98,7 @@ export interface VariantUIType extends VariantType {
 }
 
 export interface VariantOptionCombinationType {
+  id?: string;
   name: string;
   is_active: boolean;
   price: number;

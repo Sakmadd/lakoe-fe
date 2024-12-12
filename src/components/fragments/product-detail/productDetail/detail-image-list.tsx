@@ -1,11 +1,7 @@
+import { imagesType } from '@/types/types';
 import { Box, Button, Flex, Image } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
-
-export type imagesType = {
-  src: string;
-  alt: string;
-};
 
 interface DetailImageListProps {
   images: imagesType[];
@@ -17,9 +13,8 @@ export function DetailImageList({
   onImageClick,
 }: DetailImageListProps) {
   const [startIndex, setStartIndex] = useState(0);
-  const [maxVisible, setMaxVisible] = useState(5); // Default value
+  const [maxVisible, setMaxVisible] = useState(5);
 
-  // Menyesuaikan maxVisible berdasarkan ukuran layar
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 480) {
