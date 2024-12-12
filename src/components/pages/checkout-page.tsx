@@ -1,4 +1,4 @@
-import { CheckoutContent } from '../checkout/checkout-content';
+import { CheckoutContent } from '../fragments/checkout/checkout-content';
 
 export function CheckoutPage() {
   return (

@@ -12,15 +12,15 @@ import {
 } from '@chakra-ui/react';
 import { UseFormRegister } from 'react-hook-form';
 import { LuTags } from 'react-icons/lu';
-import { FieldInput } from '../fragments/product-new/product-new-fields/field-input';
-import { FieldInputAddon } from '../fragments/product-new/product-new-fields/field-input-addon';
-import { FieldInputDescription } from '../fragments/product-new/product-new-fields/field-input-description';
+import { FieldInput } from '../product-new/product-new-fields/field-input';
+import { FieldInputAddon } from '../product-new/product-new-fields/field-input-addon';
+import { FieldInputDescription } from '../product-new/product-new-fields/field-input-description';
 import {
   AccordionItem,
   AccordionItemContent,
   AccordionItemTrigger,
   AccordionRoot,
-} from '../ui/accordion';
+} from '@/components/ui/accordion';
 
 interface Props {
   register: UseFormRegister<recipientType>;

@@ -54,6 +54,7 @@ export interface ProductType {
   height: number;
   variants?: VariantType[];
   variant_option_combinations?: VariantOptionCombinationType[];
+  checkout_quantity?: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -89,6 +90,7 @@ export interface VariantUIType extends VariantType {
 }
 
 export interface VariantOptionCombinationType {
+  id?: string;
   name: string;
   is_active: boolean;
   price: number;
