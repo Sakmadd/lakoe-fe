@@ -1,6 +1,6 @@
-import { loggedUser } from '@/App';
 import { Avatar } from '@/components/ui/avatar';
 import { InputGroup } from '@/components/ui/input-group';
+import { dummyLoggedUser } from '@/dummy-data/dummyData';
 import { TopBarlayout } from '@/layouts/bars/topBarLayout';
 import {
   Flex,
@@ -22,10 +22,16 @@ import {
   RiShoppingBag4Line,
 } from 'react-icons/ri';
 
-export function TopBar() {
+const loggedUser = dummyLoggedUser;
+
+interface Props {
+  display?: string;
+}
+
+export function TopBar({ display }: Props) {
   return (
     <>
-      <TopBarlayout>
+      <TopBarlayout display={display}>
         <Flex
           width={'full'}
           justifyContent={'space-between'}
