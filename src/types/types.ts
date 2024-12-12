@@ -16,8 +16,10 @@ export interface recipientType {
   email: string;
   address: string;
   phone: string;
-  district: string;
+  province: string;
   city: string;
+  district: string;
+  subdistrict: string;
   longitude: string;
   latitude: string;
 }

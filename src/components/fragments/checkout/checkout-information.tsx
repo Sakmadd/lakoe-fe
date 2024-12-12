@@ -1,4 +1,20 @@
+import {
+  AccordionItem,
+  AccordionItemContent,
+  AccordionItemTrigger,
+  AccordionRoot,
+} from '@/components/ui/accordion';
+import {
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogRoot,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { ProductType, recipientType } from '@/types/types';
+import { formatRupiah } from '@/utils/format-rp';
 import {
   Box,
   Button,
@@ -15,13 +31,6 @@ import { LuTags } from 'react-icons/lu';
 import { FieldInput } from '../product-new/product-new-fields/field-input';
 import { FieldInputAddon } from '../product-new/product-new-fields/field-input-addon';
 import { FieldInputDescription } from '../product-new/product-new-fields/field-input-description';
-import {
-  AccordionItem,
-  AccordionItemContent,
-  AccordionItemTrigger,
-  AccordionRoot,
-} from '@/components/ui/accordion';
-import { formatRupiah } from '@/utils/format-rp';
 
 interface Props {
   product: ProductType;
@@ -80,10 +89,27 @@ export function CheckoutInformation({ register, product }: Props) {
           <FieldInput
             required
             register={register}
+            registerName={'province'}
+            label="Province"
+          />
+          <FieldInput
+            required
+            register={register}
+            registerName={'city'}
+            label="City"
+          />
+          <FieldInput
+            required
+            register={register}
             registerName={'district'}
             label="Disctrict"
           />
-          <FieldInput register={register} registerName={'city'} label="City" />
+          <FieldInput
+            required
+            register={register}
+            registerName={'subdistrict'}
+            label="Subdistrict"
+          />
           <FieldInputDescription
             registerName="address"
             label="Address Detail"
@@ -135,13 +161,35 @@ export function CheckoutInformation({ register, product }: Props) {
                   </Flex>
                   <Flex flexDir={'column'} gap={'1rem'}>
                     <Separator />
-                    <Button
-                      maxWidth={'30%'}
-                      backgroundColor={'blue.500'}
-                      fontWeight={'bold'}
+                    <DialogRoot
+                      key={'md'}
+                      size={'md'}
+                      scrollBehavior={'inside'}
+                      motionPreset={'slide-in-bottom'}
                     >
-                      Select Your Shipments
-                    </Button>
+                      <DialogTrigger asChild>
+                        <Button
+                          maxWidth={'30%'}
+                          backgroundColor={'blue.500'}
+                          fontWeight={'bold'}
+                        >
+                          Select Your Shipments
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle textAlign={'center'}>
+                            <Text paddingBottom={'1rem'}>
+                              Choose Your Shipments
+                            </Text>
+                            <Separator size={'md'} />
+                          </DialogTitle>
+                        </DialogHeader>
+                        <DialogBody>shitmen</DialogBody>
+                        <DialogCloseTrigger />
+                      </DialogContent>
+                    </DialogRoot>
+
                     <Separator />
                   </Flex>
                   <Flex flexDir={'column'}>
