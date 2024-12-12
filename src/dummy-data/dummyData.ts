@@ -681,7 +681,6 @@ export const dummyVariants = [
     ],
   },
 ];
-
 export const dummyProductDetail: ProductType = {
   id: '1',
   name: 'HANDPHONE MANTAP JIWA BERGELORA BOOM BOOM BOOM 🔥🔥🔥',
@@ -780,6 +779,7 @@ export const dummyProductDetail: ProductType = {
   ],
   variant_option_combinations: [
     {
+      id: '1',
       name: 'red - 64GB',
       price: 1500000,
       sku: 'SKU-H2231',
@@ -788,6 +788,7 @@ export const dummyProductDetail: ProductType = {
       is_active: false,
     },
     {
+      id: '2',
       name: 'red - 128GB',
       price: 2000000,
       sku: 'SKU-H2231',
@@ -796,6 +797,7 @@ export const dummyProductDetail: ProductType = {
       is_active: true,
     },
     {
+      id: '3',
       name: 'red - 256GB',
       price: 2500000,
       sku: 'SKU-H2231',
@@ -804,6 +806,7 @@ export const dummyProductDetail: ProductType = {
       is_active: true,
     },
     {
+      id: '4',
       name: 'green - 64GB',
       price: 2500000,
       sku: 'SKU-H2231',
@@ -812,6 +815,7 @@ export const dummyProductDetail: ProductType = {
       is_active: true,
     },
     {
+      id: '5',
       name: 'green - 128GB',
       price: 2500000,
       sku: 'SKU-H2231',
@@ -820,6 +824,7 @@ export const dummyProductDetail: ProductType = {
       is_active: true,
     },
     {
+      id: '6',
       name: 'green - 256GB',
       price: 3500000,
       sku: 'SKU-H2231',
@@ -828,6 +833,7 @@ export const dummyProductDetail: ProductType = {
       is_active: true,
     },
     {
+      id: '7',
       name: 'blue - 64GB',
       price: 2500000,
       sku: 'SKU-H2231',
@@ -836,6 +842,7 @@ export const dummyProductDetail: ProductType = {
       is_active: true,
     },
     {
+      id: '8',
       name: 'blue - 128GB',
       price: 4000000,
       sku: 'SKU-H2231',
@@ -844,6 +851,7 @@ export const dummyProductDetail: ProductType = {
       is_active: true,
     },
     {
+      id: '9',
       name: 'blue - 256GB',
       price: 6500000,
       sku: 'NGENTOT',
@@ -861,7 +869,7 @@ export const dummyLoggedUser: UserType = {
   shop_id: '3',
   name: 'Miguel',
   email: 'bCfDy@example.com',
-  role: 'BUYER',
+  role: 'SELLER',
 };
 
 export const tableData = [

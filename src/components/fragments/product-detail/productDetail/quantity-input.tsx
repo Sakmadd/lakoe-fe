@@ -2,14 +2,24 @@ import { Button } from '@/components/ui/button';
 import { ProductType } from '@/types/types';
 import { Flex, Input, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import { UseFormSetValue } from 'react-hook-form';
 
 interface Props {
   product: ProductType;
   selectedVariantOption: string[];
+  setvalue: UseFormSetValue<ProductType>;
 }
 
-export function QuantityInput({ product, selectedVariantOption }: Props) {
+export function QuantityInput({
+  product,
+  selectedVariantOption,
+  setvalue,
+}: Props) {
   const [quantity, setQuantity] = useState<number>(product.minimum_order);
+
+  useEffect(() => {
+    setvalue('checkout_quantity', quantity);
+  }, [quantity, setvalue]);
 
   useEffect(() => {
     setQuantity(product.minimum_order);
@@ -26,7 +36,7 @@ export function QuantityInput({ product, selectedVariantOption }: Props) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value === '') {
-      setQuantity(0); // Allow clearing input temporarily
+      setQuantity(0);
       return;
     }
 

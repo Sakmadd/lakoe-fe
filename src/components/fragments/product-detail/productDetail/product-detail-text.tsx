@@ -1,6 +1,7 @@
 import { ProductType } from '@/types/types';
 import { formatRupiah } from '@/utils/format-rp';
 import { Button, Flex, Spacer, Text } from '@chakra-ui/react';
+import { UseFormSetValue } from 'react-hook-form';
 import { ProductDetailVariant } from './product-detail-variant';
 import { QuantityInput } from './quantity-input';
 
@@ -8,12 +9,14 @@ interface Props {
   product: ProductType;
   setSelectedVariantOption: React.Dispatch<React.SetStateAction<string[]>>;
   selectedVariantOption: string[];
+  setvalue: UseFormSetValue<ProductType>;
 }
 
 export function ProductDetailText({
   product,
   selectedVariantOption,
   setSelectedVariantOption,
+  setvalue,
 }: Props) {
   return (
     <Flex width={'60%'} flexDir={'column'}>
@@ -39,6 +42,7 @@ export function ProductDetailText({
         />
       )}
       <QuantityInput
+        setvalue={setvalue}
         product={product}
         selectedVariantOption={selectedVariantOption}
       />
