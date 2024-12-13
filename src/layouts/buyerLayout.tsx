@@ -8,7 +8,13 @@ export function BuyerLayout() {
     <>
       <Box>
         <TopBar
-          display={location.pathname === '/checkout' ? 'none' : 'block'}
+          display={
+            location.pathname === '/checkout' ||
+            location.pathname === '/login' ||
+            location.pathname === '/register'
+              ? 'none'
+              : 'block'
+          }
         />
         <Grid templateColumns={'repeat(20, 1fr)'}>
           <GridItem

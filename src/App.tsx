@@ -15,6 +15,8 @@ import { BuyerLayout } from './layouts/buyerLayout';
 import { SellerLayout } from './layouts/sellerLayout';
 import { UserType } from './types/types';
 import { dummyLoggedUser } from './dummy-data/dummyData';
+import { LoginPage } from './components/pages/login-page';
+import { RegisterPage } from './components/pages/register-page';
 
 function App() {
   const [loggedUser] = useState<UserType | null>(dummyLoggedUser);
@@ -50,6 +52,8 @@ function App() {
     <Routes>
       <Route path="/" element={<BuyerLayout />}>
         <Route index element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/:productName" element={<ProductDetailPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/orders/:orderId" element={<OrderDetail />} />

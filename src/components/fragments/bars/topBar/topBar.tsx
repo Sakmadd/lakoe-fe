@@ -1,11 +1,9 @@
 import { Avatar } from '@/components/ui/avatar';
 import { InputGroup } from '@/components/ui/input-group';
-import { dummyLoggedUser } from '@/dummy-data/dummyData';
 import { TopBarlayout } from '@/layouts/bars/topBarLayout';
 import {
   Flex,
   Input,
-  Link,
   MenuContent,
   MenuItem,
   MenuRoot,
@@ -21,14 +19,16 @@ import {
   RiLogoutBoxLine,
   RiShoppingBag4Line,
 } from 'react-icons/ri';
-
-const loggedUser = dummyLoggedUser;
+import { Link, useNavigate } from 'react-router-dom';
 
 interface Props {
   display?: string;
 }
 
 export function TopBar({ display }: Props) {
+  const navigate = useNavigate();
+  const loggedUser = null;
+
   return (
     <>
       <TopBarlayout display={display}>
@@ -38,7 +38,7 @@ export function TopBar({ display }: Props) {
           paddingX={'2%'}
           paddingY={'.5%'}
         >
-          <Link href="/">
+          <Link to="/">
             <RiShoppingBag4Line size={'40px'} />
             <Text
               fontWeight={'bold'}
@@ -66,7 +66,11 @@ export function TopBar({ display }: Props) {
             <MenuContent pos={'absolute'} right={'3'} top={'16'}>
               {loggedUser ? (
                 <>
-                  <MenuItem value="profile" cursor={'pointer'}>
+                  <MenuItem
+                    value="profile"
+                    cursor={'pointer'}
+                    onClick={() => navigate('/profile')}
+                  >
                     Profile
                     <Spacer />
                     <CgProfile />
@@ -79,12 +83,20 @@ export function TopBar({ display }: Props) {
                 </>
               ) : (
                 <>
-                  <MenuItem value="register" cursor={'pointer'}>
+                  <MenuItem
+                    value="register"
+                    cursor={'pointer'}
+                    onClick={() => navigate('/register')}
+                  >
                     Register
                     <Spacer />
                     <MdOutlineAssignmentInd />
                   </MenuItem>
-                  <MenuItem value="login" cursor={'pointer'}>
+                  <MenuItem
+                    value="login"
+                    cursor={'pointer'}
+                    onClick={() => navigate('/login')}
+                  >
                     Login
                     <Spacer />
                     <RiLoginBoxLine />
