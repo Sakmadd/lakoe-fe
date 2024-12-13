@@ -4,7 +4,6 @@ import { TopBarlayout } from '@/layouts/bars/topBarLayout';
 import {
   Flex,
   Input,
-  Link,
   MenuContent,
   MenuItem,
   MenuRoot,
@@ -20,7 +19,7 @@ import {
   RiLogoutBoxLine,
   RiShoppingBag4Line,
 } from 'react-icons/ri';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface Props {
   display?: string;
@@ -39,7 +38,7 @@ export function TopBar({ display }: Props) {
           paddingX={'2%'}
           paddingY={'.5%'}
         >
-          <Link href="/">
+          <Link to="/">
             <RiShoppingBag4Line size={'40px'} />
             <Text
               fontWeight={'bold'}
