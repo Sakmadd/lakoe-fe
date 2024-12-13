@@ -6,7 +6,7 @@ import {
   SelectItem,
 } from '@/components/ui/select';
 import { UseFormRegister } from 'react-hook-form';
-import { SettingsLocationType } from '@/validators/settings-location';
+import { SettingsLocationType } from '@/validators/settings/settings-location';
 import { createListCollection } from '@chakra-ui/react/collection';
 
 interface Props {

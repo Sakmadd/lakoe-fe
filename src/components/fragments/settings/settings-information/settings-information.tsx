@@ -4,9 +4,9 @@ import { FileUploadRoot, FileUploadTrigger } from '@/components/ui/file-upload';
 // import { Toaster } from '@/components/ui/toaster';
 // import { toaster } from '@/components/ui/toaster';
 import {
-  settingsInformatinSchema,
+  settingsInformationSchema,
   SettingsInformationType,
-} from '@/validators/settings-information';
+} from '@/validators/settings/settings-information';
 import {
   Box,
   FileUploadFileAcceptDetails,
@@ -49,7 +49,7 @@ export default function SettingsInformation() {
       description: store.description,
       file: image,
     },
-    resolver: zodResolver(settingsInformatinSchema),
+    resolver: zodResolver(settingsInformationSchema),
   });
 
   useEffect(() => {
@@ -80,7 +80,7 @@ export default function SettingsInformation() {
   console.log(store);
 
   return (
-    <Box marginTop="0.5rem" display="flex" flexDirection="column" gap="1rem ">
+    <Box marginTop="0.9rem" display="flex" flexDirection="column" gap="1rem ">
       <form
         style={{
           display: 'flex',
@@ -99,6 +99,22 @@ export default function SettingsInformation() {
         </Text>
         <Box display="flex" gap="1rem">
           <Box width="100%" display="flex" flexDirection="column" gap="0.8rem">
+            <Box
+              marginTop="1rem"
+              border="1px dashed black"
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              borderRadius="1rem"
+              width="8rem"
+              height="8rem"
+            >
+              <LuImage color="gray" />
+              <Text fontSize="0.8rem" fontWeight="lighter">
+                Upload Image
+              </Text>
+            </Box>
             <Field
               label="Slogan"
               errorText={errors.slogan?.message}
@@ -140,6 +156,8 @@ export default function SettingsInformation() {
             </Field>
           </Box>
         </Box>
+
+        <Input type="file" hidden />
         <Box display="flex" justifyContent="flex-end">
           <Button
             width="10%"

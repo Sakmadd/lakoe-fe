@@ -3,9 +3,9 @@ import {
   BreadcrumbLink,
   BreadcrumbRoot,
 } from '@/components/ui/breadcrumb';
-import { dummyOrders } from '@/dummy-data/dummyData';
+import { dummyOrderDetail } from '@/dummy-data/dummyData';
 import { MainContent } from '@/layouts/mainContent';
-import { OrderType } from '@/types/types';
+import { OrderDetailType } from '@/types/types';
 import { formatRupiah } from '@/utils/format-rp';
 import {
   Box,
@@ -25,8 +25,8 @@ import OrderTextStatus from '../fragments/order/order-text-status';
 export default function OrderDetail() {
   const params = useParams();
 
-  function orderById(id: number): OrderType {
-    for (const order of dummyOrders) {
+  function orderById(id: number): OrderDetailType {
+    for (const order of dummyOrderDetail) {
       if (order.id == id) {
         return order;
       }
@@ -38,7 +38,7 @@ export default function OrderDetail() {
 
   function Current() {
     const current = [];
-    for (const order of dummyOrders) {
+    for (const order of dummyOrderDetail) {
       if (order.id == Number(params.id)) {
         current.push(
           <BreadcrumbCurrentLink color="black">
@@ -93,13 +93,13 @@ export default function OrderDetail() {
               width="50%"
             >
               <Text fontWeight="light" fontSize="0.8rem">
-                09 Agustus 2023 - 19:43 WIB
+                {order.createdAt}
               </Text>
               <Text fontWeight="light" fontSize="0.8rem">
-                INV/20230809/MPL/00000239
+                {order.invoice}
               </Text>
               <Text fontWeight="light" fontSize="0.8rem">
-                Annur Syawila Hasibuan
+                {order.customer}
               </Text>
             </Box>
           </Box>
@@ -193,15 +193,12 @@ export default function OrderDetail() {
                 gap="0.5rem"
               >
                 <Text fontSize="0.8rem" fontWeight="semibold">
-                  J&T-Regular
+                  {order.courier}
                 </Text>
                 <Text fontSize="0.8rem" fontWeight="semibold">
                   -
                 </Text>
-                <Text fontSize="0.8rem">
-                  Jl. Elang IV, Sawah Lama, Kec. Ciputat, Kota Tangerang
-                  Selatan, Banten 15413
-                </Text>
+                <Text fontSize="0.8rem">{order.address}</Text>
               </Box>
             </Box>
           </Box>

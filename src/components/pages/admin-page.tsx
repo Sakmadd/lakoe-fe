@@ -1,12 +1,12 @@
 import { MainContent } from '@/layouts/mainContent';
 import { ContentContainer } from '../fragments/container/contentContainer';
-import { Text } from '@chakra-ui/react';
+import AdminContent from '../fragments/admin/admin-content';
 
 export function AdminPage() {
   return (
     <MainContent>
       <ContentContainer>
-        <Text>Admin</Text>
+        <AdminContent />
       </ContentContainer>
     </MainContent>
   );

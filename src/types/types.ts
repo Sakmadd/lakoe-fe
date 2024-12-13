@@ -11,6 +11,11 @@ export interface imagesType {
   alt: string;
 }
 
+export interface imagesType {
+  src: string;
+  alt: string;
+}
+
 export interface recipientType {
   name: string;
   email: string;
@@ -35,6 +40,20 @@ export interface OrderType {
   courier: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface OrderDetailType {
+  id: number;
+  name: string;
+  status: string;
+  invoice: string;
+  customer: string;
+  createdAt: string;
+  address: string;
+  courier: string;
+  image: ImageType;
+  quantity: number;
+  total_price: number;
 }
 
 export interface ImageType {
