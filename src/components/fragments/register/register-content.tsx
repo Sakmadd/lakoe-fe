@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { PasswordInput } from '@/components/ui/password-input';
-import { Box, Flex, Image, Input, Link, Span, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, Input, Span, Text } from '@chakra-ui/react';
+import { Link as ReactLink } from 'react-router-dom';
 
 export function RegisterContent() {
   return (
@@ -51,8 +52,8 @@ export function RegisterContent() {
             >
               <Text textAlign={'center'} color={'gray'}>
                 Already have an account?{' '}
-                <Span>
-                  <Link href="/login">Login</Link>
+                <Span color={'gray.900'} fontWeight={'semibold'}>
+                  <ReactLink to="/login">Login</ReactLink>
                 </Span>
               </Text>
             </Box>
