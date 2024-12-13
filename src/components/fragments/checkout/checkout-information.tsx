@@ -31,6 +31,7 @@ import { LuTags } from 'react-icons/lu';
 import { FieldInput } from '../product-new/product-new-fields/field-input';
 import { FieldInputAddon } from '../product-new/product-new-fields/field-input-addon';
 import { FieldInputDescription } from '../product-new/product-new-fields/field-input-description';
+import { LocationInputGroup } from './location-input/location-input-group';
 
 interface Props {
   product: ProductType;
@@ -86,30 +87,7 @@ export function CheckoutInformation({ register, product }: Props) {
             label="Phone Number"
             type="number"
           />
-          <FieldInput
-            required
-            register={register}
-            registerName={'province'}
-            label="Province"
-          />
-          <FieldInput
-            required
-            register={register}
-            registerName={'city'}
-            label="City"
-          />
-          <FieldInput
-            required
-            register={register}
-            registerName={'district'}
-            label="Disctrict"
-          />
-          <FieldInput
-            required
-            register={register}
-            registerName={'subdistrict'}
-            label="Subdistrict"
-          />
+          <LocationInputGroup />
           <FieldInputDescription
             registerName="address"
             label="Address Detail"

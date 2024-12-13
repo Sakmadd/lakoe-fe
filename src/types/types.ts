@@ -111,6 +111,18 @@ export interface VariantCombinationFormType {
   variants: VariantOptionCombinationType[];
 }
 
+export interface LocationType {
+  id: string;
+  nama: string;
+}
+
+export interface FormLocationType {
+  province: LocationType;
+  city: LocationType;
+  district: LocationType;
+  subdistrict: LocationType;
+}
+
 export const variants: VariantType[] = [
   {
     id: '1',
