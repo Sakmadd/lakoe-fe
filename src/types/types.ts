@@ -142,6 +142,17 @@ export interface FormLocationType {
   subdistrict: LocationType;
 }
 
+export interface RegisterType {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export interface LoginType {
+  email: string;
+  password: string;
+}
+
 export const variants: VariantType[] = [
   {
     id: '1',
