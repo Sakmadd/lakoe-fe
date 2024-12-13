@@ -26,7 +26,12 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react';
-import { UseFormRegister } from 'react-hook-form';
+import {
+  SubmitHandler,
+  UseFormHandleSubmit,
+  UseFormRegister,
+  UseFormSetValue,
+} from 'react-hook-form';
 import { LuTags } from 'react-icons/lu';
 import { FieldInput } from '../product-new/product-new-fields/field-input';
 import { FieldInputAddon } from '../product-new/product-new-fields/field-input-addon';
@@ -35,13 +40,30 @@ import { LocationInputGroup } from './location-input/location-input-group';
 
 interface Props {
   product: ProductType;
+  setValue: UseFormSetValue<recipientType>;
   register: UseFormRegister<recipientType>;
+  onSubmit: SubmitHandler<recipientType>;
+  handleSubmit: UseFormHandleSubmit<recipientType, undefined>;
 }
 
-export function CheckoutInformation({ register, product }: Props) {
+export function CheckoutInformation({
+  register,
+  product,
+  onSubmit,
+  handleSubmit,
+  setValue,
+}: Props) {
   return (
     <>
-      <Flex width={'65%'} flexDir={'column'} gap={'1rem'}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        style={{
+          width: '65%',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
+        }}
+      >
         <Flex
           border={'1px solid #e6e6e6'}
           padding={'1rem'}
@@ -87,7 +109,7 @@ export function CheckoutInformation({ register, product }: Props) {
             label="Phone Number"
             type="number"
           />
-          <LocationInputGroup />
+          <LocationInputGroup setValue={setValue} />
           <FieldInputDescription
             registerName="address"
             label="Address Detail"
@@ -150,6 +172,7 @@ export function CheckoutInformation({ register, product }: Props) {
                           maxWidth={'30%'}
                           backgroundColor={'blue.500'}
                           fontWeight={'bold'}
+                          type="submit"
                         >
                           Select Your Shipments
                         </Button>
@@ -210,7 +233,7 @@ export function CheckoutInformation({ register, product }: Props) {
             </AccordionItem>
           </AccordionRoot>
         </Stack>
-      </Flex>
+      </form>
     </>
   );
 }

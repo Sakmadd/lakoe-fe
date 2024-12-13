@@ -13,8 +13,8 @@ import React, { useMemo } from 'react';
 import { useAsync } from 'react-use';
 
 interface Props {
-  disctrict: string;
-  setSubdisctrict: React.Dispatch<React.SetStateAction<string>>;
+  disctrict: LocationType;
+  setSubdisctrict: React.Dispatch<React.SetStateAction<LocationType>>;
 }
 
 export function LocationInputSubdisctrict({
@@ -22,12 +22,12 @@ export function LocationInputSubdisctrict({
   disctrict,
 }: Props) {
   const state = useAsync(async (): Promise<LocationType[]> => {
-    if (disctrict == '') {
-      return [{ id: '404', nama: 'Please select disctrict' }];
+    if (disctrict.id == '404') {
+      return [{ ...disctrict }];
     }
 
     const response = await fetch(
-      `https://ibnux.github.io/data-indonesia/kelurahan/${disctrict}.json`
+      `https://ibnux.github.io/data-indonesia/kelurahan/${disctrict.id}.json`
     );
     const data: LocationType[] = await response.json();
     return data.sort((a, b) => a.nama.localeCompare(b.nama));
@@ -47,7 +47,7 @@ export function LocationInputSubdisctrict({
         <SelectRoot
           collection={locations}
           color={'gray'}
-          onValueChange={(value) => setSubdisctrict(value.items[0].id)}
+          onValueChange={(value) => setSubdisctrict(value.items[0])}
         >
           <SelectTrigger>
             <SelectValueText />

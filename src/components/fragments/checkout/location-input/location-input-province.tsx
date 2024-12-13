@@ -13,7 +13,7 @@ import { useAsync } from 'react-use';
 import { LocationType } from '@/types/types';
 
 interface Props {
-  setProvince: React.Dispatch<React.SetStateAction<string>>;
+  setProvince: React.Dispatch<React.SetStateAction<LocationType>>;
 }
 
 export function LocationInputProvince({ setProvince }: Props) {
@@ -39,7 +39,7 @@ export function LocationInputProvince({ setProvince }: Props) {
         <SelectRoot
           collection={locations}
           color={'gray'}
-          onValueChange={(value) => setProvince(value.items[0].id)}
+          onValueChange={(value) => setProvince(value.items[0])}
         >
           <SelectTrigger>
             <SelectValueText />

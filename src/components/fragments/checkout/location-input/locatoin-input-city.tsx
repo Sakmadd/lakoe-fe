@@ -13,18 +13,18 @@ import React, { useMemo } from 'react';
 import { useAsync } from 'react-use';
 
 interface Props {
-  province: string;
-  setCity: React.Dispatch<React.SetStateAction<string>>;
+  province: LocationType;
+  setCity: React.Dispatch<React.SetStateAction<LocationType>>;
 }
 
 export function LocationInputCity({ setCity, province }: Props) {
   const state = useAsync(async (): Promise<LocationType[]> => {
-    if (province == '') {
-      return [{ id: '404', nama: 'Please select province' }];
+    if (province.id == '404') {
+      return [{ ...province }];
     }
 
     const response = await fetch(
-      `https://ibnux.github.io/data-indonesia/kabupaten/${province}.json`
+      `https://ibnux.github.io/data-indonesia/kabupaten/${province.id}.json`
     );
     const data: LocationType[] = await response.json();
     return data.sort((a, b) => a.nama.localeCompare(b.nama));
@@ -44,7 +44,7 @@ export function LocationInputCity({ setCity, province }: Props) {
         <SelectRoot
           collection={locations}
           color={'gray'}
-          onValueChange={(value) => setCity(value.items[0].id)}
+          onValueChange={(value) => setCity(value.items[0])}
         >
           <SelectTrigger>
             <SelectValueText />

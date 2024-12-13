@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 export function CheckoutContent() {
-  const { register, handleSubmit } = useForm<recipientType>();
+  const { register, handleSubmit, setValue } = useForm<recipientType>();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -26,15 +26,19 @@ export function CheckoutContent() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Text fontSize={'3xl'} fontWeight={'semibold'} paddingY={'3rem'}>
-          Checkout
-        </Text>
-        <Flex gap={'1rem'} paddingBottom={'3rem'}>
-          <CheckoutInformation product={checkoutProduct} register={register} />
-          <CheckoutOrderSummary product={checkoutProduct} />
-        </Flex>
-      </form>
+      <Text fontSize={'3xl'} fontWeight={'semibold'} paddingY={'3rem'}>
+        Checkout
+      </Text>
+      <Flex gap={'1rem'} paddingBottom={'3rem'}>
+        <CheckoutInformation
+          setValue={setValue}
+          onSubmit={onSubmit}
+          handleSubmit={handleSubmit}
+          product={checkoutProduct}
+          register={register}
+        />
+        <CheckoutOrderSummary product={checkoutProduct} />
+      </Flex>
     </>
   );
 }

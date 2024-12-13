@@ -13,18 +13,18 @@ import React, { useMemo } from 'react';
 import { useAsync } from 'react-use';
 
 interface Props {
-  city: string;
-  setDisctrict: React.Dispatch<React.SetStateAction<string>>;
+  city: LocationType;
+  setDisctrict: React.Dispatch<React.SetStateAction<LocationType>>;
 }
 
 export function LocationInputDisctrict({ setDisctrict, city }: Props) {
   const state = useAsync(async (): Promise<LocationType[]> => {
-    if (city == '') {
-      return [{ id: '404', nama: 'Please select city' }];
+    if (city.id === '404') {
+      return [{ ...city }];
     }
 
     const response = await fetch(
-      `https://ibnux.github.io/data-indonesia/kecamatan/${city}.json`
+      `https://ibnux.github.io/data-indonesia/kecamatan/${city.id}.json`
     );
     const data: LocationType[] = await response.json();
     return data.sort((a, b) => a.nama.localeCompare(b.nama));
@@ -44,7 +44,7 @@ export function LocationInputDisctrict({ setDisctrict, city }: Props) {
         <SelectRoot
           collection={locations}
           color={'gray'}
-          onValueChange={(value) => setDisctrict(value.items[0].id)}
+          onValueChange={(value) => setDisctrict(value.items[0])}
         >
           <SelectTrigger>
             <SelectValueText />
