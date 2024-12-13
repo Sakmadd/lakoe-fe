@@ -14,9 +14,10 @@ import SettingsShop from './components/pages/settings-shop';
 import { BuyerLayout } from './layouts/buyerLayout';
 import { SellerLayout } from './layouts/sellerLayout';
 import { UserType } from './types/types';
+import { dummyLoggedUser } from './dummy-data/dummyData';
 
 function App() {
-  const [loggedUser] = useState<UserType | null>(null);
+  const [loggedUser] = useState<UserType | null>(dummyLoggedUser);
   if (loggedUser) {
     if (loggedUser.role === 'SELLER') {
       return (

@@ -6,6 +6,7 @@ export interface UserType {
   password?: string;
   role: string;
 }
+
 export interface imagesType {
   src: string;
   alt: string;
@@ -16,10 +17,8 @@ export interface recipientType {
   email: string;
   address: string;
   phone: string;
-  province: string;
-  city: string;
   district: string;
-  subdistrict: string;
+  city: string;
   longitude: string;
   latitude: string;
 }
@@ -35,6 +34,20 @@ export interface OrderType {
   courier: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface OrderDetailType {
+  id: number;
+  name: string;
+  status: string;
+  invoice: string;
+  customer: string;
+  createdAt: string;
+  address: string;
+  courier: string;
+  image: ImageType;
+  quantity: number;
+  total_price: number;
 }
 
 export interface ImageType {

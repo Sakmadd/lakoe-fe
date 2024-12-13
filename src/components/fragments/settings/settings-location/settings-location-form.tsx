@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Field } from '@/components/ui/field';
-import { SettingsLocationType } from '@/validators/settings-location';
+import { SettingsLocationType } from '@/validators/settings/settings-location';
 import { Box, Image, Input, Textarea } from '@chakra-ui/react';
 import {
   DialogBody,

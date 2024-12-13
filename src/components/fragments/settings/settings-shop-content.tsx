@@ -1,7 +1,8 @@
 import { Box, Text } from '@chakra-ui/react';
 import { Tabs } from '@chakra-ui/react';
-import SettingsInformation from './settings-information';
+import SettingsInformation2 from './settings-information/settings-infromation-2';
 import SettingsLocation from './settings-location';
+import SettingsTemplateMessage from './settings-template-message/settings-template-message';
 
 export default function SettingsShopContent() {
   return (
@@ -21,13 +22,13 @@ export default function SettingsShopContent() {
           <Tabs.Trigger value="template">Template</Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content value="information">
-          <SettingsInformation />
+          <SettingsInformation2 />
         </Tabs.Content>
         <Tabs.Content value="location">
           <SettingsLocation />
         </Tabs.Content>
         <Tabs.Content value="template">
-          <Text>Template tabs</Text>
+          <SettingsTemplateMessage />
         </Tabs.Content>
       </Tabs.Root>
     </Box>

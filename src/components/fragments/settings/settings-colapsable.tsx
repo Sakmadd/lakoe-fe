@@ -1,6 +1,12 @@
-import { Box, Collapsible, Link } from '@chakra-ui/react';
-import { ContentContainer } from '../container/contentContainer';
+import {
+  AccordionItem,
+  AccordionItemContent,
+  AccordionItemTrigger,
+  AccordionRoot,
+} from '@/components/ui/accordion';
+import { Link } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import { ContentContainer } from '../container/contentContainer';
 
 interface Props {
   title: string;
@@ -15,35 +21,37 @@ export default function SettingsColapsable({ title, nav }: Props) {
 
   return (
     <ContentContainer>
-      <Collapsible.Root>
-        <Collapsible.Trigger
-          cursor="pointer"
-          as="h1"
-          fontWeight="bold"
-          fontSize="1rem"
-          fontFamily="sans-serif"
-        >
-          {title}
-        </Collapsible.Trigger>
-        <Collapsible.Content marginTop="1rem">
-          <ContentContainer>
-            <Box display="flex" flexDirection="column" gap="1rem">
-              {nav.map((data) => (
-                <Link
-                  _hover={{ color: 'gray' }}
-                  fontWeight="semibold"
-                  textDecoration="none"
-                  onClick={() => {
-                    navigate(data.path);
-                  }}
-                >
-                  {data.text}
-                </Link>
-              ))}
-            </Box>
-          </ContentContainer>
-        </Collapsible.Content>
-      </Collapsible.Root>
+      <AccordionRoot collapsible>
+        <AccordionItem value={title} border="none">
+          <AccordionItemTrigger indicatorPlacement="start" cursor="pointer">
+            {title}
+          </AccordionItemTrigger>
+          <AccordionItemContent
+            marginLeft="1.9rem"
+            display="flex"
+            flexDirection="column"
+            gap="1rem"
+            border="1px solid lightgray"
+            borderRadius="1rem"
+            padding="1rem"
+            marginTop="0.5rem"
+          >
+            {nav.map((path) => (
+              <Link
+                _hover={{ color: 'gray' }}
+                fontWeight="semibold"
+                textDecoration="none"
+                fontSize="sm"
+                onClick={() => {
+                  navigate(path.path);
+                }}
+              >
+                {path.text}
+              </Link>
+            ))}
+          </AccordionItemContent>
+        </AccordionItem>
+      </AccordionRoot>
     </ContentContainer>
   );
 }
