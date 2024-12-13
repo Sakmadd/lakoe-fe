@@ -854,7 +854,7 @@ export const dummyProductDetail: ProductType = {
       id: '9',
       name: 'blue - 256GB',
       price: 6500000,
-      sku: 'NGENTOT',
+      sku: 'SKU-H2231',
       stock: 200,
       weight: 440,
       is_active: true,
@@ -869,7 +869,7 @@ export const dummyLoggedUser: UserType = {
   shop_id: '3',
   name: 'Miguel',
   email: 'bCfDy@example.com',
-  role: 'ADMIN',
+  role: 'BUYER',
 };
 
 export const tableData = [

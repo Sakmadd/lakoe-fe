@@ -6,6 +6,10 @@ export interface UserType {
   password?: string;
   role: string;
 }
+export interface imagesType {
+  src: string;
+  alt: string;
+}
 
 export interface imagesType {
   src: string;
@@ -17,8 +21,10 @@ export interface recipientType {
   email: string;
   address: string;
   phone: string;
-  district: string;
+  province: string;
   city: string;
+  district: string;
+  subdistrict: string;
   longitude: string;
   latitude: string;
 }
@@ -122,6 +128,18 @@ export interface VariantOptionCombinationType {
 
 export interface VariantCombinationFormType {
   variants: VariantOptionCombinationType[];
+}
+
+export interface LocationType {
+  id: string;
+  nama: string;
+}
+
+export interface FormLocationType {
+  province: LocationType;
+  city: LocationType;
+  district: LocationType;
+  subdistrict: LocationType;
 }
 
 export const variants: VariantType[] = [
