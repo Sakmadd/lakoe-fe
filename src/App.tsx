@@ -15,6 +15,8 @@ import { BuyerLayout } from './layouts/buyerLayout';
 import { SellerLayout } from './layouts/sellerLayout';
 import { UserType } from './types/types';
 import { dummyLoggedUser } from './dummy-data/dummyData';
+import ProfileShopMe from './components/pages/profile-shop-me';
+import ProfileShop from './components/pages/profile-shop';
 
 function App() {
   const [loggedUser] = useState<UserType | null>(dummyLoggedUser);
@@ -33,6 +35,8 @@ function App() {
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/orders/:id" element={<OrderDetail />} />
             <Route path="/settings/shop" element={<SettingsShop />} />
+            <Route path="/profile/shop" element={<ProfileShopMe />} />
+            <Route path="/profile/shop/:id" element={<ProfileShop />} />
           </Route>
         </Routes>
       );
@@ -42,6 +46,7 @@ function App() {
           <Route path="/" element={<BuyerLayout />}>
             <Route index element={<AdminPage />} />
           </Route>
+          <Route path="/profile/shop/:id" element={<ProfileShop />} />
         </Routes>
       );
     }
@@ -53,6 +58,7 @@ function App() {
         <Route path="/:productName" element={<ProductDetailPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/orders/:orderId" element={<OrderDetail />} />
+        <Route path="/profile/shop/:id" element={<ProfileShop />} />
       </Route>
     </Routes>
   );

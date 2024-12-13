@@ -869,7 +869,7 @@ export const dummyLoggedUser: UserType = {
   shop_id: '3',
   name: 'Miguel',
   email: 'bCfDy@example.com',
-  role: 'BUYER',
+  role: 'SELLER',
 };
 
 export const tableData = [
