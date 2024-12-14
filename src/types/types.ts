@@ -60,6 +60,19 @@ export interface ImageType {
   alt: string;
   src: string;
 }
+export interface SellerProductListType {
+  id: string;
+  name: string;
+  price: number;
+  stock: number;
+  sku: string;
+  is_active: boolean;
+  images: imagesType[];
+  url: string;
+  category: CategoryType;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export interface ProductType {
   id: string;

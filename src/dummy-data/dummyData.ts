@@ -1,4 +1,4 @@
-import { ProductType, UserType } from '@/types/types';
+import { ProductType, SellerProductListType, UserType } from '@/types/types';
 
 export const dummyOrders = [
   {
@@ -269,7 +269,7 @@ export const dummyOrderDetail = [
   },
 ];
 
-export const dummyProducts = [
+export const dummyProducts: SellerProductListType[] = [
   {
     id: '1',
     name: 'SMARTPHONE PRO MAX',
@@ -277,10 +277,12 @@ export const dummyProducts = [
     price: 999.99,
     stock: 15,
     sku: 'SPM-2024',
-    image: {
-      src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
-      alt: 'Smartphone Pro Max',
-    },
+    images: [
+      {
+        src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
+        alt: 'Smartphone Pro Max',
+      },
+    ],
     url: '/smartphone-pro-max',
     category: {
       id: 'cat-2',
@@ -298,10 +300,12 @@ export const dummyProducts = [
     price: 1299.99,
     stock: 10,
     sku: 'UBX9-2024',
-    image: {
-      src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
-      alt: 'Ultrabook X9',
-    },
+    images: [
+      {
+        src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
+        alt: 'Ultrabook X9',
+      },
+    ],
     url: '/ultrabook-x9',
     category: {
       id: 'cat-3',
@@ -319,10 +323,12 @@ export const dummyProducts = [
     price: 499.99,
     stock: 25,
     sku: 'TABGEN3-2024',
-    image: {
-      src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
-      alt: 'Tablet Gen 3',
-    },
+    images: [
+      {
+        src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
+        alt: 'Tablet Gen 3',
+      },
+    ],
     url: '/tablet-gen-3',
     category: {
       id: 'cat-4',
@@ -340,10 +346,12 @@ export const dummyProducts = [
     price: 399.99,
     stock: 20,
     sku: 'CAM4K-2024',
-    image: {
-      src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
-      alt: 'HD Camera 4K',
-    },
+    images: [
+      {
+        src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
+        alt: 'HD Camera 4K',
+      },
+    ],
     url: '/hd-camera-4k',
     category: {
       id: 'cat-5',
@@ -361,10 +369,12 @@ export const dummyProducts = [
     price: 199.99,
     stock: 50,
     sku: 'WHX-2024',
-    image: {
-      src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
-      alt: 'Wireless Headphones X',
-    },
+    images: [
+      {
+        src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
+        alt: 'Wireless Headphones X',
+      },
+    ],
     url: '/wireless-headphones-x',
     category: {
       id: 'cat-6',
@@ -382,10 +392,12 @@ export const dummyProducts = [
     price: 899.99,
     stock: 8,
     sku: 'DDR-2024',
-    image: {
-      src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
-      alt: 'Double Door Refrigerator',
-    },
+    images: [
+      {
+        src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
+        alt: 'Double Door Refrigerator',
+      },
+    ],
     url: '/double-door-refrigerator',
     category: {
       id: 'cat-8',
@@ -403,10 +415,12 @@ export const dummyProducts = [
     price: 499.99,
     stock: 12,
     sku: 'WMPLUS-2024',
-    image: {
-      src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
-      alt: 'Washing Machine Plus',
-    },
+    images: [
+      {
+        src: 'https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/01/03/904180906.jpg',
+        alt: 'Washing Machine Plus',
+      },
+    ],
     url: '/washing-machine-plus',
     category: {
       id: 'cat-10',
@@ -869,7 +883,7 @@ export const dummyLoggedUser: UserType = {
   shop_id: '3',
   name: 'Miguel',
   email: 'bCfDy@example.com',
-  role: 'BUYER',
+  role: 'SELLER',
 };
 
 export const tableData = [
