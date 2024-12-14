@@ -12,11 +12,11 @@ export function RightBarlayout({ children }: LeftBarProps) {
         direction={'column'}
         gap={'1.5rem'}
         pos={'sticky'}
-        top={'20'}
+        top={'78px'}
         width={'100%'}
-        padding={'2rem'}
+        padding={'1rem'}
         backgroundColor={'rgba(255, 255, 255, 1)'}
-        height={'90vh'}
+        height={'89vh'}
       >
         {children}
       </Flex>

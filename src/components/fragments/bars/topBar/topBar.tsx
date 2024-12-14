@@ -39,16 +39,18 @@ export function TopBar({ display }: Props) {
           paddingY={'.5%'}
         >
           <Link to="/">
-            <RiShoppingBag4Line size={'40px'} />
-            <Text
-              fontWeight={'bold'}
-              fontSize={'2xl'}
-              textDecoration={'underline'}
-              textUnderlineOffset={3}
-              textDecorationColor={'rgba(230, 230, 230, 1)'}
-            >
-              Lakoe
-            </Text>
+            <Flex alignItems={'center'}>
+              <RiShoppingBag4Line size={'40px'} />
+              <Text
+                fontWeight={'bold'}
+                fontSize={'2xl'}
+                textDecoration={'underline'}
+                textUnderlineOffset={3}
+                textDecorationColor={'rgba(230, 230, 230, 1)'}
+              >
+                Lakoe
+              </Text>
+            </Flex>
           </Link>
           <InputGroup maxWidth={'50%'} flex="1" startElement={<LuSearch />}>
             <Input placeholder="Search " />
