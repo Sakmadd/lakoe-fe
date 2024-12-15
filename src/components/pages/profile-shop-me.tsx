@@ -1,12 +1,12 @@
 import { MainContent } from '@/layouts/mainContent';
 import { ContentContainer } from '../fragments/container/contentContainer';
-import { Text } from '@chakra-ui/react';
+import ProfileShopMeContent from '../fragments/profile/profile-shop-me-content';
 
 export default function ProfileShopMe() {
   return (
     <MainContent>
       <ContentContainer>
-        <Text>My Profile Shop Page</Text>
+        <ProfileShopMeContent />
       </ContentContainer>
     </MainContent>
   );
