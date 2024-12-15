@@ -1,4 +1,4 @@
-import { ProductType, SellerProductListType, UserType } from '@/types/types';
+import { ProductType, SellerProductListType } from '@/types/types';
 
 export const dummyOrders = [
   {
@@ -878,12 +878,12 @@ export const dummyProductDetail: ProductType = {
   updatedAt: '2024-01-01T00:00:00.000Z',
 };
 
-export const dummyLoggedUser: UserType = {
-  id: '2',
-  shop_id: '3',
-  name: 'Miguel',
-  email: 'bCfDy@example.com',
-  role: 'SELLER',
+export const dummyLoggedUser = {
+  // id: '2',
+  // shop_id: '3',
+  // name: 'Miguel',
+  // email: 'bCfDy@example.com',
+  // role: 'SELLER',
 };
 
 export const tableData = [
@@ -966,5 +966,152 @@ export const tableData = [
     date: '2024-12-11',
     customer: 'Bruce Wayne',
     status: 'delivery',
+  },
+];
+
+export const showedCategories = [
+  {
+    id: '1',
+    label: 'Electronics',
+    image:
+      'https://down-id.img.susercontent.com/file/dcd61dcb7c1448a132f49f938b0cb553@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
+  },
+  {
+    id: '1',
+    label: 'Computer & Accesories',
+    image:
+      'https://down-id.img.susercontent.com/file/id-50009109-0bd6a9ebd0f2ae9b7e8b9ce7d89897d6@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
+  },
+  {
+    id: '1',
+    label: 'Handphone & Accesories',
+    image:
+      'https://down-id.img.susercontent.com/file/5230277eefafad8611aaf703d3e99568@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
+  },
+  {
+    id: '1',
+    label: 'Man Clothes',
+    image:
+      'https://down-id.img.susercontent.com/file/04dba508f1ad19629518defb94999ef9@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
+  },
+  {
+    id: '1',
+    label: 'Man Shoes',
+    image:
+      'https://down-id.img.susercontent.com/file/3c8ff51aab1692a80c5883972a679168@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
+  },
+  {
+    id: '1',
+    label: 'Man Bags',
+    image:
+      'https://down-id.img.susercontent.com/file/47ed832eed0feb62fd28f08c9229440e@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
+  },
+  {
+    id: '1',
+    label: 'Fashion Accesories',
+    image:
+      'https://down-id.img.susercontent.com/file/1f18bdfe73df39c66e7326b0a3e08e87@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
+  },
+  {
+    id: '1',
+    label: 'Watches',
+    image:
+      'https://down-id.img.susercontent.com/file/2bdf8cf99543342d4ebd8e1bdb576f80@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
+  },
+  {
+    id: '1',
+    label: 'Health & Medicine',
+    image:
+      'https://down-id.img.susercontent.com/file/eb7d583e4b72085e71cd21a70ce47d7a@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
+  },
+  {
+    id: '1',
+    label: 'Hoby & Collections',
+    image:
+      'https://down-id.img.susercontent.com/file/42394b78fac1169d67c6291973a3b132@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
+  },
+  {
+    id: '1',
+    label: 'Foods & Drinks',
+    image:
+      'https://down-id.img.susercontent.com/file/7873b8c3824367239efb02d18eeab4f5@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
+  },
+  {
+    id: '1',
+    label: 'Care & Beauty',
+    image:
+      'https://down-id.img.susercontent.com/file/2715b985ae706a4c39a486f83da93c4b@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
+  },
+  {
+    id: '1',
+    label: 'Care & Beauty',
+    image:
+      'https://down-id.img.susercontent.com/file/2715b985ae706a4c39a486f83da93c4b@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
+  },
+  {
+    id: '1',
+    label: 'Home Utensils',
+    image:
+      'https://down-id.img.susercontent.com/file/c1494110e0383780cdea73ed890e0299@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
+  },
+  {
+    id: '1',
+    label: 'Woman Clothes',
+    image:
+      'https://down-id.img.susercontent.com/file/6d63cca7351ba54a2e21c6be1721fa3a@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
+  },
+  {
+    id: '1',
+    label: 'Muslim Fashions',
+    image:
+      'https://down-id.img.susercontent.com/file/b98756cdb31eabe3d7664599e24ccc29@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
+  },
+  {
+    id: '1',
+    label: 'Child & Baby Fashion',
+    image:
+      'https://down-id.img.susercontent.com/file/9251edd6d6dd98855ff5a99497835d9c@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
+  },
+  {
+    id: '1',
+    label: 'Automotive',
+    image:
+      'https://down-id.img.susercontent.com/file/27838b968afb76ca59dd8e8f57ece91f@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
   },
 ];

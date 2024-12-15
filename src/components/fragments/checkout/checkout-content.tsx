@@ -21,7 +21,11 @@ export function CheckoutContent() {
   }, [checkoutProduct, navigate]);
 
   const onSubmit: SubmitHandler<recipientType> = (data) => {
-    console.log(data);
+    const body = {
+      recipient: data,
+      product_item: checkoutProduct,
+    };
+    console.log(body);
   };
 
   return (
