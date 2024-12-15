@@ -1,5 +1,6 @@
 import { Avatar } from '@/components/ui/avatar';
 import { InputGroup } from '@/components/ui/input-group';
+import { dummyLoggedUser } from '@/dummy-data/dummyData';
 import { TopBarlayout } from '@/layouts/bars/topBarLayout';
 import {
   Flex,
@@ -27,7 +28,7 @@ interface Props {
 
 export function TopBar({ display }: Props) {
   const navigate = useNavigate();
-  const loggedUser = null;
+  const loggedUser = dummyLoggedUser;
 
   return (
     <>

@@ -878,14 +878,13 @@ export const dummyProductDetail: ProductType = {
   updatedAt: '2024-01-01T00:00:00.000Z',
 };
 
-export const dummyLoggedUser = null;
-// {
-//   id: '2',
-//   shop_id: '3',
-//   name: 'Miguel',
-//   email: 'bCfDy@example.com',
-//   role: 'SELLER',
-// };
+export const dummyLoggedUser = {
+  // id: '2',
+  // shop_id: '3',
+  // name: 'Miguel',
+  // email: 'bCfDy@example.com',
+  // role: 'SELLER',
+};
 
 export const tableData = [
   {
