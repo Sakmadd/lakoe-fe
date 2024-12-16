@@ -1,16 +1,39 @@
 import { Button } from '@/components/ui/button';
 import { PasswordInput } from '@/components/ui/password-input';
+import { toaster } from '@/components/ui/toaster';
+import api from '@/networks/api';
+import { setLoggeduser } from '@/redux/features/logged-user-slice';
 import { LoginType } from '@/types/types';
 import { Box, Flex, Image, Input, Span, Text } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link as ReactLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link as ReactLink, useNavigate } from 'react-router-dom';
 
 export function LoginContent() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { register, handleSubmit } = useForm<LoginType>();
 
   const onSubmit: SubmitHandler<LoginType> = (data) => {
-    console.log(data);
+    toaster.promise(registerHandler(data), {
+      success: {
+        title: 'Successfully Login!',
+        description: 'Welcome Folks!',
+      },
+      error: {
+        title: 'Login Failed',
+        description: 'Something wrong :(',
+      },
+      loading: { title: 'Loading...', description: 'Please wait' },
+    });
   };
+
+  async function registerHandler(data: LoginType) {
+    await api.LOGIN(data);
+    const loggedUser = await api.GET_LOGGED_USER();
+    dispatch(setLoggeduser(loggedUser));
+    navigate('/');
+  }
 
   return (
     <>

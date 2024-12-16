@@ -1,16 +1,34 @@
 import { Button } from '@/components/ui/button';
 import { PasswordInput } from '@/components/ui/password-input';
+import { toaster } from '@/components/ui/toaster';
+import api from '@/networks/api';
 import { RegisterType } from '@/types/types';
 import { Box, Flex, Image, Input, Span, Text } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link as ReactLink } from 'react-router-dom';
+import { Link as ReactLink, useNavigate } from 'react-router-dom';
 
 export function RegisterContent() {
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<RegisterType>();
 
   const onSubmit: SubmitHandler<RegisterType> = (data) => {
-    console.log(data);
+    toaster.promise(registerHandler(data), {
+      success: {
+        title: 'Successfully Registered!',
+        description: 'Welcome Folks!',
+      },
+      error: {
+        title: 'Register Failed',
+        description: 'Something wrong :(',
+      },
+      loading: { title: 'Loading...', description: 'Please wait' },
+    });
   };
+
+  async function registerHandler(data: RegisterType) {
+    await api.REGISTER(data);
+    navigate('/login');
+  }
 
   return (
     <>
