@@ -33,6 +33,7 @@ function App() {
     (state: StoreState) => state.isPreloaded.value
   );
   const loggedUser = useSelector((state: StoreState) => state.loggedUser.value);
+  console.log(loggedUser);
 
   useEffect(() => {
     async function initializeApp() {

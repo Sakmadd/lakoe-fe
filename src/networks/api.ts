@@ -44,6 +44,8 @@ class API {
         throw new Error(response.data.message);
       }
       const token: string = response.data.data.token;
+      console.log(response.data);
+
       SET_TOKEN(token);
 
       return token;
