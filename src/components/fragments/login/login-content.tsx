@@ -1,18 +1,24 @@
 import { Button } from '@/components/ui/button';
+import { Field } from '@/components/ui/field';
 import { PasswordInput } from '@/components/ui/password-input';
 import { toaster } from '@/components/ui/toaster';
 import api from '@/networks/api';
-import { setLoggeduser } from '@/redux/features/logged-user-slice';
 import { LoginType } from '@/types/types';
+import { loginSchema } from '@/validators/log/login-schema';
 import { Box, Flex, Image, Input, Span, Text } from '@chakra-ui/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { Link as ReactLink, useNavigate } from 'react-router-dom';
 
 export function LoginContent() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm<LoginType>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginType>({
+    resolver: zodResolver(loginSchema),
+  });
 
   const onSubmit: SubmitHandler<LoginType> = (data) => {
     toaster.promise(registerHandler(data), {
@@ -30,9 +36,7 @@ export function LoginContent() {
 
   async function registerHandler(data: LoginType) {
     await api.LOGIN(data);
-    const loggedUser = await api.GET_LOGGED_USER();
-    dispatch(setLoggeduser(loggedUser));
-    navigate('/');
+    navigate(0);
   }
 
   return (
@@ -59,16 +63,26 @@ export function LoginContent() {
                   Lakoe
                 </Text>
                 <Flex flexDir={'column'} gap={'1.5rem'}>
-                  <Input
-                    placeholder="Email"
-                    variant="subtle"
-                    {...register('email')}
-                  />
-                  <PasswordInput
-                    placeholder="Password"
-                    variant={'subtle'}
-                    {...register('password')}
-                  />
+                  <Field
+                    invalid={!!errors.email}
+                    errorText={errors.email?.message}
+                  >
+                    <Input
+                      placeholder="Email"
+                      variant="subtle"
+                      {...register('email')}
+                    />
+                  </Field>
+                  <Field
+                    invalid={!!errors.password}
+                    errorText={errors.password?.message}
+                  >
+                    <PasswordInput
+                      placeholder="Password"
+                      variant={'subtle'}
+                      {...register('password')}
+                    />
+                  </Field>
                   <Button
                     type="submit"
                     variant={'surface'}

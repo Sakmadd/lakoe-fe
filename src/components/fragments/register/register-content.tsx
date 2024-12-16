@@ -1,15 +1,25 @@
 import { Button } from '@/components/ui/button';
+import { Field } from '@/components/ui/field';
 import { PasswordInput } from '@/components/ui/password-input';
 import { toaster } from '@/components/ui/toaster';
 import api from '@/networks/api';
 import { RegisterType } from '@/types/types';
+import { registerSchema } from '@/validators/log/register-schema';
 import { Box, Flex, Image, Input, Span, Text } from '@chakra-ui/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link as ReactLink, useNavigate } from 'react-router-dom';
 
 export function RegisterContent() {
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm<RegisterType>();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterType>({
+    resolver: zodResolver(registerSchema),
+  });
 
   const onSubmit: SubmitHandler<RegisterType> = (data) => {
     toaster.promise(registerHandler(data), {
@@ -57,21 +67,42 @@ export function RegisterContent() {
                   Lakoe
                 </Text>
                 <Flex flexDir={'column'} gap={'1.5rem'}>
-                  <Input
-                    placeholder="Name"
-                    variant="subtle"
-                    {...register('name')}
-                  />
-                  <Input
-                    placeholder="Email"
-                    variant="subtle"
-                    {...register('email')}
-                  />
-                  <PasswordInput
-                    placeholder="Password"
-                    variant={'subtle'}
-                    {...register('password')}
-                  />
+                  {/* Field Name */}
+                  <Field
+                    invalid={!!errors.name}
+                    errorText={errors.name?.message}
+                  >
+                    <Input
+                      placeholder="Username"
+                      variant="subtle"
+                      {...register('name')}
+                    />
+                  </Field>
+
+                  {/* Field Email */}
+                  <Field
+                    invalid={!!errors.email}
+                    errorText={errors.email?.message}
+                  >
+                    <Input
+                      placeholder="Email"
+                      variant="subtle"
+                      {...register('email')}
+                    />
+                  </Field>
+
+                  {/* Field Password */}
+                  <Field
+                    invalid={!!errors.password}
+                    errorText={errors.password?.message}
+                  >
+                    <PasswordInput
+                      placeholder="Password"
+                      variant={'subtle'}
+                      {...register('password')}
+                    />
+                  </Field>
+
                   <Button
                     type="submit"
                     variant={'surface'}
@@ -83,6 +114,7 @@ export function RegisterContent() {
                   </Button>
                 </Flex>
               </Box>
+
               <Box
                 width={'100%'}
                 padding={'2rem'}
