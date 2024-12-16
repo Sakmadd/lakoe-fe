@@ -8,145 +8,30 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import {
-  settingsLocationSchema,
-  SettingsLocationType,
-} from '@/validators/settings/settings-location';
 import { Box, Image, Input, Text, Textarea } from '@chakra-ui/react';
-import { zodResolver } from '@hookform/resolvers/zod';
 import 'leaflet/dist/leaflet.css';
-import { useEffect, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { useMapEvents } from 'react-leaflet';
 import offMaps from '../../../../assets/offmaps.svg';
 import onMaps from '../../../../assets/onmaps.svg';
 import '../../../../styles/leaftlet.css';
 import { Field } from '@/components/ui/field';
 import { Tag } from '@/components/ui/tag';
-import { Toaster, toaster } from '@/components/ui/toaster';
+import { Toaster } from '@/components/ui/toaster';
 import { FaRegEdit } from 'react-icons/fa';
 import { LuTrash } from 'react-icons/lu';
-import SettingsLocationMaps from './settings-location-maps';
-import SettingsLocationSelect from './settings-location-select';
-import SettingsDeleteDialog from '../components/settings-delete-dialog';
+import SettingsLocationMaps from './settings-location-components/settings-location-maps';
+import SettingsLocationSelect from './settings-location-components/settings-location-select';
+import SettingsDeleteDialog from '../global-settings-components/settings-delete-dialog';
+import { useSettLocation } from './settings-template-location-hooks/settings-location';
 
 export default function SettingsLocationContent() {
-  const [dialogMode, setDialogMode] = useState('add');
-  const [openDialog, setOpenDialog] = useState(false);
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-  const [id, setId] = useState('');
-  const [locationTitle, setLocationTitle] = useState('');
-  const resetForm = {
-    id: '',
-    main: false,
-    shop: '',
-    postal: '',
-    address: '',
-    regency: '',
-    location: null,
-  };
-  const [store, setStore] = useState<SettingsLocationType[]>(() => {
-    const local = localStorage.getItem('store-location');
-    if (!local) return [];
-    return JSON.parse(local);
-  });
   const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    reset,
-    formState: { errors },
-  } = useForm<SettingsLocationType>({
-    defaultValues: resetForm,
-    resolver: zodResolver(settingsLocationSchema),
-  });
-  const [openMap, setOpenMap] = useState(false);
-
-  const location = watch('location');
-
-  function PinPoint() {
-    useMapEvents({
-      click(e) {
-        const newLocation = e.latlng;
-        setValue('location', newLocation);
-      },
-    });
-    return null;
-  }
-
-  const handleSubmitStore: SubmitHandler<SettingsLocationType> = (data) => {
-    if (dialogMode != 'add') {
-      setStore((prevData) =>
-        prevData.map((item) =>
-          item.id === data.id ? { ...item, ...data } : item
-        )
-      );
-      reset(resetForm);
-      setOpenDialog(false);
-      toaster.success({
-        title: 'Success editing location',
-      });
-      return;
-    }
-    if (!data) {
-      setOpenDialog(true);
-    }
-    if (store.length == 0) {
-      data.main = true;
-    }
-    data.id = crypto.randomUUID();
-    setStore((current) => {
-      return [...current, data];
-    });
-    reset(resetForm);
-    setOpenDialog(false);
-    toaster.success({
-      title: 'Success adding location',
-    });
-  };
-
-  function handleMain(id: string) {
-    setStore((current) =>
-      current.filter((data) => {
-        if (data.id == id) {
-          data.main = true;
-          return data;
-        } else {
-          data.main = false;
-          return data;
-        }
-      })
-    );
-    setOpenDialog(false);
-    toaster.success({
-      title: 'Success changing main location',
-    });
-  }
-
-  function handleDelete(id: string) {
-    setStore((current) => current.filter((data) => data.id !== id));
-    setOpenDeleteDialog(false);
-    toaster.success({
-      title: 'Success deleting location',
-    });
-  }
-
-  function onOpenDialog(mode: string) {
-    setDialogMode(mode);
-    if (mode != 'add') setOpenDialog(true);
-    reset();
-    setOpenDialog(true);
-  }
-
-  function onCloseDialog() {
-    reset(resetForm);
-    setOpenDialog(false);
-  }
-
-  useEffect(() => {
-    localStorage.setItem('store-location', JSON.stringify(store));
-  }, [store]);
+    locationComponents,
+    locationData,
+    locationDialog,
+    locationForm,
+    locationMutation,
+    locationState,
+  } = useSettLocation();
 
   return (
     <Box display="flex" flexDirection="column" gap="1.1rem ">
@@ -169,7 +54,11 @@ export default function SettingsLocationContent() {
             This address is used as your shipping address
           </Text>
         </Box>
-        <DialogRoot size="sm" placement="center" open={openDialog}>
+        <DialogRoot
+          size="sm"
+          placement="center"
+          open={locationDialog.openDialog}
+        >
           <DialogTrigger asChild>
             <Button
               backgroundColor="transparent"
@@ -178,16 +67,22 @@ export default function SettingsLocationContent() {
               borderRadius="2rem"
               height="2rem"
               fontSize="0.8rem"
-              onClick={() => onOpenDialog('add')}
+              onClick={() => locationDialog.onOpenDialog('add')}
             >
               Add Location
             </Button>
           </DialogTrigger>
           <DialogContent>
-            <form onSubmit={handleSubmit(handleSubmitStore)}>
+            <form
+              onSubmit={locationForm.handleSubmit(
+                locationForm.handleSubmitStore
+              )}
+            >
               <DialogHeader>
                 <DialogTitle>
-                  {dialogMode == 'add' ? 'Add new location' : 'Edit location'}
+                  {locationDialog.dialogMode == 'add'
+                    ? 'Add new location'
+                    : 'Edit location'}
                 </DialogTitle>
               </DialogHeader>
               <DialogBody
@@ -198,43 +93,50 @@ export default function SettingsLocationContent() {
               >
                 <Field
                   label="Location Name"
-                  invalid={!!errors.shop}
-                  errorText={errors.shop?.message}
+                  invalid={!!locationForm.errors.shop}
+                  errorText={locationForm.errors.shop?.message}
                 >
                   <Input
                     placeholder="Example Someone Store"
-                    {...register('shop')}
+                    {...locationForm.register('shop')}
                   />
                 </Field>
                 <Field
                   label="City / Regency"
-                  invalid={!!errors.shop}
-                  errorText={errors.regency?.message}
+                  invalid={!!locationForm.errors.shop}
+                  errorText={locationForm.errors.regency?.message}
                 >
-                  <SettingsLocationSelect register={register} />
+                  <SettingsLocationSelect register={locationForm.register} />
                 </Field>
                 <Field
                   label="Postal Code"
-                  invalid={!!errors.postal}
-                  errorText={errors.postal?.message}
+                  invalid={!!locationForm.errors.postal}
+                  errorText={locationForm.errors.postal?.message}
                 >
                   <Input
                     placeholder="Input Postal Code"
-                    {...register('postal')}
+                    {...locationForm.register('postal')}
                   />
                 </Field>
                 <Field
                   label="Complete address"
-                  invalid={!!errors.address}
-                  errorText={errors.address?.message}
+                  invalid={!!locationForm.errors.address}
+                  errorText={locationForm.errors.address?.message}
                 >
                   <Textarea
                     placeholder="Write down the complete address"
-                    {...register('address')}
+                    {...locationForm.register('address')}
                   />
                 </Field>
-                <Box onClick={() => setOpenMap(true)} cursor="pointer">
-                  {location ? <Image src={onMaps} /> : <Image src={offMaps} />}
+                <Box
+                  onClick={() => locationDialog.setOpenMap(true)}
+                  cursor="pointer"
+                >
+                  {locationState.location ? (
+                    <Image src={onMaps} />
+                  ) : (
+                    <Image src={offMaps} />
+                  )}
                 </Box>
               </DialogBody>
               <DialogFooter
@@ -243,12 +145,14 @@ export default function SettingsLocationContent() {
                 alignItems="center"
               >
                 <Box>
-                  {dialogMode != 'add' && (
+                  {locationDialog.dialogMode != 'add' && (
                     <Button
                       variant="outline"
                       borderRadius="2rem"
                       height="2rem"
-                      onClick={() => handleMain(id)}
+                      onClick={() =>
+                        locationMutation.handleMain(locationState.id)
+                      }
                     >
                       Set as Main
                     </Button>
@@ -264,7 +168,7 @@ export default function SettingsLocationContent() {
                     variant="outline"
                     borderRadius="2rem"
                     height="2rem"
-                    onClick={onCloseDialog}
+                    onClick={locationDialog.onCloseDialog}
                   >
                     Cancel
                   </Button>
@@ -282,7 +186,7 @@ export default function SettingsLocationContent() {
           </DialogContent>
         </DialogRoot>
       </Box>
-      {store
+      {locationData.store
         .map((data) => (
           <>
             <Box
@@ -351,9 +255,9 @@ export default function SettingsLocationContent() {
                   borderRadius="50%"
                   width="1rem"
                   onClick={() => {
-                    setOpenDeleteDialog(true);
-                    setLocationTitle(data.shop);
-                    setId(data.id);
+                    locationDialog.setOpenDeleteDialog(true);
+                    locationState.setLocationTitle(data.shop);
+                    locationState.setId(data.id);
                   }}
                 >
                   <LuTrash />
@@ -365,9 +269,9 @@ export default function SettingsLocationContent() {
                   borderRadius="50%"
                   width="1rem"
                   onClick={() => {
-                    onOpenDialog('edit');
-                    reset(data);
-                    setId(data.id);
+                    locationDialog.onOpenDialog('edit');
+                    locationForm.reset(data);
+                    locationState.setId(data.id);
                   }}
                 >
                   <FaRegEdit />
@@ -377,18 +281,21 @@ export default function SettingsLocationContent() {
           </>
         ))
         .reverse()}
-      <DialogRoot size="lg" placement="center" open={openMap}>
+      <DialogRoot size="lg" placement="center" open={locationDialog.openMap}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Set your location pin point</DialogTitle>
           </DialogHeader>
-          <SettingsLocationMaps location={location} PinPoint={PinPoint} />
+          <SettingsLocationMaps
+            location={locationState.location}
+            PinPoint={locationComponents.PinPoint}
+          />
           <DialogFooter>
             <Button
               variant="outline"
               borderRadius="2rem"
               height="2rem"
-              onClick={() => setOpenMap(false)}
+              onClick={() => locationDialog.setOpenMap(false)}
             >
               Save
             </Button>
@@ -396,12 +303,12 @@ export default function SettingsLocationContent() {
         </DialogContent>
       </DialogRoot>
       <SettingsDeleteDialog
-        id={id}
-        openDeleteDialog={openDeleteDialog}
-        setOpenDeleteDialog={setOpenDeleteDialog}
+        id={locationState.id}
+        openDeleteDialog={locationDialog.openDeleteDialog}
+        setOpenDeleteDialog={locationDialog.setOpenDeleteDialog}
         header={'Delete Address'}
-        title={locationTitle}
-        deleteSubmit={handleDelete}
+        title={locationState.locationTitle}
+        deleteSubmit={locationMutation.handleDelete}
       />
       <Toaster />
     </Box>

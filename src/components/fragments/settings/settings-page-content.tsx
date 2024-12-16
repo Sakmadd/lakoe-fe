@@ -1,5 +1,5 @@
 import { ContentContainer } from '../container/contentContainer';
-import SettingsColapsable from './settings-colapsable';
+import SettingsColapsable from './settings-page-components/settings-colapsable';
 import { Text, Box } from '@chakra-ui/react';
 
 export default function SettingsContent() {

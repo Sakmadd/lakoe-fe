@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/accordion';
 import { Link } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { ContentContainer } from '../container/contentContainer';
+import { ContentContainer } from '../../container/contentContainer';
 
 interface Props {
   title: string;
