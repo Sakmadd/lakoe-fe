@@ -6,12 +6,12 @@ export function EditAllVariantsForm() {
       <Flex flexDir="row" gap="1rem" width="100%">
         <Flex flexDir="column" gap="1rem" width="60%">
           <Group attached width="100%">
+            <InputAddon>Rp</InputAddon>
             <Input
               id="global-price"
               type="number"
               placeholder="Enter price for all"
             />
-            <InputAddon>Rp</InputAddon>
           </Group>
           <Input id="global-sku" placeholder="Enter SKU for all" />
         </Flex>

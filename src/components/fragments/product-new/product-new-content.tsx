@@ -11,11 +11,21 @@ import { ProductPriceSection } from './product-new-sections/product-price';
 import { ProductSaveSection } from './product-new-sections/product-save';
 import { ProductVariantSection } from './product-new-sections/product-variant';
 import { ProductWeightShipmentSection } from './product-new-sections/product-weight-shipment';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { ProductSchema } from '@/validators/product-new/product-new-schema';
 
 export function ProductNewContent() {
   const [loading, setLoading] = useState(false);
   const variantsHooks = useVariants();
-  const { register, handleSubmit, control, setValue } = useForm<ProductType>();
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    formState: { errors },
+  } = useForm<ProductType>({
+    resolver: zodResolver(ProductSchema),
+  });
 
   const onSubmit: SubmitHandler<ProductType> = (data) => {
     setLoading(true);
@@ -35,6 +45,7 @@ export function ProductNewContent() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Flex flexDir={'column'} gap={'.5rem'}>
         <ProductInformationSection
+          errors={errors}
           register={register}
           setValue={setValue}
           control={control}
