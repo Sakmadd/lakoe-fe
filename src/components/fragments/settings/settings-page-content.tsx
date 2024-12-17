@@ -1,12 +1,11 @@
-import { ContentContainer } from '../container/contentContainer';
 import SettingsColapsable from './settings-page-components/settings-colapsable';
-import { Text, Box } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 
 export default function SettingsContent() {
   const collapseData = {
     listNav1: [
       {
-        title: 'Shop',
+        title: 'Settings',
         nav: [
           { text: 'Shop Settings', path: '/settings/shop' },
           { text: 'Delivery Settings', path: '/' },
@@ -19,11 +18,6 @@ export default function SettingsContent() {
   return (
     <>
       <Box display="flex" flexDirection="column" gap="1rem">
-        <ContentContainer>
-          <Text as="h1" fontWeight="bold" fontFamily="sans-serif">
-            Settings
-          </Text>
-        </ContentContainer>
         {collapseData.listNav1.map((data, index) => (
           <SettingsColapsable key={index} title={data.title} nav={data.nav} />
         ))}

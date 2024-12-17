@@ -1,7 +1,9 @@
 import { Avatar } from '@/components/ui/avatar';
 import { InputGroup } from '@/components/ui/input-group';
-import { dummyLoggedUser } from '@/dummy-data/dummyData';
 import { TopBarlayout } from '@/layouts/bars/topBarLayout';
+import { SET_TOKEN } from '@/networks/api';
+import { unSetLoggedUser } from '@/redux/features/logged-user-slice';
+import { StoreState } from '@/redux/store';
 import {
   Flex,
   Input,
@@ -20,6 +22,7 @@ import {
   RiLogoutBoxLine,
   RiShoppingBag4Line,
 } from 'react-icons/ri';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 interface Props {
@@ -28,7 +31,16 @@ interface Props {
 
 export function TopBar({ display }: Props) {
   const navigate = useNavigate();
-  const loggedUser = dummyLoggedUser;
+  const loggedUser = useSelector((state: StoreState) => state.loggedUser.value);
+
+  const dispatch = useDispatch();
+
+  async function onLogout() {
+    SET_TOKEN('');
+    dispatch(unSetLoggedUser());
+
+    navigate('/');
+  }
 
   return (
     <>
@@ -78,7 +90,11 @@ export function TopBar({ display }: Props) {
                     <Spacer />
                     <CgProfile />
                   </MenuItem>
-                  <MenuItem value="logout" cursor={'pointer'}>
+                  <MenuItem
+                    value="logout"
+                    cursor={'pointer'}
+                    onClick={onLogout}
+                  >
                     Logout
                     <Spacer />
                     <RiLogoutBoxLine />

@@ -5,12 +5,8 @@ export interface UserType {
   email: string;
   password?: string;
   role: string;
+  Shop: [];
 }
-export interface imagesType {
-  src: string;
-  alt: string;
-}
-
 export interface imagesType {
   src: string;
   alt: string;
@@ -164,6 +160,13 @@ export interface RegisterType {
 export interface LoginType {
   email: string;
   password: string;
+}
+
+export interface ProductsListType {
+  name: string;
+  price: number;
+  url: string;
+  image: imagesType;
 }
 
 export const variants: VariantType[] = [
