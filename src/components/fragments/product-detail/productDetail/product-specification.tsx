@@ -1,9 +1,9 @@
-import { ProductType } from '@/types/types';
 import { Flex, Text } from '@chakra-ui/react';
 import { ContentContainer } from '../../container/contentContainer';
+import { Product } from '@/types/product-type';
 
 interface Props {
-  product: ProductType;
+  product: Product;
 }
 
 export function ProductSpecification({ product }: Props) {

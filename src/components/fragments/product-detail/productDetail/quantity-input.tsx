@@ -1,13 +1,13 @@
 import { Button } from '@/components/ui/button';
-import { ProductType } from '@/types/types';
+import { Product } from '@/types/product-type';
 import { Flex, Input, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { UseFormSetValue } from 'react-hook-form';
 
 interface Props {
-  product: ProductType;
+  product: Product;
   selectedVariantOption: string[];
-  setvalue: UseFormSetValue<ProductType>;
+  setvalue: UseFormSetValue<Product>;
 }
 
 export function QuantityInput({

@@ -1,23 +1,23 @@
-import { ProductType } from '@/types/types';
+import { Product } from '@/types/product-type';
 import { useEffect, useMemo, useState } from 'react';
 
 interface Props {
-  product: ProductType;
+  product: Product;
   selectedVariantOption: string[];
 }
 
 export function useProductDetail({ product, selectedVariantOption }: Props) {
-  const [preparedProduct, setPreparedProduct] = useState<ProductType>(product);
+  const [preparedProduct, setPreparedProduct] = useState<Product>(product);
   const selectedCombination = useMemo(() => {
     const selectedValues = selectedVariantOption
       .map((option) => option.split(' - ')[1])
       .sort();
 
-    return product.variant_option_combinations!.find((variant) => {
+    return product.VariantOptionCombinations!.find((variant) => {
       const variantValues = variant.name.split(' - ').sort();
       return JSON.stringify(variantValues) === JSON.stringify(selectedValues);
     });
-  }, [selectedVariantOption, product.variant_option_combinations]);
+  }, [selectedVariantOption, product.VariantOptionCombinations]);
 
   useEffect(() => {
     if (selectedCombination) {

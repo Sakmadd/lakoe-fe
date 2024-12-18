@@ -1,11 +1,11 @@
-import { imagesType } from '@/types/types';
+import { ProductImage } from '@/types/product-type';
 import { Box, Button, Flex, Image } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 
 interface DetailImageListProps {
-  images: imagesType[];
-  onImageClick: (image: imagesType) => void;
+  images: ProductImage[];
+  onImageClick: (image: ProductImage) => void;
 }
 
 export function DetailImageList({
