@@ -1,5 +1,6 @@
 import { CONFIGS } from '@/configs/configs';
 import { LoginType, RegisterType, UserType } from '@/types/types';
+import { SettingsInformationType } from '@/validators/settings/settings-information';
 import axios, { AxiosResponse } from 'axios';
 
 axios.defaults.baseURL = CONFIGS.API_URL;
@@ -16,9 +17,7 @@ function GET_TOKEN(): string | null {
 class API {
   async GET_LOGGED_USER(): Promise<UserType> {
     try {
-      const response: AxiosResponse = await axios.get(
-        `http://localhost:3000/v1/users/self`
-      );
+      const response: AxiosResponse = await axios.get(`/users/self`);
 
       return response.data.data;
     } catch (error) {
@@ -31,7 +30,7 @@ class API {
   }
   async REGISTER(data: RegisterType): Promise<AxiosResponse> {
     try {
-      return await axios.post(`http://localhost:3000/v1/auth/register`, data);
+      return await axios.post(`/auth/register`, data);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw error;
@@ -41,10 +40,7 @@ class API {
   }
   async LOGIN(data: LoginType): Promise<string> {
     try {
-      const response: AxiosResponse = await axios.post(
-        'http://localhost:3000/v1/auth/login',
-        data
-      );
+      const response: AxiosResponse = await axios.post('/auth/login', data);
       if (response.data.error) {
         throw new Error(response.data.message);
       }
@@ -59,6 +55,28 @@ class API {
         throw error;
       }
 
+      throw error;
+    }
+  }
+
+  async UPDATESHOP(data: SettingsInformationType) {
+    try {
+      const loggedUser = await this.GET_LOGGED_USER();
+      console.log(loggedUser);
+      const response: AxiosResponse = await axios.patch(
+        `/shops/shop/${loggedUser.shop_id}`,
+        data,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
       throw error;
     }
   }

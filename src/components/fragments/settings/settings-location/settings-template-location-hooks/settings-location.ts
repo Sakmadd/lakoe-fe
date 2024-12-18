@@ -4,7 +4,7 @@ import {
   SettingsLocationType,
 } from '@/validators/settings/settings-location';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMapEvents } from 'react-leaflet';
 
@@ -21,6 +21,9 @@ export function useSettLocation() {
     postal: '',
     address: '',
     regency: '',
+    province: '',
+    district: '',
+    subdistrict: '',
     location: null,
   };
   const [store, setStore] = useState<SettingsLocationType[]>(() => {
@@ -34,6 +37,7 @@ export function useSettLocation() {
     setValue,
     watch,
     reset,
+    control,
     formState: { errors },
   } = useForm<SettingsLocationType>({
     defaultValues: resetForm,
@@ -67,6 +71,7 @@ export function useSettLocation() {
       });
       return;
     }
+    console.log(data);
     if (!data) {
       setOpenDialog(true);
     }
@@ -155,6 +160,9 @@ export function useSettLocation() {
       openDialog,
     },
     locationForm: {
+      control,
+      watch,
+      setValue,
       handleSubmitStore,
       handleSubmit,
       register,
@@ -163,3 +171,5 @@ export function useSettLocation() {
     },
   };
 }
+
+export function useGetLocation() {}

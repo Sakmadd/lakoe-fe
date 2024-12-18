@@ -39,7 +39,7 @@ export default function SettingsInformationUploadImage({
             gap="0.5rem"
             alignItems="center"
           >
-            {image ? (
+            {image || imageReader ? (
               <Image
                 src={imageReader}
                 borderRadius="50%"

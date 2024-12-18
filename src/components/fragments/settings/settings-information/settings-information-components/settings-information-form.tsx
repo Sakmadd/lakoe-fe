@@ -8,31 +8,33 @@ import { FormEventHandler } from 'react';
 
 interface Props {
   handleSubmit: (a: SubmitHandler<SettingsInformationType>) => FormEventHandler;
-  informationSubmit: (a: SettingsInformationType) => void;
+  onSubmit: (a: SettingsInformationType) => void;
   errors: FieldErrors<SettingsInformationType>;
   register: UseFormRegister<SettingsInformationType>;
+  isPending: boolean;
 }
 
 export default function SettingsInformationForm({
+  isPending,
   handleSubmit,
-  informationSubmit,
+  onSubmit,
   errors,
   register,
 }: Props) {
   return (
     <form
-      onSubmit={handleSubmit(informationSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
       style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
     >
       <Box display="flex" gap="1rem">
         <Box width="100%" display="flex" flexDirection="column" gap="0.75rem">
           <Field
             label="Store name"
-            errorText={errors.shop?.message}
-            invalid={!!errors.shop}
+            errorText={errors.name?.message}
+            invalid={!!errors.name}
           >
             <Input
-              {...register('shop')}
+              {...register('name')}
               type="text"
               fontSize="0.8rem"
               placeholder="Your store name"
@@ -52,11 +54,11 @@ export default function SettingsInformationForm({
           </Field>
           <Field
             label="Phone number"
-            errorText={errors.phone_number?.message}
-            invalid={!!errors.phone_number}
+            errorText={errors.phone?.message}
+            invalid={!!errors.phone}
           >
             <Input
-              {...register('phone_number')}
+              {...register('phone')}
               type="text"
               fontSize="0.8rem"
               placeholder="Your phone number"
@@ -87,6 +89,7 @@ export default function SettingsInformationForm({
           height="2rem"
           fontSize="0.8rem"
           type="submit"
+          loading={isPending}
         >
           Save
         </Button>

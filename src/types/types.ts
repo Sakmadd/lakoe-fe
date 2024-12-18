@@ -5,8 +5,21 @@ export interface UserType {
   email: string;
   password?: string;
   role: string;
-  Shop: [];
+  Shop: Shop;
 }
+
+export interface Shop {
+  Product: [];
+  Withdraw: [];
+  balance: number;
+  description: string | null;
+  id: string;
+  location: [];
+  logo: string | undefined;
+  phone: string | null;
+  slogan: string | null;
+}
+
 export interface imagesType {
   src: string;
   alt: string;

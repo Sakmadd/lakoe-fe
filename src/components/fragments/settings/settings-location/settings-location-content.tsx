@@ -8,19 +8,19 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Box, Image, Input, Text, Textarea } from '@chakra-ui/react';
-import 'leaflet/dist/leaflet.css';
-import offMaps from '../../../../assets/offmaps.svg';
-import onMaps from '../../../../assets/onmaps.svg';
-import '../../../../styles/leaftlet.css';
 import { Field } from '@/components/ui/field';
 import { Tag } from '@/components/ui/tag';
 import { Toaster } from '@/components/ui/toaster';
+import { Box, Image, Input, Text, Textarea } from '@chakra-ui/react';
+import 'leaflet/dist/leaflet.css';
 import { FaRegEdit } from 'react-icons/fa';
 import { LuTrash } from 'react-icons/lu';
-import SettingsLocationMaps from './settings-location-components/settings-location-maps';
-import SettingsLocationSelect from './settings-location-components/settings-location-select';
+import offMaps from '../../../../assets/offmaps.svg';
+import onMaps from '../../../../assets/onmaps.svg';
+import '../../../../styles/leaftlet.css';
 import SettingsDeleteDialog from '../global-settings-components/settings-delete-dialog';
+import SettingsLocationMaps from './settings-location-components/settings-location-maps';
+import SettingsLocationSelectGroup from './settings-location-components/settings-location-select/settings-location-select-group';
 import { useSettLocation } from './settings-template-location-hooks/settings-location';
 
 export default function SettingsLocationContent() {
@@ -55,7 +55,7 @@ export default function SettingsLocationContent() {
           </Text>
         </Box>
         <DialogRoot
-          size="sm"
+          size="lg"
           placement="center"
           open={locationDialog.openDialog}
         >
@@ -101,13 +101,11 @@ export default function SettingsLocationContent() {
                     {...locationForm.register('shop')}
                   />
                 </Field>
-                <Field
-                  label="City / Regency"
-                  invalid={!!locationForm.errors.shop}
-                  errorText={locationForm.errors.regency?.message}
-                >
-                  <SettingsLocationSelect register={locationForm.register} />
-                </Field>
+                <SettingsLocationSelectGroup
+                  errors={locationForm.errors}
+                  watch={locationForm.watch}
+                  control={locationForm.control}
+                />
                 <Field
                   label="Postal Code"
                   invalid={!!locationForm.errors.postal}
@@ -124,6 +122,7 @@ export default function SettingsLocationContent() {
                   errorText={locationForm.errors.address?.message}
                 >
                   <Textarea
+                    rows={5}
                     placeholder="Write down the complete address"
                     {...locationForm.register('address')}
                   />
@@ -133,9 +132,9 @@ export default function SettingsLocationContent() {
                   cursor="pointer"
                 >
                   {locationState.location ? (
-                    <Image src={onMaps} />
+                    <Image src={onMaps} width="100%" />
                   ) : (
-                    <Image src={offMaps} />
+                    <Image src={offMaps} width="100%" />
                   )}
                 </Box>
               </DialogBody>

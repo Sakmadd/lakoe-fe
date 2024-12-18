@@ -9,12 +9,11 @@ const MAX_FILE_SIZE = 10000000;
 
 export const settingsInformationSchema = z
   .object({
-    id: z.string(),
-    slogan: z.string().min(1, 'Slogan cannot be empty'),
-    shop: z.string().min(1, 'Store name cannot be empty'),
-    description: z.string().min(1, 'Description cannot be empty'),
-    phone_number: z.string().min(1, 'Phone number cannot be empty'),
-    file: z
+    slogan: z.string().min(1, 'Slogan cannot be empty').nullable(),
+    name: z.string().min(1, 'Store name cannot be empty'),
+    description: z.string().min(1, 'Description cannot be empty').nullable(),
+    phone: z.string().min(1, 'Phone number cannot be empty').nullable(),
+    logo: z
       .any()
       .refine((file) => file?.size <= MAX_FILE_SIZE, `Max image size is 10MB.`)
       .refine(

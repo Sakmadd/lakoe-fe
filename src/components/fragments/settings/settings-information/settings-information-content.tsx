@@ -2,17 +2,18 @@ import { Toaster } from '@/components/ui/toaster';
 import { Box, Text } from '@chakra-ui/react';
 import SettingsInformationForm from './settings-information-components/settings-information-form';
 import SettingsInformationUploadImage from './settings-information-components/settings-information-upload-image';
-import { useSettInfo } from './settings-information-hooks/settings-information';
+import { useSettInfo } from './settings-information-hooks/settings-information2';
 
 export default function SettingsInformationContent() {
   const {
-    register,
-    handleSubmit,
-    informationSubmit,
+    onSubmit,
     handleFile,
     errors,
+    register,
+    handleSubmit,
     imageReader,
     image,
+    isPending,
   } = useSettInfo();
 
   return (
@@ -31,8 +32,9 @@ export default function SettingsInformationContent() {
         imageReader={imageReader}
       />
       <SettingsInformationForm
+        isPending={isPending}
         handleSubmit={handleSubmit}
-        informationSubmit={informationSubmit}
+        onSubmit={onSubmit}
         errors={errors}
         register={register}
       />

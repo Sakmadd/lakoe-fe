@@ -1,66 +1,56 @@
 // import { Button } from '@/components/ui/button';
 // import { Field } from '@/components/ui/field';
-// import {
-//   Box,
-//   Input,
-//   Text,
-//   Textarea,
-//   FileUploadFileAcceptDetails,
-//   Image,
-// } from '@chakra-ui/react';
-// import { LuImage } from 'react-icons/lu';
+// import { FileUploadRoot, FileUploadTrigger } from '@/components/ui/file-upload';
+// import { Toaster, toaster } from '@/components/ui/toaster';
+// import api from '@/networks/api';
 // import {
 //   settingsInformationSchema,
 //   SettingsInformationType,
 // } from '@/validators/settings/settings-information';
+// import {
+//   Box,
+//   FileUploadFileAcceptDetails,
+//   Image,
+//   Input,
+//   Text,
+//   Textarea,
+// } from '@chakra-ui/react';
 // import { zodResolver } from '@hookform/resolvers/zod';
-// import { useEffect, useState } from 'react';
+// import { useMutation } from '@tanstack/react-query';
+// import { useState } from 'react';
 // import { SubmitHandler, useForm } from 'react-hook-form';
-// import { FileUploadRoot, FileUploadTrigger } from '@/components/ui/file-upload';
-// import { Toaster, toaster } from '@/components/ui/toaster';
+// import { LuImage } from 'react-icons/lu';
+// import { useSelector } from 'react-redux';
+// import { StoreState } from '@/redux/store';
 
 // export default function SettingsInformation2() {
 //   const [image, setImage] = useState<File>();
-//   const [imageReader, setImageReader] = useState<string | undefined>();
-//   const [store, setStore] = useState<SettingsInformationType>(() => {
-//     const local = localStorage.getItem('STORE');
-//     if (!local) return {};
-//     const parse = JSON.parse(local);
-//     const reader = new FileReader();
-//     // const image = local.file;
-//     reader.onload = () => {
-//       setImageReader(reader.result as string);
-//     };
-//     // reader.readAsDataURL();
-//     return parse;
-//   });
+//   const User = useSelector((state: StoreState) => state.loggedUser.value);
+//   const [imageReader, setImageReader] = useState<string | undefined>(
+//     User?.Shop.logo
+//   );
+
 //   const {
 //     register,
 //     handleSubmit,
 //     setValue,
-//     // reset,
 //     formState: { errors },
 //   } = useForm<SettingsInformationType>({
 //     defaultValues: {
-//       id: store.id,
-//       slogan: store.slogan,
-//       shop: store.shop,
-//       phone_number: store.phone_number,
-//       description: store.description,
-//       file: image,
+//       slogan: User?.Shop.slogan,
+//       name: User?.name,
+//       phone: User?.Shop.phone,
+//       description: User?.Shop.description,
+//       logo: image,
 //     },
 //     resolver: zodResolver(settingsInformationSchema),
 //   });
-
-//   useEffect(() => {
-//     localStorage.setItem('STORE', JSON.stringify(store));
-//   }, [store]);
 
 //   function handleFile(detail: FileUploadFileAcceptDetails) {
 //     if (detail) {
 //       const file = detail.files[0];
 //       setImage(file);
-//       setValue('file', file);
+//       setValue('logo', file);
 //       const reader = new FileReader();
 //       reader.onload = () => {
 //         setImageReader(reader.result as string);
@@ -70,13 +60,34 @@
 //   }
 
 //   const informationSubmit: SubmitHandler<SettingsInformationType> = (data) => {
-//     data.id = crypto.randomUUID();
+//     if (image) {
+//       data.logo = image;
+//     }
 //     console.log(data);
-//     setStore(data);
-//     toaster.success({
-//       title: 'Store information is saved',
-//     });
+//     api.UPDATESHOP(data);
 //   };
+
+//   const onSubmit: SubmitHandler<SettingsInformationType> = (data) => {
+//     console.log(data);
+//     mutation.mutateAsync(data);
+//   };
+
+//   const mutation = useMutation({
+//     mutationKey: ['store'],
+//     mutationFn: async (data: SettingsInformationType) => {
+//       await informationSubmit(data);
+//     },
+//     onSuccess: () => {
+//       toaster.success({
+//         title: 'Store information is saved',
+//       });
+//     },
+//     onError: () => {
+//       toaster.error({
+//         title: 'Failed to update store information',
+//       });
+//     },
+//   });
 
 //   return (
 //     <Box marginTop="0.9rem" display="flex" flexDirection="column" gap="1rem ">
@@ -108,7 +119,7 @@
 //               gap="0.5rem"
 //               alignItems="center"
 //             >
-//               {image ? (
+//               {image || User?.Shop.logo ? (
 //                 <Image
 //                   src={imageReader}
 //                   borderRadius="50%"
@@ -147,18 +158,18 @@
 //         </Box>
 //       </Box>
 //       <form
-//         onSubmit={handleSubmit(informationSubmit)}
+//         onSubmit={handleSubmit(onSubmit)}
 //         style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
 //       >
 //         <Box display="flex" gap="1rem">
 //           <Box width="100%" display="flex" flexDirection="column" gap="0.75rem">
 //             <Field
 //               label="Store name"
-//               errorText={errors.shop?.message}
-//               invalid={!!errors.shop}
+//               errorText={errors.name?.message}
+//               invalid={!!errors.name}
 //             >
 //               <Input
-//                 {...register('shop')}
+//                 {...register('name')}
 //                 type="text"
 //                 fontSize="0.8rem"
 //                 placeholder="Your store name"
@@ -178,11 +189,11 @@
 //             </Field>
 //             <Field
 //               label="Phone number"
-//               errorText={errors.phone_number?.message}
-//               invalid={!!errors.phone_number}
+//               errorText={errors.phone?.message}
+//               invalid={!!errors.phone}
 //             >
 //               <Input
-//                 {...register('phone_number')}
+//                 {...register('phone')}
 //                 type="text"
 //                 fontSize="0.8rem"
 //                 placeholder="Your phone number"
@@ -213,6 +224,7 @@
 //             height="2rem"
 //             fontSize="0.8rem"
 //             type="submit"
+//             loading={mutation.isPending}
 //           >
 //             Save
 //           </Button>
