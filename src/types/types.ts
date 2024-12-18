@@ -32,7 +32,7 @@ export interface OrderType {
   invoice: string;
   quantity: number;
   total_price: number;
-  image: ImageType;
+  images: ImageType[];
   courier: string;
   createdAt: string;
   updatedAt: string;
@@ -47,7 +47,7 @@ export interface OrderDetailType {
   createdAt: string;
   address: string;
   courier: string;
-  image: ImageType;
+  images: ImageType[];
   quantity: number;
   total_price: number;
 }
@@ -78,7 +78,7 @@ export interface ProductType {
   stock: number;
   sku: string;
   category_id: string;
-  images: ImageType[];
+  images: ImageType[] | File[];
   url: string;
   is_active: boolean;
   minimum_order: number;

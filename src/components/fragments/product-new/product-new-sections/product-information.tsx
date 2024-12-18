@@ -25,7 +25,6 @@ import {
 } from 'react-hook-form';
 import { ContentContainer } from '../../container/contentContainer';
 import { FieldInput } from '../product-new-fields/field-input';
-import { useState } from 'react';
 
 interface Props {
   register: UseFormRegister<ProductType>;
@@ -38,26 +37,26 @@ export function ProductInformationSection({ register, control }: Props) {
   const categories = createListCollection({
     items: dummyCategories,
   });
-  const [value, setValue] = useState('');
+  // const [value, setValue] = useState('');
 
-  // Fungsi untuk mengubah input saat pengguna mengetik
-  const formatInput = (input: string) => {
-    return input
-      .toLowerCase() // Ubah semua huruf menjadi lowercase
-      .replace(/\s+/g, '-') // Ganti spasi dengan "-"
-      .replace(/[^a-z0-9-]/g, '') // Hilangkan karakter non-alphanumeric selain "-"
-      .replace(/-+/g, '-'); // Hindari duplikat "-"
-  };
+  // // Fungsi untuk mengubah input saat pengguna mengetik
+  // const formatInput = (input: string) => {
+  //   return input
+  //     .toLowerCase() // Ubah semua huruf menjadi lowercase
+  //     .replace(/\s+/g, '-') // Ganti spasi dengan "-"
+  //     .replace(/[^a-z0-9-]/g, '') // Hilangkan karakter non-alphanumeric selain "-"
+  //     .replace(/-+/g, '-'); // Hindari duplikat "-"
+  // };
 
-  // Event handler untuk onChange
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const formattedValue = formatInput(e.target.value);
-    setValue(formattedValue);
-  };
+  // // Event handler untuk onChange
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const formattedValue = formatInput(e.target.value);
+  //   setValue(formattedValue);
+  // };
 
-  const handleBlur = () => {
-    setValue((prev) => prev.replace(/-+$/, '')); // Hapus "-" di akhir string
-  };
+  // const handleBlur = () => {
+  //   setValue((prev) => prev.replace(/-+$/, '')); // Hapus "-" di akhir string
+  // };
 
   return (
     <>
@@ -77,13 +76,7 @@ export function ProductInformationSection({ register, control }: Props) {
             <Field label={'Product URL'} required color={'gray'}>
               <Group attached width="100%">
                 leftAddon && <InputAddon>lakoe.store/</InputAddon>
-                <Input
-                  value={value}
-                  placeholder={'product-url-name'}
-                  {...register('url')}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
+                <Input placeholder={'product-url-name'} {...register('url')} />
               </Group>
             </Field>
             <Field label="Select Category" required color={'gray'}>

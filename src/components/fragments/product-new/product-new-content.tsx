@@ -1,7 +1,9 @@
 import { useVariants } from '@/hooks/use-variant';
 import { ProductType } from '@/types/types';
 import { variantsMerger } from '@/utils/variants-merger';
+import { ProductSchema } from '@/validators/product-new/product-new-schema';
 import { Flex } from '@chakra-ui/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ProductDetailSection } from './product-new-sections/product-detail';
@@ -11,11 +13,10 @@ import { ProductPriceSection } from './product-new-sections/product-price';
 import { ProductSaveSection } from './product-new-sections/product-save';
 import { ProductVariantSection } from './product-new-sections/product-variant';
 import { ProductWeightShipmentSection } from './product-new-sections/product-weight-shipment';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ProductSchema } from '@/validators/product-new/product-new-schema';
 
 export function ProductNewContent() {
   const [loading, setLoading] = useState(false);
+  const [images, setImages] = useState<File[]>([]);
   const variantsHooks = useVariants();
   const {
     register,
@@ -25,12 +26,16 @@ export function ProductNewContent() {
     formState: { errors },
   } = useForm<ProductType>({
     resolver: zodResolver(ProductSchema),
+    defaultValues: {
+      images: [],
+    },
   });
 
   const onSubmit: SubmitHandler<ProductType> = (data) => {
     setLoading(true);
     const body: ProductType = {
       ...data,
+      images: images,
       variants: variantsMerger(
         variantsHooks.variants,
         variantsHooks.variantOptions
@@ -50,7 +55,7 @@ export function ProductNewContent() {
           setValue={setValue}
           control={control}
         />
-        <ProductDetailSection register={register} />
+        <ProductDetailSection register={register} setImages={setImages} />
         <ProductVariantSection hooks={variantsHooks} />
         <ProductPriceSection register={register} />
         <ProductManagementSection register={register} />
