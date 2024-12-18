@@ -1,5 +1,4 @@
 import { Toaster, toaster } from '@/components/ui/toaster';
-import { newDummyProductDetail } from '@/dummy-data/dummyData';
 import { useProductDetail } from '@/hooks/use-product-detail';
 import { MainContent } from '@/layouts/mainContent';
 import { Product } from '@/types/product-type';
@@ -9,9 +8,12 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { ProductDetailContent } from './product-content';
 import { ProductSpecification } from './productDetail/product-specification';
-const product = newDummyProductDetail;
 
-export function ProductDetailContainer() {
+interface Props {
+  product: Product;
+}
+
+export function ProductDetailContainer({ product }: Props) {
   const navigate = useNavigate(); // Initialize navigate
   const { handleSubmit, setValue } = useForm<Product>();
   const [selectedVariantOption, setSelectedVariantOption] = useState<string[]>(

@@ -728,18 +728,26 @@ export const newDummyProductDetail: Product = {
   ],
   Variant: [
     {
-      id: 'fc07c23e-00b1-4067-b608-0a1fb2bedf47',
-      name: 'color',
       is_active: true,
-      product_id: 'b9dfd786-dbd4-426a-8043-3a7ff866c0ac',
-      VariantOption: [],
+      product_id: '1',
+      id: '0.018197141056536914',
+      name: 'Color',
+      VariantOption: [
+        { id: '1', name: 'Red', alt: 'Red', src: '' },
+        { id: '2', name: 'Green', alt: 'Green', src: '' },
+        { id: '3', name: 'Blue', alt: 'Blue', src: '' },
+      ],
     },
     {
-      id: '78698717-b9c3-4643-aef2-b53ac5fa9feb',
-      name: 'size',
       is_active: true,
-      product_id: 'b9dfd786-dbd4-426a-8043-3a7ff866c0ac',
-      VariantOption: [],
+      product_id: '1',
+      id: '0.879789155458568',
+      name: 'Size',
+      VariantOption: [
+        { id: '1', name: 'Sm', alt: 'Sm', src: '' },
+        { id: '2', name: 'Md', alt: 'Md', src: '' },
+        { id: '3', name: 'Lg', alt: 'Lg', src: '' },
+      ],
     },
   ],
   VariantOptionCombinations: [

@@ -73,6 +73,11 @@ export function ProductNewContent() {
       JSON.stringify(body.VariantOptionCombination)
     );
 
+    console.log('FormData Entries:');
+    for (const pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
+
     api.CREATE_PRODUCT(formData);
 
     setLoading(false);
