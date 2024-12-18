@@ -24,6 +24,8 @@ export function ProductDetailContainer({ product }: Props) {
     selectedVariantOption,
   });
 
+  console.log(preparedProduct);
+
   const onSubmit: SubmitHandler<Product> = (data) => {
     if (selectedVariantOption.length < preparedProduct.Variant!.length) {
       toaster.create({

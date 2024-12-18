@@ -14,8 +14,10 @@ import { ProductSaveSection } from './product-new-sections/product-save';
 import { ProductVariantSection } from './product-new-sections/product-variant';
 import { ProductWeightShipmentSection } from './product-new-sections/product-weight-shipment';
 import api from '@/networks/api';
+import { useNavigate } from 'react-router-dom';
 
 export function ProductNewContent() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<File[]>([]);
   const variantsHooks = useVariants();
@@ -78,8 +80,7 @@ export function ProductNewContent() {
       console.log(pair[0], pair[1]);
     }
 
-    api.CREATE_PRODUCT(formData);
-
+    api.CREATE_PRODUCT(formData).then(() => navigate(`/${body.url_name}`));
     setLoading(false);
   };
 

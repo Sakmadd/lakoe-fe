@@ -1,10 +1,9 @@
 import api from '@/networks/api';
 import { Product } from '@/types/product-type';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ProductDetailContainer } from '../fragments/product-detail/product-detail-container';
 import { NotFoundPage } from './not-found-page';
-import { newDummyProductDetail } from '@/dummy-data/dummyData';
 
 export function ProductDetailPage() {
   const [product, setProduct] = useState<Product | null>(null);
@@ -20,18 +19,15 @@ export function ProductDetailPage() {
       }
     }
     init();
-  });
+  }, [location.pathname]);
 
-  if (!product) {
-    return (
-      <>
-        <NotFoundPage />
-      </>
+  const productDetail = useMemo(() => {
+    return product ? (
+      <ProductDetailContainer product={product} />
+    ) : (
+      <NotFoundPage />
     );
-  }
-  return (
-    <>
-      <ProductDetailContainer product={newDummyProductDetail} />
-    </>
-  );
+  }, [product]);
+
+  return <>{productDetail}</>;
 }
