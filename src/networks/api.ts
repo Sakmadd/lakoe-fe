@@ -18,8 +18,7 @@ class API {
   async GET_LOGGED_USER(): Promise<UserType> {
     try {
       const response: AxiosResponse = await axios.get(`/users/self`);
-
-      return response.data.data;
+      return response.data.data.payload;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw error;
