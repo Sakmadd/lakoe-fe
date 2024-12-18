@@ -13,8 +13,11 @@ import { ProductPriceSection } from './product-new-sections/product-price';
 import { ProductSaveSection } from './product-new-sections/product-save';
 import { ProductVariantSection } from './product-new-sections/product-variant';
 import { ProductWeightShipmentSection } from './product-new-sections/product-weight-shipment';
+import api from '@/networks/api';
+import { useNavigate } from 'react-router-dom';
 
 export function ProductNewContent() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<File[]>([]);
   const variantsHooks = useVariants();
@@ -33,16 +36,51 @@ export function ProductNewContent() {
 
   const onSubmit: SubmitHandler<ProductType> = (data) => {
     setLoading(true);
-    const body: ProductType = {
+    const body = {
       ...data,
+      url_name: data.url,
+      is_active: true,
       images: images,
-      variants: variantsMerger(
+      Variant: variantsMerger(
         variantsHooks.variants,
         variantsHooks.variantOptions
       ),
-      variant_option_combinations: variantsHooks.getValues().variants,
+      VariantOptionCombination: variantsHooks.getValues().variants,
     };
-    console.log(body);
+
+    const formData = new FormData();
+
+    formData.append('name', body.name);
+    formData.append('url_name', body.url_name);
+    formData.append('category_id', body.category_id);
+    formData.append('description', body.description);
+    formData.append('minimum_order', body.minimum_order.toString());
+    formData.append('price', body.price.toString());
+    formData.append('stock', body.stock.toString());
+    formData.append('sku', body.sku);
+    formData.append('weight', body.weight.toString());
+    formData.append('length', body.length.toString());
+    formData.append('width', body.width.toString());
+    formData.append('height', body.height.toString());
+    formData.append('is_active', body.is_active.toString());
+
+    body.images.forEach((file) => {
+      formData.append('Images', file);
+    });
+
+    formData.append('Variant', JSON.stringify(body.Variant));
+
+    formData.append(
+      'VariantOptionCombination',
+      JSON.stringify(body.VariantOptionCombination)
+    );
+
+    console.log('FormData Entries:');
+    for (const pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
+
+    api.CREATE_PRODUCT(formData).then(() => navigate(`/${body.url_name}`));
     setLoading(false);
   };
 

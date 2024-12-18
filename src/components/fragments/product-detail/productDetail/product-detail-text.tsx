@@ -1,15 +1,15 @@
-import { ProductType } from '@/types/types';
 import { formatRupiah } from '@/utils/format-rp';
 import { Button, Flex, Spacer, Text } from '@chakra-ui/react';
 import { UseFormSetValue } from 'react-hook-form';
 import { ProductDetailVariant } from './product-detail-variant';
 import { QuantityInput } from './quantity-input';
+import { Product } from '@/types/product-type';
 
 interface Props {
-  product: ProductType;
+  product: Product;
   setSelectedVariantOption: React.Dispatch<React.SetStateAction<string[]>>;
   selectedVariantOption: string[];
-  setvalue: UseFormSetValue<ProductType>;
+  setvalue: UseFormSetValue<Product>;
 }
 
 export function ProductDetailText({
@@ -34,11 +34,11 @@ export function ProductDetailText({
           {formatRupiah(product.price)}
         </Text>
       </Flex>
-      {product.variants && (
+      {product.Variant && (
         <ProductDetailVariant
           selectedVariantOption={selectedVariantOption}
           setSelectedVariantOption={setSelectedVariantOption}
-          variants={product.variants}
+          variants={product.Variant}
         />
       )}
       <QuantityInput
