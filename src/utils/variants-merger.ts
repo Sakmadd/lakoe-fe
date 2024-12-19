@@ -11,7 +11,7 @@ export function variantsMerger(
     .map((variant) => ({
       id: variant.id,
       name: variant.name,
-      variantOption: variantOption[variant.name]?.map((option, index) => ({
+      VariantOption: variantOption[variant.name]?.map((option, index) => ({
         id: (index + 1).toString(),
         name: option,
         alt: option,

@@ -1,21 +1,46 @@
-import { ProductType } from '@/types/types';
+import { SellerProductListType } from '@/types/types';
 import { Box } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { ProductCheckAll } from './product-check-all';
 import { ProductItem } from './product-item';
+import api from '@/networks/api';
 
 interface Props {
-  products: ProductType[];
+  products: SellerProductListType[];
   filter: React.ReactNode;
 }
 
 export default function ProductList({ products, filter }: Props) {
-  const [checkedProduct, setCheckedProduct] = useState<ProductType[]>([]);
+  const [checkedProduct, setCheckedProduct] = useState<SellerProductListType[]>(
+    []
+  );
+
+  async function batchToggleHandler(checkedProduct: SellerProductListType[]) {
+    try {
+      const batch: string[] = [];
+      checkedProduct.map((product) => batch.unshift(product.id));
+      api.TOGGLE_ACTIVE_BATCH(batch);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function batchDeleteHandler(checkedProduct: SellerProductListType[]) {
+    try {
+      const batch: string[] = [];
+      checkedProduct.map((product) => batch.unshift(product.id));
+      api.DELETE_PRODUCT_BATCH(batch);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <Box display="flex" flexDirection="column" gap="0.5rem">
       {filter}
       <ProductCheckAll
+        batchDeleteHandler={batchDeleteHandler}
+        batchToggleHandler={batchToggleHandler}
         checkedProduct={checkedProduct}
         setCheckedProduct={setCheckedProduct}
         products={products}
