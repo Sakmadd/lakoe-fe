@@ -1,68 +1,33 @@
-import { Toaster, toaster } from '@/components/ui/toaster';
-import { dummyProductDetail } from '@/dummy-data/dummyData';
-import { useProductDetail } from '@/hooks/use-product-detail';
-import { MainContent } from '@/layouts/mainContent';
-import { ProductType } from '@/types/types';
-import { Flex } from '@chakra-ui/react';
-import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import { ProductDetailContent } from '../fragments/product-detail/product-content';
-import { ProductSpecification } from '../fragments/product-detail/productDetail/product-specification';
-
-const product = dummyProductDetail;
+import api from '@/networks/api';
+import { Product } from '@/types/product-type';
+import { useEffect, useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { ProductDetailContainer } from '../fragments/product-detail/product-detail-container';
+import { NotFoundPage } from './not-found-page';
 
 export function ProductDetailPage() {
-  const navigate = useNavigate(); // Initialize navigate
-  const { handleSubmit, setValue } = useForm<ProductType>();
-  const [selectedVariantOption, setSelectedVariantOption] = useState<string[]>(
-    []
-  );
-  const { preparedProduct, selectedCombination } = useProductDetail({
-    product,
-    selectedVariantOption,
-  });
+  const [product, setProduct] = useState<Product | null>(null);
+  const location = useLocation();
 
-  const onSubmit: SubmitHandler<ProductType> = (data) => {
-    if (selectedVariantOption.length < preparedProduct.variants!.length) {
-      toaster.create({
-        title: 'Select All Product Variants',
-        description: `You must select all ${preparedProduct.variants!.length} product variants before continuing.`,
-        duration: 3000,
-        type: 'error',
-      });
-      return;
+  useEffect(() => {
+    async function init() {
+      try {
+        const response = await api.GET_PRODUCT_BY_URL(location.pathname);
+        setProduct(response);
+      } catch (error) {
+        console.log(error);
+      }
     }
+    init();
+  }, [location.pathname]);
 
-    const checkoutProduct: ProductType = {
-      ...preparedProduct,
-      selected_variant: selectedVariantOption,
-      selected_combination: selectedCombination,
-      checkout_quantity: data.checkout_quantity,
-    };
+  const productDetail = useMemo(() => {
+    return product ? (
+      <ProductDetailContainer product={product} />
+    ) : (
+      <NotFoundPage />
+    );
+  }, [product]);
 
-    delete checkoutProduct.variants;
-    delete checkoutProduct.variant_option_combinations;
-
-    navigate('/checkout', { state: { checkoutProduct } });
-  };
-
-  return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Toaster />
-        <MainContent>
-          <Flex flexDir={'column'} gap={'1rem'}>
-            <ProductDetailContent
-              setvalue={setValue}
-              selectedVariantOption={selectedVariantOption}
-              setSelectedVariantOption={setSelectedVariantOption}
-              product={preparedProduct}
-            />
-            <ProductSpecification product={preparedProduct} />
-          </Flex>
-        </MainContent>
-      </form>
-    </>
-  );
+  return <>{productDetail}</>;
 }

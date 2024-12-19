@@ -96,6 +96,32 @@ class API {
       throw error;
     }
   }
+  async CREATE_PRODUCT(data: FormData) {
+    try {
+      const response = await axios.post('/products', data);
+      console.log(response);
+
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      throw error;
+    }
+  }
+  async GET_PRODUCT_BY_URL(url: string) {
+    try {
+      const response = await axios.get(`/products/url${url}`);
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      throw error;
+    }
+  }
 }
 
 export default new API();

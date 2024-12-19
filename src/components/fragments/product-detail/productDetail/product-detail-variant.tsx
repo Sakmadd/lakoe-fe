@@ -1,9 +1,9 @@
-import { VariantType } from '@/types/types';
+import { Variant } from '@/types/product-type';
 import { Button, Flex, Separator, Text } from '@chakra-ui/react';
 import { Fragment } from 'react/jsx-runtime';
 
 interface productDetailVariantProps {
-  variants: VariantType[];
+  variants: Variant[];
   setSelectedVariantOption: React.Dispatch<React.SetStateAction<string[]>>;
   selectedVariantOption: string[];
 }
@@ -40,7 +40,7 @@ export function ProductDetailVariant({
               <Text padding={'.5rem'}>{variant.name}</Text>
             </Flex>
             <Flex gap={'.5rem'} flexWrap={'wrap'}>
-              {variant.options!.map((option) => (
+              {variant.VariantOption!.map((option) => (
                 <Button
                   key={option.id}
                   variant={
