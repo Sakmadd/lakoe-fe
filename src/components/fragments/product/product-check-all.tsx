@@ -1,20 +1,26 @@
 import { Checkbox } from '@/components/ui/checkbox';
-import { ProductType } from '@/types/types';
+import { SellerProductListType } from '@/types/types';
 import { Flex, Text } from '@chakra-ui/react';
-import { ProductItemButton } from './product-item-button';
-import { LuTrash2 } from 'react-icons/lu';
 import { useState } from 'react';
+import { LuTrash2 } from 'react-icons/lu';
+import { ProductItemButton } from './product-item-button';
 
 interface Props {
-  products: ProductType[];
-  checkedProduct: ProductType[];
-  setCheckedProduct: React.Dispatch<React.SetStateAction<ProductType[]>>;
+  products: SellerProductListType[];
+  checkedProduct: SellerProductListType[];
+  setCheckedProduct: React.Dispatch<
+    React.SetStateAction<SellerProductListType[]>
+  >;
+  batchToggleHandler(checkedProduct: SellerProductListType[]): Promise<void>;
+  batchDeleteHandler(checkedProduct: SellerProductListType[]): Promise<void>;
 }
 
 export function ProductCheckAll({
   products,
   checkedProduct,
   setCheckedProduct,
+  batchToggleHandler,
+  batchDeleteHandler,
 }: Props) {
   const [isCheckedAll, setIsCheckedAll] = useState<boolean>(false);
 
@@ -33,8 +39,14 @@ export function ProductCheckAll({
       <Flex gap={'.5rem'} alignItems={'center'}>
         {checkedProduct.length > 0 && (
           <>
-            <ProductItemButton children={'Toggle Active'} />
-            <ProductItemButton icon={<LuTrash2 />} />
+            <ProductItemButton
+              children={'Toggle Active'}
+              onClick={() => batchToggleHandler(checkedProduct)}
+            />
+            <ProductItemButton
+              onClick={() => batchDeleteHandler(checkedProduct)}
+              icon={<LuTrash2 />}
+            />
           </>
         )}
         <Text fontSize={'.8rem'}>Check All</Text>

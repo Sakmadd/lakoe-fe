@@ -68,7 +68,7 @@ export function ProductNewContent() {
       formData.append('Images', file);
     });
 
-    formData.append('Variant', JSON.stringify(body.Variant));
+    formData.append('Variant', JSON.stringify(Object(body.Variant)));
 
     formData.append(
       'VariantOptionCombination',

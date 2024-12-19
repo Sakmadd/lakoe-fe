@@ -63,11 +63,11 @@ export interface SellerProductListType {
   stock: number;
   sku: string;
   is_active: boolean;
-  images: imagesType[];
-  url: string;
-  category: CategoryType;
-  createdAt: string;
-  updatedAt: string;
+  Images: ImageType[];
+  url_name: string;
+  Category: CategoryType;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface ProductType {
@@ -87,6 +87,7 @@ export interface ProductType {
   width: number;
   height: number;
   variants?: VariantType[];
+  category: CategoryType;
   variant_option_combinations?: VariantOptionCombinationType[];
   selected_variant?: string[];
   selected_combination?: VariantOptionCombinationType;
@@ -100,6 +101,7 @@ export interface CategoryType {
   label: string;
   value: string;
   parent_id: string | null;
+  children?: CategoryType[];
 }
 
 export interface CourierType {
@@ -163,10 +165,16 @@ export interface LoginType {
 }
 
 export interface ProductsListType {
+  id: string;
   name: string;
+  description: string;
+  created_at: string;
+  updated_at: string;
   price: number;
-  url: string;
-  image: imagesType;
+  url_name: string;
+  Images: {
+    src: string;
+  };
 }
 
 export const variants: VariantType[] = [
