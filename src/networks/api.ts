@@ -1,6 +1,7 @@
 import { CONFIGS } from '@/configs/configs';
 import { LoginType, RegisterType, UserType } from '@/types/types';
 import { SettingsInformationType } from '@/validators/settings/settings-information';
+import { SettingsLocationType } from '@/validators/settings/settings-location';
 import axios, { AxiosResponse } from 'axios';
 
 axios.defaults.baseURL = CONFIGS.API_URL;
@@ -61,9 +62,8 @@ class API {
   async UPDATESHOP(data: SettingsInformationType) {
     try {
       const loggedUser = await this.GET_LOGGED_USER();
-      console.log(loggedUser);
       const response: AxiosResponse = await axios.patch(
-        `/shops/shop/${loggedUser.shop_id}`,
+        `/shops/${loggedUser.shop_id}`,
         data,
         {
           headers: {
@@ -71,7 +71,24 @@ class API {
           },
         }
       );
-      console.log(response);
+      return response;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async ADDLOCATION(data: SettingsLocationType) {
+    try {
+      console.log(data);
+      const loggedUser = await this.GET_LOGGED_USER();
+      const response: AxiosResponse = await axios.put(
+        `/shops/locations/${loggedUser.shop_id}`,
+        data
+      );
+      return response;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw error;

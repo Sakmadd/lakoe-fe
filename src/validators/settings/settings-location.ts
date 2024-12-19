@@ -2,12 +2,11 @@ import { z } from 'zod';
 
 export const settingsLocationSchema = z
   .object({
-    id: z.string(),
-    main: z.boolean().optional(),
-    shop: z.string().min(1, 'Store name cannot be empty'),
-    postal: z.string().min(1, 'Postal code cannot be empty'),
+    is_main: z.boolean().optional(),
+    name: z.string().min(1, 'Store name cannot be empty'),
+    postal_code: z.string().min(1, 'Postal code cannot be empty'),
     address: z.string().min(1, 'Address cannot be empty'),
-    regency: z.string().min(1, 'Select one Regency '),
+    city: z.string().min(1, 'Select one Regency '),
     province: z.string().min(1, 'Select one Province'),
     district: z.string().min(1, 'Select one District'),
     subdistrict: z.string().min(1, 'Select one Subdistrict'),

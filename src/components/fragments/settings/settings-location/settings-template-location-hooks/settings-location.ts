@@ -1,10 +1,12 @@
 import { toaster } from '@/components/ui/toaster';
+import api from '@/networks/api';
 import {
   settingsLocationSchema,
   SettingsLocationType,
 } from '@/validators/settings/settings-location';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMapEvents } from 'react-leaflet';
 
@@ -15,12 +17,11 @@ export function useSettLocation() {
   const [id, setId] = useState('');
   const [locationTitle, setLocationTitle] = useState('');
   const resetForm = {
-    id: '',
-    main: false,
-    shop: '',
-    postal: '',
+    is_main: false,
+    name: '',
+    postal_code: '',
     address: '',
-    regency: '',
+    city: '',
     province: '',
     district: '',
     subdistrict: '',
@@ -40,7 +41,7 @@ export function useSettLocation() {
     control,
     formState: { errors },
   } = useForm<SettingsLocationType>({
-    defaultValues: resetForm,
+    // defaultValues: resetForm,
     resolver: zodResolver(settingsLocationSchema),
   });
   const [openMap, setOpenMap] = useState(false);
@@ -57,36 +58,67 @@ export function useSettLocation() {
     return null;
   }
 
-  const handleSubmitStore: SubmitHandler<SettingsLocationType> = (data) => {
-    if (dialogMode != 'add') {
-      setStore((prevData) =>
-        prevData.map((item) =>
-          item.id === data.id ? { ...item, ...data } : item
-        )
-      );
+  const { mutateAsync: addMutateAsync, isPending: addIsPending } = useMutation({
+    mutationKey: ['locations'],
+    mutationFn: async (data: SettingsLocationType) => {
+      const hit = await api.ADDLOCATION(data);
+      console.log(hit);
+      return hit;
+    },
+    onSuccess: () => {
       reset(resetForm);
       setOpenDialog(false);
+      toaster.dismiss();
       toaster.success({
-        title: 'Success editing location',
+        title: 'Success adding location',
       });
-      return;
-    }
-    console.log(data);
+    },
+    onError: () => {
+      setOpenDialog(true);
+      toaster.dismiss();
+      toaster.error({
+        title: 'Failed adding location',
+      });
+    },
+    onMutate: () => {
+      toaster.dismiss();
+      toaster.loading({
+        title: 'Adding location',
+      });
+    },
+  });
+
+  const handleSubmitStore: SubmitHandler<SettingsLocationType> = (data) => {
+    // if (dialogMode != 'add') {
+    //   setStore((prevData) =>
+    //     prevData.map((item) =>
+    //       item.id === data.id ? { ...item, ...data } : item
+    //     )
+    //   );
+    //   reset(resetForm);
+    //   setOpenDialog(false);
+    //   toaster.success({
+    //     title: 'Success editing location',
+    //   });
+    //   return;
+    // }
     if (!data) {
       setOpenDialog(true);
     }
     if (store.length == 0) {
-      data.main = true;
+      // data.main = true;
     }
-    data.id = crypto.randomUUID();
-    setStore((current) => {
-      return [...current, data];
-    });
-    reset(resetForm);
-    setOpenDialog(false);
-    toaster.success({
-      title: 'Success adding location',
-    });
+    // data.id = crypto.randomUUID();
+    // setStore((current) => {
+    //   return [...current, data];
+    // });
+    // reset(resetForm);
+    // setOpenDialog(false);
+    // toaster.success({
+    //   title: 'Success adding location',
+    // });
+    // console.log(data);
+    addMutateAsync(data);
   };
 
   function handleMain(id: string) {
@@ -160,9 +192,9 @@ export function useSettLocation() {
       openDialog,
     },
     locationForm: {
+      addIsPending,
       control,
       watch,
-      setValue,
       handleSubmitStore,
       handleSubmit,
       register,
@@ -171,5 +203,3 @@ export function useSettLocation() {
     },
   };
 }
-
-export function useGetLocation() {}

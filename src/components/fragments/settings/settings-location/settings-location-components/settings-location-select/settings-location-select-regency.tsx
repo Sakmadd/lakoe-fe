@@ -50,7 +50,7 @@ export default function SettingsLocationSelectRegency({
     <>
       <Controller
         control={control}
-        name="regency"
+        name="city"
         render={({ field }) => (
           <SelectRoot
             collection={locations}

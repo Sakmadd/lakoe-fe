@@ -38,8 +38,8 @@ export default function SettingsLocationSelectGroup({
         </Field>
         <Field
           label="Regency"
-          invalid={!!errors.regency}
-          errorText={errors.regency?.message}
+          invalid={!!errors.city}
+          errorText={errors.city?.message}
         >
           <SettingsLocationSelectRegency
             watch={watch}

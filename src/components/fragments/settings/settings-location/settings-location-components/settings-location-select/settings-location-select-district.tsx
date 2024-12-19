@@ -26,7 +26,7 @@ export default function SettingsLocationSelectDistrict({
   id,
   setId,
 }: Props) {
-  const regency = watch('regency');
+  const regency = watch('city');
 
   const [district, setdistrict] = useState<DistrictType>();
   useEffect(() => {

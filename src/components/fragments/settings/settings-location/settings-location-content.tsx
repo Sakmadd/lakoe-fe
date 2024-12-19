@@ -93,12 +93,12 @@ export default function SettingsLocationContent() {
               >
                 <Field
                   label="Location Name"
-                  invalid={!!locationForm.errors.shop}
-                  errorText={locationForm.errors.shop?.message}
+                  invalid={!!locationForm.errors.name}
+                  errorText={locationForm.errors.name?.message}
                 >
                   <Input
                     placeholder="Example Someone Store"
-                    {...locationForm.register('shop')}
+                    {...locationForm.register('name')}
                   />
                 </Field>
                 <SettingsLocationSelectGroup
@@ -108,12 +108,12 @@ export default function SettingsLocationContent() {
                 />
                 <Field
                   label="Postal Code"
-                  invalid={!!locationForm.errors.postal}
-                  errorText={locationForm.errors.postal?.message}
+                  invalid={!!locationForm.errors.postal_code}
+                  errorText={locationForm.errors.postal_code?.message}
                 >
                   <Input
                     placeholder="Input Postal Code"
-                    {...locationForm.register('postal')}
+                    {...locationForm.register('postal_code')}
                   />
                 </Field>
                 <Field
@@ -176,6 +176,7 @@ export default function SettingsLocationContent() {
                     type="submit"
                     borderRadius="2rem"
                     height="2rem"
+                    loading={locationForm.addIsPending}
                   >
                     Save
                   </Button>
@@ -220,9 +221,9 @@ export default function SettingsLocationContent() {
                       fontSize="0.8rem"
                       fontWeight="bold"
                     >
-                      {data.shop}
+                      {data.name}
                     </Text>
-                    {data.main && (
+                    {data.is_main && (
                       <Tag
                         colorPalette="green"
                         variant="solid"
@@ -236,10 +237,10 @@ export default function SettingsLocationContent() {
                     {data.address}
                   </Text>
                   <Text fontFamily="sans-serif" fontSize="0.8rem">
-                    {data.regency}
+                    {data.city}
                   </Text>
                   <Text fontFamily="sans-serif" fontSize="0.8rem">
-                    {data.postal}
+                    {data.postal_code}
                   </Text>
                   <Text fontFamily="sans-serif" fontSize="0.8rem">
                     {data.location ? 'Already pin point' : 'No pin point'}
@@ -255,8 +256,8 @@ export default function SettingsLocationContent() {
                   width="1rem"
                   onClick={() => {
                     locationDialog.setOpenDeleteDialog(true);
-                    locationState.setLocationTitle(data.shop);
-                    locationState.setId(data.id);
+                    locationState.setLocationTitle(data.name);
+                    // locationState.setId(data.id);
                   }}
                 >
                   <LuTrash />
@@ -270,7 +271,7 @@ export default function SettingsLocationContent() {
                   onClick={() => {
                     locationDialog.onOpenDialog('edit');
                     locationForm.reset(data);
-                    locationState.setId(data.id);
+                    // locationState.setId(data.id);
                   }}
                 >
                   <FaRegEdit />
