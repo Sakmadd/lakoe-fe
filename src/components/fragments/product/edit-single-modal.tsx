@@ -88,7 +88,7 @@ export function EditSingleModal({
             </Button>
           </DialogActionTrigger>
           <Button
-            loading={isSaving} // Tambahkan loading indicator
+            loading={isSaving}
             onClick={() => {
               if (input !== '') {
                 saveHandler(product.id, [input.toString()]);

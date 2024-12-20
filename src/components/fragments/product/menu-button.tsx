@@ -5,7 +5,7 @@ import {
   MenuRoot,
   MenuTrigger,
 } from '@/components/ui/menu';
-import api from '@/networks/api';
+import { useProduct } from '@/hooks/use-product';
 import { SellerProductListType } from '@/types/types';
 import { FaTrash } from 'react-icons/fa6';
 import { HiDotsHorizontal } from 'react-icons/hi';
@@ -16,9 +16,11 @@ interface Props {
 }
 
 export function MenuButton({ product }: Props) {
+  const { onDelete } = useProduct();
+
   async function deleteProductHandle() {
     try {
-      await api.DELETE_PRODUCT_BATCH([product.id]);
+      onDelete([product.id]);
     } catch (error) {
       console.log(error);
     }
