@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Field } from '@/components/ui/field';
-import api from '@/networks/api';
+import { useProduct } from '@/hooks/use-product';
 import { SellerProductListType } from '@/types/types';
 import { Group, Input, InputAddon } from '@chakra-ui/react';
 import { ReactNode, useState } from 'react';
@@ -35,17 +35,18 @@ export function EditSingleModal({
   label,
   edit,
 }: Props) {
+  const { onEditPrice, onEditStock } = useProduct();
   const [input, setInput] = useState<number | ''>('');
-  const [isSaving, setIsSaving] = useState(false); // State untuk loading
-  const [open, setOpen] = useState(false); // State untuk mengontrol dialog
+  const [isSaving, setIsSaving] = useState(false);
+  const [open, setOpen] = useState(false);
 
   async function saveHandler(id: string, amount: string[]) {
     setIsSaving(true);
     try {
       if (edit === 'price') {
-        await api.EDIT_PRICE_SINGLE(id, amount);
+        onEditPrice(id, amount);
       } else {
-        await api.EDIT_STOCK_SINGLE(id, amount);
+        onEditStock(id, amount);
       }
       setOpen(false);
     } catch (error) {
@@ -87,7 +88,7 @@ export function EditSingleModal({
             </Button>
           </DialogActionTrigger>
           <Button
-            loading={isSaving} // Tambahkan loading indicator
+            loading={isSaving}
             onClick={() => {
               if (input !== '') {
                 saveHandler(product.id, [input.toString()]);

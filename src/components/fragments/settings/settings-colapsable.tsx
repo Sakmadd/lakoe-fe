@@ -38,6 +38,7 @@ export default function SettingsColapsable({ title, nav }: Props) {
           >
             {nav.map((path) => (
               <Link
+                key={path.text}
                 _hover={{ color: 'gray' }}
                 fontWeight="semibold"
                 textDecoration="none"

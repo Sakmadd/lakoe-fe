@@ -1,9 +1,9 @@
+import { useProduct } from '@/hooks/use-product';
 import { SellerProductListType } from '@/types/types';
 import { Box } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { ProductCheckAll } from './product-check-all';
 import { ProductItem } from './product-item';
-import api from '@/networks/api';
 
 interface Props {
   products: SellerProductListType[];
@@ -11,6 +11,7 @@ interface Props {
 }
 
 export default function ProductList({ products, filter }: Props) {
+  const { onDelete, onToggleProduct } = useProduct();
   const [checkedProduct, setCheckedProduct] = useState<SellerProductListType[]>(
     []
   );
@@ -19,7 +20,7 @@ export default function ProductList({ products, filter }: Props) {
     try {
       const batch: string[] = [];
       checkedProduct.map((product) => batch.unshift(product.id));
-      api.TOGGLE_ACTIVE_BATCH(batch);
+      onToggleProduct(batch);
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +30,7 @@ export default function ProductList({ products, filter }: Props) {
     try {
       const batch: string[] = [];
       checkedProduct.map((product) => batch.unshift(product.id));
-      api.DELETE_PRODUCT_BATCH(batch);
+      onDelete(batch);
     } catch (error) {
       console.log(error);
     }
