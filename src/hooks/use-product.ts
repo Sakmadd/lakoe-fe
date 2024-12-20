@@ -182,7 +182,6 @@ export function useProduct() {
       icon: 'info',
       showCancelButton: true,
       confirmButtonText: 'Yes, Toggle!',
-      confirmButtonColor: 'yellow',
       cancelButtonText: 'Cancel',
     }).then((result) => {
       if (result.isConfirmed) {

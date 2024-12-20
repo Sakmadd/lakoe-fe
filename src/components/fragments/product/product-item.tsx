@@ -1,4 +1,4 @@
-import api from '@/networks/api';
+import { useProduct } from '@/hooks/use-product';
 import { SellerProductListType } from '@/types/types';
 import { formatRupiah } from '@/utils/format-rp';
 import { Box, Flex, Image, Spacer, Text } from '@chakra-ui/react';
@@ -24,6 +24,7 @@ export function ProductItem({
   checkedProduct,
   setCheckedProduct,
 }: Props) {
+  const { onToggleProduct } = useProduct();
   const navigate = useNavigate();
   const isChecked = checkedProduct.some((p) => p.id === product.id);
 
@@ -37,7 +38,7 @@ export function ProductItem({
 
   async function handleSwitchClick(id: string) {
     try {
-      await api.TOGGLE_ACTIVE_SINGLE(id);
+      onToggleProduct([id]);
     } catch (error) {
       console.log(error);
     }
@@ -123,7 +124,7 @@ export function ProductItem({
             />
             <Spacer />
             <Switch
-              defaultChecked={product.is_active}
+              checked={product.is_active}
               size={'lg'}
               onCheckedChange={() => handleSwitchClick(product.id)}
             />
