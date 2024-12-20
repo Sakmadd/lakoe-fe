@@ -164,8 +164,8 @@ export function useProduct() {
       if (result.isConfirmed) {
         editStockProduct.mutate({ id, amount });
         Swal.fire({
-          title: 'Price Edited!',
-          html: 'Let’s check the latest price!',
+          title: 'Stock Edited!',
+          html: 'Let’s check the latest stock!',
           icon: 'success',
           confirmButtonText: 'Go!',
         }).then(() => {

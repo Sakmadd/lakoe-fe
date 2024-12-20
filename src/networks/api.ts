@@ -170,6 +170,18 @@ class API {
       throw error;
     }
   }
+  async GET_ALL_CATEGORIES() {
+    try {
+      const respone = await axios.get('/products/categories');
+      return respone.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      throw error;
+    }
+  }
 }
 
 export default new API();

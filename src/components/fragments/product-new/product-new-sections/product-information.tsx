@@ -1,63 +1,17 @@
 import { Field } from '@/components/ui/field';
-import {
-  SelectContent,
-  SelectItem,
-  SelectRoot,
-  SelectTrigger,
-  SelectValueText,
-} from '@/components/ui/select';
-import { dummyCategories } from '@/dummy-data/dummyData';
 import { ProductType } from '@/types/types';
-import {
-  createListCollection,
-  Flex,
-  Group,
-  Input,
-  InputAddon,
-  Text,
-} from '@chakra-ui/react';
-import {
-  Control,
-  Controller,
-  FieldErrors,
-  UseFormRegister,
-  UseFormSetValue,
-} from 'react-hook-form';
+import { Flex, Group, Input, InputAddon, Text } from '@chakra-ui/react';
+import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { ContentContainer } from '../../container/contentContainer';
 import { FieldInput } from '../product-new-fields/field-input';
+import CategoryInput from './category-input';
 
 interface Props {
   register: UseFormRegister<ProductType>;
   setValue: UseFormSetValue<ProductType>;
-  control: Control<ProductType>;
-  errors: FieldErrors<ProductType>;
 }
 
-export function ProductInformationSection({ register, control }: Props) {
-  const categories = createListCollection({
-    items: dummyCategories,
-  });
-  // const [value, setValue] = useState('');
-
-  // // Fungsi untuk mengubah input saat pengguna mengetik
-  // const formatInput = (input: string) => {
-  //   return input
-  //     .toLowerCase() // Ubah semua huruf menjadi lowercase
-  //     .replace(/\s+/g, '-') // Ganti spasi dengan "-"
-  //     .replace(/[^a-z0-9-]/g, '') // Hilangkan karakter non-alphanumeric selain "-"
-  //     .replace(/-+/g, '-'); // Hindari duplikat "-"
-  // };
-
-  // // Event handler untuk onChange
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const formattedValue = formatInput(e.target.value);
-  //   setValue(formattedValue);
-  // };
-
-  // const handleBlur = () => {
-  //   setValue((prev) => prev.replace(/-+$/, '')); // Hapus "-" di akhir string
-  // };
-
+export function ProductInformationSection({ register, setValue }: Props) {
   return (
     <>
       <ContentContainer>
@@ -79,32 +33,7 @@ export function ProductInformationSection({ register, control }: Props) {
                 <Input placeholder={'product-url-name'} {...register('url')} />
               </Group>
             </Field>
-            <Field label="Select Category" required color={'gray'}>
-              <Controller
-                control={control}
-                name="category_id"
-                render={({ field }) => (
-                  <SelectRoot
-                    size="sm"
-                    width="320px"
-                    minWidth={'100%'}
-                    collection={categories}
-                    onValueChange={({ items }) => field.onChange(items[0].id)}
-                  >
-                    <SelectTrigger>
-                      <SelectValueText placeholder="Select Category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {categories.items.map((category) => (
-                        <SelectItem key={category.id} item={category}>
-                          {category.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </SelectRoot>
-                )}
-              />
-            </Field>
+            <CategoryInput setValue={setValue} />
           </Flex>
         </Flex>
       </ContentContainer>
