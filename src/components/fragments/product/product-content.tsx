@@ -1,42 +1,16 @@
 import { dummyCategories, dummySorts } from '@/dummy-data/dummyData';
-import api from '@/networks/api';
-import { SellerProductListType } from '@/types/types';
-import { ProductGrouper } from '@/utils/product-grouper';
+import { useProduct } from '@/hooks/use-product';
 import { Button, Flex, Spacer, Spinner, Tabs, Text } from '@chakra-ui/react';
-import { useEffect, useState, useMemo, useCallback } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { TabsProductContent } from './tabs-product-content';
 
 export function ProductContent() {
   const navigate = useNavigate();
-  const [products, setProducts] = useState<SellerProductListType[] | null>(
-    null
-  );
-  const [loading, setLoading] = useState<boolean>(true);
 
-  const fetchProduct = useCallback(async () => {
-    try {
-      setLoading(true);
-      const response = await api.GET_SHOP_PRODUCTS();
-      setProducts(response);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const { products, isLoading, groupedProducts } = useProduct();
 
-  useEffect(() => {
-    fetchProduct();
-  }, [fetchProduct]);
-
-  const groupedProduct = useMemo(() => {
-    if (!products) return { active: [], unactive: [] };
-    return ProductGrouper({ products });
-  }, [products]);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <Flex justifyContent="center" alignItems="center" h="50vh">
         <Spinner size="xl" color="teal.500" />
@@ -83,13 +57,13 @@ export function ProductContent() {
           sorts={dummySorts}
         />
         <TabsProductContent
-          products={groupedProduct.active}
+          products={groupedProducts.active}
           tabs_value="active"
           categories={dummyCategories}
           sorts={dummySorts}
         />
         <TabsProductContent
-          products={groupedProduct.unactive}
+          products={groupedProducts.unactive}
           tabs_value="unactive"
           categories={dummyCategories}
           sorts={dummySorts}
