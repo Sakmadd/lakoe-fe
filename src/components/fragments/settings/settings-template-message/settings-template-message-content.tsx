@@ -1,10 +1,11 @@
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Spinner, Text } from '@chakra-ui/react';
 import { Button } from '@/components/ui/button';
 import SettingsDeleteDialog from '../global-settings-components/settings-delete-dialog';
 import { Toaster } from '@/components/ui/toaster';
 import { useSettTempMessage } from './settings-template-message-hooks/settings-template-message';
 import SettingsTemplateMessageBox from './settings-template-message-components/settings-template-message-box';
 import SettingsTemplateMessageForm from './settings-template-message-components/settings-template-message-form';
+import SettingsEmptyContent from '../global-settings-components/settings-empty-content';
 
 export default function SettingsTemplateMessageContent() {
   const {
@@ -12,12 +13,14 @@ export default function SettingsTemplateMessageContent() {
     handleSubmit,
     templateSubmit,
     register,
+    setValue,
     onOpenDialog,
     setTemplateMessageId,
     setTemplateMessageTitle,
     onCloseDialog,
     setOpenDeleteDialog,
     reset,
+    getValues,
     templateMessage,
     templateMessageId,
     openDialog,
@@ -25,6 +28,10 @@ export default function SettingsTemplateMessageContent() {
     templateMessageTitle,
     errors,
     dialogMode,
+    FetchingTemplate,
+    pendingAdd,
+    pendingUpdate,
+    pendingDelete,
   } = useSettTempMessage();
 
   return (
@@ -50,20 +57,30 @@ export default function SettingsTemplateMessageContent() {
           Create Template
         </Button>
       </Box>
-      {templateMessage
-        .map((template) => (
-          <SettingsTemplateMessageBox
-            key={template.id}
-            template={template}
-            setTemplateMessageId={setTemplateMessageId}
-            setTemplateMessageTitle={setTemplateMessageTitle}
-            setOpenDeleteDialog={setOpenDeleteDialog}
-            reset={reset}
-            onOpenDialog={onOpenDialog}
-          />
-        ))
-        .reverse()}
+      {FetchingTemplate && (
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Spinner size="xl" />
+        </Box>
+      )}
+      {!FetchingTemplate &&
+        templateMessage
+          ?.map((template) => (
+            <SettingsTemplateMessageBox
+              key={template.id}
+              template={template}
+              setTemplateMessageId={setTemplateMessageId}
+              setTemplateMessageTitle={setTemplateMessageTitle}
+              setOpenDeleteDialog={setOpenDeleteDialog}
+              reset={reset}
+              onOpenDialog={onOpenDialog}
+            />
+          ))
+          .reverse()}
       <SettingsTemplateMessageForm
+        getValues={getValues}
+        setValue={setValue}
+        pendingAdd={pendingAdd}
+        pendingUpdate={pendingUpdate}
         openDialog={openDialog}
         handleSubmit={handleSubmit}
         templateSubmit={templateSubmit}
@@ -73,6 +90,7 @@ export default function SettingsTemplateMessageContent() {
         dialogMode={dialogMode}
       />
       <SettingsDeleteDialog
+        pendingDelete={pendingDelete}
         id={templateMessageId}
         openDeleteDialog={openDeleteDialog}
         setOpenDeleteDialog={setOpenDeleteDialog}
@@ -80,6 +98,11 @@ export default function SettingsTemplateMessageContent() {
         header={'Delete Template Message'}
         title={templateMessageTitle}
       />
+      {templateMessage?.length == 0 && (
+        <SettingsEmptyContent
+          content={"You don't have a message template yet"}
+        />
+      )}
       <Toaster />
     </Box>
   );

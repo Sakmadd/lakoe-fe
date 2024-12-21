@@ -9,6 +9,7 @@ export interface UserType {
 }
 
 export interface Shop {
+  name: string;
   Product: [];
   Withdraw: [];
   balance: number;

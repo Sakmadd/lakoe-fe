@@ -27,7 +27,7 @@ export function useSettInfo() {
   } = useForm<SettingsInformationType>({
     defaultValues: {
       slogan: User?.Shop.slogan,
-      name: User?.name,
+      name: User?.Shop.name,
       phone: User?.Shop.phone,
       description: User?.Shop.description,
       logo: image,
@@ -64,7 +64,8 @@ export function useSettInfo() {
   const { mutateAsync, isPending } = useMutation({
     mutationKey: ['store'],
     mutationFn: async (data: SettingsInformationType) => {
-      await informationSubmit(data);
+      const response = await informationSubmit(data);
+      return response;
     },
     onSuccess: () => {
       toaster.dismiss();

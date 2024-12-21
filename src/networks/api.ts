@@ -2,6 +2,7 @@ import { CONFIGS } from '@/configs/configs';
 import { LoginType, RegisterType, UserType } from '@/types/types';
 import { SettingsInformationType } from '@/validators/settings/settings-information';
 import { SettingsLocationType } from '@/validators/settings/settings-location';
+import { SettingsTemplateTypes } from '@/validators/settings/settings-template';
 import axios, { AxiosResponse } from 'axios';
 
 axios.defaults.baseURL = CONFIGS.API_URL;
@@ -82,9 +83,8 @@ class API {
 
   async ADDLOCATION(data: SettingsLocationType) {
     try {
-      console.log(data);
       const loggedUser = await this.GET_LOGGED_USER();
-      const response: AxiosResponse = await axios.put(
+      const response: AxiosResponse = await axios.post(
         `/shops/locations/${loggedUser.shop_id}`,
         data
       );
@@ -96,6 +96,107 @@ class API {
       throw error;
     }
   }
+
+  async GETLOCATION() {
+    try {
+      const loggedUser = await this.GET_LOGGED_USER();
+      const response: AxiosResponse = await axios.get(
+        `/shops/${loggedUser.shop_id}`
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async UPDATELOCATION(data: SettingsLocationType) {
+    try {
+      const response: AxiosResponse = await axios.patch(
+        `/shops/locations/${data.id}`,
+        data
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async DELETELOCATION(id: string | undefined) {
+    try {
+      const response: AxiosResponse = await axios.delete(
+        `/shops/locations/${id}`
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async GETTEMPLATE() {
+    try {
+      const response: AxiosResponse = await axios.get(`/template-message`);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async ADDTEMPLATE(data: SettingsTemplateTypes) {
+    try {
+      const response: AxiosResponse = await axios.post(
+        `/template-message/template`,
+        data
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async UPDATETEMPLATE(data: SettingsTemplateTypes) {
+    try {
+      const response: AxiosResponse = await axios.patch(
+        `/template-message/update/${data.id}`,
+        data
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async DELETETEMPLATE(id: string | undefined) {
+    try {
+      const response: AxiosResponse = await axios.delete(
+        `/template-message/delete/${id}`
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
   async CREATE_PRODUCT(data: FormData) {
     try {
       const response = await axios.post('/products', data);

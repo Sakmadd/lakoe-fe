@@ -11,7 +11,7 @@ import {
 import { Field } from '@/components/ui/field';
 import { Tag } from '@/components/ui/tag';
 import { Toaster } from '@/components/ui/toaster';
-import { Box, Image, Input, Text, Textarea } from '@chakra-ui/react';
+import { Box, Image, Input, Spinner, Text, Textarea } from '@chakra-ui/react';
 import 'leaflet/dist/leaflet.css';
 import { FaRegEdit } from 'react-icons/fa';
 import { LuTrash } from 'react-icons/lu';
@@ -22,6 +22,7 @@ import SettingsDeleteDialog from '../global-settings-components/settings-delete-
 import SettingsLocationMaps from './settings-location-components/settings-location-maps';
 import SettingsLocationSelectGroup from './settings-location-components/settings-location-select/settings-location-select-group';
 import { useSettLocation } from './settings-template-location-hooks/settings-location';
+import SettingsEmptyContent from '../global-settings-components/settings-empty-content';
 
 export default function SettingsLocationContent() {
   const {
@@ -75,7 +76,8 @@ export default function SettingsLocationContent() {
           <DialogContent>
             <form
               onSubmit={locationForm.handleSubmit(
-                locationForm.handleSubmitStore
+                locationForm.handleSubmitStore,
+                (error) => console.log(error)
               )}
             >
               <DialogHeader>
@@ -102,9 +104,11 @@ export default function SettingsLocationContent() {
                   />
                 </Field>
                 <SettingsLocationSelectGroup
+                  setValue={locationForm.setValue}
                   errors={locationForm.errors}
                   watch={locationForm.watch}
                   control={locationForm.control}
+                  getValues={locationForm.getValues}
                 />
                 <Field
                   label="Postal Code"
@@ -186,101 +190,113 @@ export default function SettingsLocationContent() {
           </DialogContent>
         </DialogRoot>
       </Box>
-      {locationData.store
-        .map((data) => (
-          <>
-            <Box
-              border="1px solid #e6e6e6"
-              display="flex"
-              padding="0.8rem"
-              borderRadius="1rem"
-              justifyContent="space-between"
-            >
-              <Box display="flex" gap="3rem">
-                <Box display="flex" flexDirection="column" gap="0.3rem">
-                  <Text fontFamily="sans-serif" fontSize="0.8rem">
-                    Location Name
-                  </Text>
-                  <Text fontFamily="sans-serif" fontSize="0.8rem">
-                    Address
-                  </Text>
-                  <Text fontFamily="sans-serif" fontSize="0.8rem">
-                    City / Subdistrict
-                  </Text>
-                  <Text fontFamily="sans-serif" fontSize="0.8rem">
-                    Postal Code
-                  </Text>
-                  <Text fontFamily="sans-serif" fontSize="0.8rem">
-                    Pinpoint
-                  </Text>
-                </Box>
-                <Box display="flex" flexDirection="column" gap="0.3rem">
-                  <Box display="flex" alignItems="center" gap="0.5rem">
-                    <Text
-                      fontFamily="sans-serif"
-                      fontSize="0.8rem"
-                      fontWeight="bold"
-                    >
-                      {data.name}
+      {locationData.FetchingLocationData && (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="10rem"
+        >
+          <Spinner size="xl" />
+        </Box>
+      )}
+      {!locationData.FetchingLocationData &&
+        locationData.store
+          ?.map((data) => (
+            <>
+              <Box
+                key={data.id}
+                border="1px solid #e6e6e6"
+                display="flex"
+                padding="0.8rem"
+                borderRadius="1rem"
+                justifyContent="space-between"
+              >
+                <Box display="flex" gap="3rem">
+                  <Box display="flex" flexDirection="column" gap="0.3rem">
+                    <Text fontFamily="sans-serif" fontSize="0.8rem">
+                      Location Name
                     </Text>
-                    {data.is_main && (
-                      <Tag
-                        colorPalette="green"
-                        variant="solid"
-                        fontWeight="semibold"
-                      >
-                        Main Address
-                      </Tag>
-                    )}
+                    <Text fontFamily="sans-serif" fontSize="0.8rem">
+                      Address
+                    </Text>
+                    <Text fontFamily="sans-serif" fontSize="0.8rem">
+                      City / Subdistrict
+                    </Text>
+                    <Text fontFamily="sans-serif" fontSize="0.8rem">
+                      Postal Code
+                    </Text>
+                    <Text fontFamily="sans-serif" fontSize="0.8rem">
+                      Pinpoint
+                    </Text>
                   </Box>
-                  <Text fontFamily="sans-serif" fontSize="0.8rem">
-                    {data.address}
-                  </Text>
-                  <Text fontFamily="sans-serif" fontSize="0.8rem">
-                    {data.city}
-                  </Text>
-                  <Text fontFamily="sans-serif" fontSize="0.8rem">
-                    {data.postal_code}
-                  </Text>
-                  <Text fontFamily="sans-serif" fontSize="0.8rem">
-                    {data.location ? 'Already pin point' : 'No pin point'}
-                  </Text>
+                  <Box display="flex" flexDirection="column" gap="0.3rem">
+                    <Box display="flex" alignItems="center" gap="0.5rem">
+                      <Text
+                        fontFamily="sans-serif"
+                        fontSize="0.8rem"
+                        fontWeight="bold"
+                      >
+                        {data.name}
+                      </Text>
+                      {data.is_main && (
+                        <Tag
+                          colorPalette="green"
+                          variant="solid"
+                          fontWeight="semibold"
+                        >
+                          Main Address
+                        </Tag>
+                      )}
+                    </Box>
+                    <Text fontFamily="sans-serif" fontSize="0.8rem">
+                      {data.address}
+                    </Text>
+                    <Text fontFamily="sans-serif" fontSize="0.8rem">
+                      {data.city}
+                    </Text>
+                    <Text fontFamily="sans-serif" fontSize="0.8rem">
+                      {data.postal_code}
+                    </Text>
+                    <Text fontFamily="sans-serif" fontSize="0.8rem">
+                      {data.location ? 'Already pin point' : 'No pin point'}
+                    </Text>
+                  </Box>
+                </Box>
+                <Box display="flex" gap="0.5rem">
+                  <Button
+                    backgroundColor="transparent"
+                    color="gray"
+                    border="1px solid #e6e6e6"
+                    borderRadius="50%"
+                    width="1rem"
+                    onClick={() => {
+                      locationDialog.setOpenDeleteDialog(true);
+                      locationState.setLocationTitle(data.name);
+                      locationState.setId(data.id);
+                    }}
+                  >
+                    <LuTrash />
+                  </Button>
+                  <Button
+                    backgroundColor="transparent"
+                    color="gray"
+                    border="1px solid #e6e6e6"
+                    borderRadius="50%"
+                    width="1rem"
+                    onClick={() => {
+                      locationDialog.onOpenDialog('edit');
+                      locationForm.reset(data);
+                      locationState.setId(data.id);
+                    }}
+                  >
+                    <FaRegEdit />
+                  </Button>
                 </Box>
               </Box>
-              <Box display="flex" gap="0.5rem">
-                <Button
-                  backgroundColor="transparent"
-                  color="gray"
-                  border="1px solid #e6e6e6"
-                  borderRadius="50%"
-                  width="1rem"
-                  onClick={() => {
-                    locationDialog.setOpenDeleteDialog(true);
-                    locationState.setLocationTitle(data.name);
-                    // locationState.setId(data.id);
-                  }}
-                >
-                  <LuTrash />
-                </Button>
-                <Button
-                  backgroundColor="transparent"
-                  color="gray"
-                  border="1px solid #e6e6e6"
-                  borderRadius="50%"
-                  width="1rem"
-                  onClick={() => {
-                    locationDialog.onOpenDialog('edit');
-                    locationForm.reset(data);
-                    // locationState.setId(data.id);
-                  }}
-                >
-                  <FaRegEdit />
-                </Button>
-              </Box>
-            </Box>
-          </>
-        ))
-        .reverse()}
+            </>
+          ))
+          .reverse()}
       <DialogRoot size="lg" placement="center" open={locationDialog.openMap}>
         <DialogContent>
           <DialogHeader>
@@ -303,6 +319,7 @@ export default function SettingsLocationContent() {
         </DialogContent>
       </DialogRoot>
       <SettingsDeleteDialog
+        pendingDelete={locationDialog.pendingDelete}
         id={locationState.id}
         openDeleteDialog={locationDialog.openDeleteDialog}
         setOpenDeleteDialog={locationDialog.setOpenDeleteDialog}
@@ -310,6 +327,9 @@ export default function SettingsLocationContent() {
         title={locationState.locationTitle}
         deleteSubmit={locationMutation.handleDelete}
       />
+      {locationData.store?.length == 0 && (
+        <SettingsEmptyContent content={"You haven't set your location yet"} />
+      )}
       <Toaster />
     </Box>
   );

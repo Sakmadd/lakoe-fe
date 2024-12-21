@@ -1,29 +1,36 @@
-import { useState, useEffect } from 'react';
+import { toaster } from '@/components/ui/toaster';
 import {
   settingsTemplateSchema,
   SettingsTemplateTypes,
 } from '@/validators/settings/settings-template';
-import { toaster } from '@/components/ui/toaster';
-import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { resetTemplate } from '../../constant/form';
+import {
+  useCreateTemplate,
+  useDeleteTemplate,
+  useGetTemplate,
+  useUpdateTemplate,
+} from './tanstack-template';
 
 export function useSettTempMessage() {
-  const [templateMessage, setTemplateMessage] = useState<
-    SettingsTemplateTypes[]
-  >(() => {
-    const local = localStorage.getItem('TEMPLATE_MESSAGE');
-    if (!local) return [];
-    return JSON.parse(local);
-  });
+  const [templateMessage, setTemplateMessage] =
+    useState<SettingsTemplateTypes[]>();
   const [dialogMode, setDialogMode] = useState('add');
   const [openDialog, setOpenDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-  const [templateMessageId, setTemplateMessageId] = useState('');
+  const [templateMessageId, setTemplateMessageId] = useState<
+    string | undefined
+  >('');
   const [templateMessageTitle, setTemplateMessageTitle] = useState('');
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm<SettingsTemplateTypes>({
     defaultValues: {
@@ -31,49 +38,102 @@ export function useSettTempMessage() {
     },
     resolver: zodResolver(settingsTemplateSchema),
   });
+  const queryClient = useQueryClient();
 
-  const resetTemplate = {
-    id: '',
-    title: '',
-    message: '',
-  };
+  const { isFetching: FetchingTemplate } = useGetTemplate({
+    setTemplateMessage,
+  });
+
+  const { mutateAsync: addTemplateMutateAsync, isPending: pendingAdd } =
+    useCreateTemplate({
+      onSuccess: () => {
+        reset(resetTemplate);
+        setOpenDialog(false);
+        queryClient.invalidateQueries({ queryKey: ['template-message'] });
+        toaster.dismiss();
+        toaster.success({
+          title: 'Success adding new template message',
+        });
+      },
+      onError: () => {
+        setOpenDialog(true);
+        toaster.dismiss();
+        toaster.error({
+          title: 'Failed adding new template message',
+        });
+      },
+      onMutate: () => {
+        toaster.dismiss();
+        toaster.loading({
+          title: 'Adding new template message',
+        });
+      },
+    });
+
+  const { mutateAsync: updateTemplateMutateAsync, isPending: pendingUpdate } =
+    useUpdateTemplate({
+      onSuccess: () => {
+        reset(resetTemplate);
+        setOpenDialog(false);
+        queryClient.invalidateQueries({ queryKey: ['template-message'] });
+        toaster.dismiss();
+        toaster.success({
+          title: 'Success updating template message',
+        });
+      },
+      onError: () => {
+        setOpenDialog(true);
+        toaster.dismiss();
+        toaster.error({
+          title: 'Failed updating template message',
+        });
+      },
+      onMutate: () => {
+        toaster.dismiss();
+        toaster.loading({
+          title: 'Updating template message',
+        });
+      },
+    });
+
+  const { mutateAsync: deleteTemplateMutateAsync, isPending: pendingDelete } =
+    useDeleteTemplate({
+      onSuccess: () => {
+        setOpenDeleteDialog(false);
+        queryClient.invalidateQueries({ queryKey: ['template-message'] });
+        toaster.dismiss();
+        toaster.success({
+          title: 'Success deleting template message',
+        });
+      },
+      onError: () => {
+        setOpenDialog(true);
+        toaster.dismiss();
+        toaster.error({
+          title: 'Failed deleting template message',
+        });
+      },
+      onMutate: () => {
+        toaster.dismiss();
+        toaster.loading({
+          title: 'Updating deleting message',
+        });
+      },
+    });
 
   const templateSubmit: SubmitHandler<SettingsTemplateTypes> = (data) => {
     if (dialogMode != 'add') {
-      setTemplateMessage((prevData) =>
-        prevData.map((item) =>
-          item.id === data.id ? { ...item, ...data } : item
-        )
-      );
-      reset(resetTemplate);
-      setOpenDialog(false);
-      toaster.success({
-        title: 'Success editing template message',
-      });
+      updateTemplateMutateAsync(data);
       return;
     }
     if (!data) {
       setOpenDialog(true);
     }
-    data.id = crypto.randomUUID();
-    setTemplateMessage((current) => {
-      return [...current, data];
-    });
-    setOpenDialog(false);
-    reset(resetTemplate);
-    toaster.success({
-      title: 'Success adding template message',
-    });
+    addTemplateMutateAsync(data);
   };
 
-  function deleteSubmit(id: string) {
-    setTemplateMessage((templates) =>
-      templates.filter((template) => template.id != id)
-    );
-    setOpenDeleteDialog(false);
-    toaster.success({
-      title: 'Success deleting template message',
-    });
+  function deleteSubmit(id: string | undefined) {
+    deleteTemplateMutateAsync(id);
   }
 
   function onOpenDialog(mode: string) {
@@ -89,11 +149,10 @@ export function useSettTempMessage() {
     reset(resetTemplate);
   }
 
-  useEffect(() => {
-    localStorage.setItem('TEMPLATE_MESSAGE', JSON.stringify(templateMessage));
-  }, [templateMessage]);
-
   return {
+    pendingAdd,
+    pendingUpdate,
+    pendingDelete,
     deleteSubmit,
     handleSubmit,
     templateSubmit,
@@ -104,8 +163,11 @@ export function useSettTempMessage() {
     setTemplateMessageTitle,
     setOpenDeleteDialog,
     reset,
+    getValues,
+    FetchingTemplate,
     templateMessageId,
     onCloseDialog,
+    setValue,
     openDialog,
     openDeleteDialog,
     templateMessageTitle,

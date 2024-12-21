@@ -5,7 +5,7 @@ import {
   SelectContent,
   SelectItem,
 } from '@/components/ui/select';
-import { UseFormWatch } from 'react-hook-form';
+import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { SettingsLocationType } from '@/validators/settings/settings-location';
 import { createListCollection } from '@chakra-ui/react/collection';
 import { Control, Controller } from 'react-hook-form';
@@ -18,6 +18,7 @@ interface Props {
   control: Control<SettingsLocationType>;
   id: number;
   setId: (a: number) => void;
+  setValue: UseFormSetValue<SettingsLocationType>;
 }
 
 export default function SettingsLocationSelectRegency({
@@ -25,6 +26,7 @@ export default function SettingsLocationSelectRegency({
   control,
   id,
   setId,
+  setValue,
 }: Props) {
   const province = watch('province');
 
@@ -69,7 +71,10 @@ export default function SettingsLocationSelectRegency({
                 <SelectItem
                   item={data}
                   key={data.id}
-                  onClick={() => setId(data.id)}
+                  onClick={() => {
+                    setId(data.id);
+                    setValue('city_id', data.id);
+                  }}
                 >
                   {data.nama}
                 </SelectItem>

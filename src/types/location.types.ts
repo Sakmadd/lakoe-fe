@@ -1,3 +1,7 @@
+// export interface GroupDaerah {
+//   daerah;
+// }
+
 export interface ProvinceType {
   provinsi: {
     id: number;

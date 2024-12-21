@@ -2,7 +2,12 @@ import { z } from 'zod';
 
 export const settingsLocationSchema = z
   .object({
+    id: z.string().optional(),
     is_main: z.boolean().optional(),
+    province_id: z.number(),
+    city_id: z.number(),
+    district_id: z.number(),
+    subdistrict_id: z.number(),
     name: z.string().min(1, 'Store name cannot be empty'),
     postal_code: z.string().min(1, 'Postal code cannot be empty'),
     address: z.string().min(1, 'Address cannot be empty'),
@@ -10,6 +15,7 @@ export const settingsLocationSchema = z
     province: z.string().min(1, 'Select one Province'),
     district: z.string().min(1, 'Select one District'),
     subdistrict: z.string().min(1, 'Select one Subdistrict'),
+    shop_id: z.string().optional(),
     location: z
       .object({
         lat: z
@@ -23,6 +29,8 @@ export const settingsLocationSchema = z
       })
       .optional()
       .nullable(),
+    longitude: z.string().optional(),
+    latitude: z.string().optional(),
   })
   .strict();
 

@@ -5,7 +5,7 @@ import {
   SelectContent,
   SelectItem,
 } from '@/components/ui/select';
-import { UseFormWatch } from 'react-hook-form';
+import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { SettingsLocationType } from '@/validators/settings/settings-location';
 import { createListCollection } from '@chakra-ui/react/collection';
 import { Control, Controller } from 'react-hook-form';
@@ -16,6 +16,7 @@ import { SubDistrictType } from '@/types/location.types';
 interface Props {
   watch: UseFormWatch<SettingsLocationType>;
   control: Control<SettingsLocationType>;
+  setValue: UseFormSetValue<SettingsLocationType>;
   id: number;
 }
 
@@ -23,6 +24,7 @@ export default function SettingsLocationSelectSubDistrict({
   id,
   watch,
   control,
+  setValue,
 }: Props) {
   const district = watch('district');
 
@@ -64,7 +66,13 @@ export default function SettingsLocationSelectSubDistrict({
             </SelectTrigger>
             <SelectContent zIndex="2000">
               {locations.items.map((data) => (
-                <SelectItem item={data} key={data.id}>
+                <SelectItem
+                  item={data}
+                  key={data.id}
+                  onClick={() => {
+                    setValue('subdistrict_id', data.id);
+                  }}
+                >
                   {data.nama}
                 </SelectItem>
               ))}

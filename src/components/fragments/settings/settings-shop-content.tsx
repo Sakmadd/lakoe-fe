@@ -3,8 +3,12 @@ import { Tabs } from '@chakra-ui/react';
 import SettingsLocation from './settings-location';
 import SettingsTemplateMessage from './settings-template-message';
 import SettingsInformation from './settings-information';
+import { StoreState } from '@/redux/store';
+import { useSelector } from 'react-redux';
 
 export default function SettingsShopContent() {
+  const User = useSelector((state: StoreState) => state.loggedUser.value);
+
   return (
     <Box>
       <Text
@@ -13,7 +17,7 @@ export default function SettingsShopContent() {
         fontWeight="semibold"
         fontFamily="sans-serif"
       >
-        Someone Store
+        {User?.Shop.name} Store
       </Text>
       <Tabs.Root defaultValue="information">
         <Tabs.List>

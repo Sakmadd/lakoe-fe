@@ -6,7 +6,7 @@ import { SettingsTemplateTypes } from '@/validators/settings/settings-template';
 
 interface Props {
   template: SettingsTemplateTypes;
-  setTemplateMessageId: (a: string) => void;
+  setTemplateMessageId: (a: string | undefined) => void;
   setOpenDeleteDialog: (a: boolean) => void;
   reset: (a: object) => void;
   setTemplateMessageTitle: (a: string) => void;
@@ -67,7 +67,7 @@ export default function SettingsTemplateMessageBox({
         </Box>
         <Box>
           <Text fontSize="0.8rem" fontFamily="sans-serif" width="85%">
-            {template.message}
+            {template.contain_message}
           </Text>
         </Box>
       </Box>
