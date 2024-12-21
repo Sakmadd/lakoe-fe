@@ -1,11 +1,10 @@
 import { Box, Card, Image, Text } from '@chakra-ui/react';
-import { imagesType } from './productDetail/detail-image-list';
 import { useNavigate } from 'react-router-dom';
 
 interface ProductCardProps {
   title: string;
   price: string;
-  image: imagesType;
+  image: { src: string };
   url: string;
 }
 
@@ -31,7 +30,6 @@ export function ProductCard({ title, price, image, url }: ProductCardProps) {
           <Image
             objectFit={'cover'}
             src={image.src}
-            alt={image.alt}
             width={'100%'}
             height={'100%'}
           />

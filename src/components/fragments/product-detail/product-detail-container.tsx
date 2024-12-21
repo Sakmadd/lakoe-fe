@@ -14,7 +14,7 @@ interface Props {
 }
 
 export function ProductDetailContainer({ product }: Props) {
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
   const { handleSubmit, setValue } = useForm<Product>();
   const [selectedVariantOption, setSelectedVariantOption] = useState<string[]>(
     []
@@ -23,8 +23,6 @@ export function ProductDetailContainer({ product }: Props) {
     product,
     selectedVariantOption,
   });
-
-  console.log(preparedProduct);
 
   const onSubmit: SubmitHandler<Product> = (data) => {
     if (selectedVariantOption.length < preparedProduct.Variant!.length) {

@@ -1,6 +1,6 @@
-import { ProductType } from '@/types/types';
+import { SellerProductListType } from '@/types/types';
 interface Props {
-  products: ProductType[];
+  products: SellerProductListType[];
 }
 
 export function ProductGrouper({ products }: Props) {
@@ -13,7 +13,10 @@ export function ProductGrouper({ products }: Props) {
       acc[status].push(product);
       return acc;
     },
-    { active: [], unactive: [] } as Record<'active' | 'unactive', ProductType[]>
+    { active: [], unactive: [] } as Record<
+      'active' | 'unactive',
+      SellerProductListType[]
+    >
   );
 
   return groupedProducts;

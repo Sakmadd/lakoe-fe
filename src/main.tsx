@@ -12,15 +12,15 @@ const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <ChakraProvider>
-          <Provider store={store}>
+    <BrowserRouter>
+      <ChakraProvider>
+        <Provider store={store}>
+          <QueryClientProvider client={queryClient}>
             <Toaster />
             <App />
-          </Provider>
-        </ChakraProvider>
-      </BrowserRouter>
-    </QueryClientProvider>
+          </QueryClientProvider>
+        </Provider>
+      </ChakraProvider>
+    </BrowserRouter>
   </StrictMode>
 );

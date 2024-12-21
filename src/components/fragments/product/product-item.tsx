@@ -1,18 +1,22 @@
-import { ProductType } from '@/types/types';
+import { useProduct } from '@/hooks/use-product';
+import { SellerProductListType } from '@/types/types';
 import { formatRupiah } from '@/utils/format-rp';
 import { Box, Flex, Image, Spacer, Text } from '@chakra-ui/react';
 import { GoDotFill } from 'react-icons/go';
-import { HiDotsHorizontal } from 'react-icons/hi';
 import { RiLink } from 'react-icons/ri';
+import { useNavigate } from 'react-router-dom';
 import { Checkbox } from '../../ui/checkbox';
 import { Switch } from '../../ui/switch';
+import { EditSingleModal } from './edit-single-modal';
+import { MenuButton } from './menu-button';
 import { ProductItemButton } from './product-item-button';
-import { useNavigate } from 'react-router-dom';
 
 interface Props {
-  product: ProductType;
-  checkedProduct: ProductType[];
-  setCheckedProduct: React.Dispatch<React.SetStateAction<ProductType[]>>;
+  product: SellerProductListType;
+  checkedProduct: SellerProductListType[];
+  setCheckedProduct: React.Dispatch<
+    React.SetStateAction<SellerProductListType[]>
+  >;
 }
 
 export function ProductItem({
@@ -20,6 +24,7 @@ export function ProductItem({
   checkedProduct,
   setCheckedProduct,
 }: Props) {
+  const { onToggleProduct } = useProduct();
   const navigate = useNavigate();
   const isChecked = checkedProduct.some((p) => p.id === product.id);
 
@@ -31,13 +36,17 @@ export function ProductItem({
     }
   };
 
-  function handleSwitchClick(id: string) {
-    console.log(id);
+  async function handleSwitchClick(id: string) {
+    try {
+      onToggleProduct([id]);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
     <Box border="0.1rem solid #e6e6e6" borderRadius="0.5rem">
-      <Box display="flex" justifyContent="space-between" cursor={'pointer'}>
+      <Box display="flex" justifyContent="space-between">
         <Box padding=".7rem" display="flex" gap="0.5rem" width={'100%'}>
           <Image
             width="6rem"
@@ -45,8 +54,8 @@ export function ProductItem({
             borderRadius=".3rem"
             objectFit="cover"
             border="0.1rem solid #e6e6e6"
-            src={product.images[0]!.src}
-            alt={product.images[0]!.alt}
+            src={product.Images[0]!.src}
+            alt={product.Images[0]!.alt}
           />
           <Flex flexDirection="column" justifyContent="center" gap={'.1rem'}>
             <Text fontWeight="semibold" fontSize="1rem" fontFamily="sans-serif">
@@ -81,14 +90,28 @@ export function ProductItem({
               </Text>
             </Flex>
             <Flex gap={'.5rem'}>
-              <ProductItemButton children={'Edit Price'} />
-              <ProductItemButton children={'Edit Stock'} />
+              <EditSingleModal
+                edit="price"
+                label="Edit Price"
+                leftAddon="Rp"
+                placeholder={product.price.toString()}
+                product={product}
+                trigerElement={<ProductItemButton children={'Edit Price'} />}
+              />
+              <EditSingleModal
+                edit="stock"
+                label="Edit Stock"
+                placeholder={product.stock.toString()}
+                rightAddon="Pcs"
+                product={product}
+                trigerElement={<ProductItemButton children={'Edit Stock'} />}
+              />
               <ProductItemButton
-                onClick={() => navigate(product.url)}
+                onClick={() => navigate(`/${product.url_name}`)}
                 children={'See Live Product'}
                 icon={<RiLink />}
               />
-              <ProductItemButton children={<HiDotsHorizontal />} />
+              <MenuButton product={product} />
             </Flex>
           </Flex>
           <Spacer />
@@ -101,7 +124,7 @@ export function ProductItem({
             />
             <Spacer />
             <Switch
-              defaultChecked={product.is_active}
+              checked={product.is_active}
               size={'lg'}
               onCheckedChange={() => handleSwitchClick(product.id)}
             />

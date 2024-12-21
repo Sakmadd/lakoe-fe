@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { AdminPage } from './components/pages/admin-page';
@@ -17,15 +18,14 @@ import { SettingsPage } from './components/pages/settings-page';
 import SettingsShop from './components/pages/settings-shop';
 import { BuyerLayout } from './layouts/buyerLayout';
 import { SellerLayout } from './layouts/sellerLayout';
-import { StoreState } from './redux/store';
-import { useEffect } from 'react';
-import {
-  unSetLoggedUser,
-  setLoggeduser,
-} from './redux/features/logged-user-slice';
-import { UserType } from './types/types';
 import api from './networks/api';
 import { setPreloaded } from './redux/features/is-preloaded-slice';
+import {
+  setLoggeduser,
+  unSetLoggedUser,
+} from './redux/features/logged-user-slice';
+import { StoreState } from './redux/store';
+import { UserType } from './types/types';
 
 function App() {
   const dispatch = useDispatch();

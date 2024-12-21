@@ -1,12 +1,12 @@
 import { useFilterProductContent } from '@/hooks/use-filter-product-content';
-import { CategoryType, ProductType } from '@/types/types';
+import { CategoryType, SellerProductListType } from '@/types/types';
 import { Tabs } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FilterBar } from '../common/filter-bar';
 import ProductList from './product-list';
 
 interface Props {
-  products: ProductType[];
+  products: SellerProductListType[];
   tabs_value: string;
   categories: CategoryType[];
   sorts: { label: string; value: string }[];

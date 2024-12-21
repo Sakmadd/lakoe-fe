@@ -38,6 +38,8 @@
     "react-router-dom": "^6.28.0",
     "react-slick": "^0.30.2",
     "react-use": "^17.6.0",
+    "sweetalert2": "^11.15.2",
+    "sweetalert2-react-content": "^5.1.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

@@ -1,10 +1,11 @@
 import { VariantOptionCombinationType } from './types';
 
-type Category = {
+export type Category = {
   id: string;
   label: string;
   value: string;
   parent_id: string;
+  children?: Category[];
 };
 
 export type ProductImage = {
@@ -14,7 +15,7 @@ export type ProductImage = {
   alt: string;
 };
 
-type VariantOption = {
+export type VariantOption = {
   id: string;
   name: string;
   alt: string;

@@ -211,10 +211,110 @@ class API {
       throw error;
     }
   }
+  async GET_ALL_PRODUCTS() {
+    try {
+      const response = await axios.get('/products');
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      throw error;
+    }
+  }
+  async GET_SHOP_PRODUCTS() {
+    try {
+      const response = await axios.get('/products/shop');
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      throw error;
+    }
+  }
   async GET_PRODUCT_BY_URL(url: string) {
     try {
       const response = await axios.get(`/products/url${url}`);
       return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      throw error;
+    }
+  }
+  async TOGGLE_ACTIVE_SINGLE(id: string) {
+    try {
+      const response = await axios.patch(`/products/${id}/toggle`);
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      throw error;
+    }
+  }
+  async TOGGLE_ACTIVE_BATCH(id: string[]) {
+    try {
+      const response = await axios.patch(`/products/batch-toggle`, id);
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      throw error;
+    }
+  }
+  async EDIT_PRICE_SINGLE(id: string, amount: string[]) {
+    try {
+      const response = await axios.patch(`/products/price/${id}`, amount);
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      throw error;
+    }
+  }
+  async EDIT_STOCK_SINGLE(id: string, amount: string[]) {
+    try {
+      const response = await axios.patch(`/products/stock/${id}`, amount);
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      throw error;
+    }
+  }
+  async DELETE_PRODUCT_BATCH(id: string[]) {
+    try {
+      const response = await axios.delete(`/products/batch-delete`, {
+        data: id,
+      });
+      console.log(response.data.data);
+
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      throw error;
+    }
+  }
+  async GET_ALL_CATEGORIES() {
+    try {
+      const respone = await axios.get('/products/categories');
+      return respone.data.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw error;
