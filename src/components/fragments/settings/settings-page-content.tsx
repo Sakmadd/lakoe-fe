@@ -1,5 +1,5 @@
+import SettingsColapsable from './settings-page-components/settings-colapsable';
 import { Box } from '@chakra-ui/react';
-import SettingsColapsable from './settings-colapsable';
 
 export default function SettingsContent() {
   const collapseData = {

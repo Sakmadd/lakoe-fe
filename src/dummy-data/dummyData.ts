@@ -1941,11 +1941,11 @@ export const newDummyProductDetail: Product = {
 };
 
 export const dummyLoggedUser = {
-  // id: '2',
-  // shop_id: '3',
-  // name: 'Miguel',
-  // email: 'bCfDy@example.com',
-  // role: 'SELLER',
+  id: '2',
+  shop_id: '3',
+  name: 'Miguel',
+  email: 'bCfDy@example.com',
+  role: 'SELLER',
 };
 
 export const tableData = [

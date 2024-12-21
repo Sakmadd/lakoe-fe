@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/accordion';
 import { Link } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { ContentContainer } from '../container/contentContainer';
+import { ContentContainer } from '../../container/contentContainer';
 
 interface Props {
   title: string;
@@ -38,7 +38,7 @@ export default function SettingsColapsable({ title, nav }: Props) {
           >
             {nav.map((path) => (
               <Link
-                key={path.text}
+                key={path.path}
                 _hover={{ color: 'gray' }}
                 fontWeight="semibold"
                 textDecoration="none"

@@ -9,12 +9,13 @@ import {
 import { Text } from '@chakra-ui/react';
 
 interface Props {
-  id: string;
+  id: string | undefined;
   openDeleteDialog: boolean;
   setOpenDeleteDialog: (a: boolean) => void;
-  deleteSubmit: (a: string) => void;
+  deleteSubmit: (a: string | undefined) => void;
   header: string;
   title: string;
+  pendingDelete: boolean;
 }
 
 export default function SettingsDeleteDialog({
@@ -24,6 +25,7 @@ export default function SettingsDeleteDialog({
   deleteSubmit,
   header,
   title,
+  pendingDelete,
 }: Props) {
   return (
     <DialogRoot open={openDeleteDialog} placement="center">
@@ -55,6 +57,7 @@ export default function SettingsDeleteDialog({
             borderRadius="2rem"
             height="2rem"
             onClick={() => deleteSubmit(id)}
+            loading={pendingDelete}
           >
             Delete
           </Button>
