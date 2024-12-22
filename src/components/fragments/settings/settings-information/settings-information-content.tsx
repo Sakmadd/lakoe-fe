@@ -19,7 +19,16 @@ export default function SettingsInformationContent() {
 
   return (
     <Box marginTop="0.9rem" display="flex" flexDirection="column" gap="1rem ">
-      {isFetching && <Spinner />}
+      {isFetching && (
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          height="28rem"
+        >
+          <Spinner size="xl" />
+        </Box>
+      )}
       {!isFetching && (
         <>
           <Text

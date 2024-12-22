@@ -142,6 +142,20 @@ class API {
     }
   }
 
+  async UPDATEMAINLOCATION(id: string | undefined) {
+    try {
+      const response: AxiosResponse = await axios.patch(
+        `/shops/location/${id}`
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
   async DELETELOCATION(id: string | undefined) {
     try {
       const response: AxiosResponse = await axios.delete(
@@ -215,6 +229,18 @@ class API {
   async GETDASHBOARDSELLER() {
     try {
       const response: AxiosResponse = await axios.get(`/seller`);
+      return response.data.data.payload;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async GETDASHBOARDGRAPHS() {
+    try {
+      const response: AxiosResponse = await axios.get(`/seller/graphs`);
       return response.data.data.payload;
     } catch (error) {
       if (axios.isAxiosError(error)) {

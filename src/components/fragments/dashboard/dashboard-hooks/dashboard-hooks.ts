@@ -8,7 +8,7 @@ import {
   withdrawSchema,
   WithdrawType,
 } from '@/validators/dashboard/dashboard-withdraw';
-import { useGetDashboard } from './dashboard-tanstack';
+import { useGetDashboardStats } from './dashboard-tanstack';
 
 interface StatType {
   products: number;
@@ -32,7 +32,8 @@ export default function useDashboardHooks() {
     resolver: zodResolver(withdrawSchema),
   });
 
-  useGetDashboard({ setStatsData });
+  useGetDashboardStats({ setStatsData });
+  // useGetDashboardGraphs({ setChartData });
 
   return {
     stats: {

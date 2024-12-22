@@ -48,6 +48,7 @@ export default function SettingsDeleteDialog({
             variant="outline"
             borderRadius="2rem"
             height="2rem"
+            _active={{ transform: 'scale(0.95)' }}
             onClick={() => setOpenDeleteDialog(false)}
           >
             Cancel
@@ -56,6 +57,7 @@ export default function SettingsDeleteDialog({
             variant="outline"
             borderRadius="2rem"
             height="2rem"
+            _active={{ transform: 'scale(0.95)' }}
             onClick={() => deleteSubmit(id)}
             loading={pendingDelete}
           >
