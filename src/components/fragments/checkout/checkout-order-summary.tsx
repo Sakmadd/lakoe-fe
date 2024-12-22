@@ -1,3 +1,4 @@
+import { StoreState } from '@/redux/store';
 import { ProductType } from '@/types/types';
 import { formatRupiah } from '@/utils/format-rp';
 import {
@@ -12,12 +13,15 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FaArrowRightLong } from 'react-icons/fa6';
+import { useSelector } from 'react-redux';
 
 interface Props {
   product: ProductType;
 }
 
 export function CheckoutOrderSummary({ product }: Props) {
+  const loggedUser = useSelector((state: StoreState) => state.loggedUser.value);
+
   const [charCount, setCharCount] = useState(0);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -29,7 +33,7 @@ export function CheckoutOrderSummary({ product }: Props) {
         width={'35%'}
         maxHeight={'50vh'}
         position={'sticky'}
-        top={'2rem'}
+        top={loggedUser ? '6rem' : '1rem'}
         flexDir={'column'}
         gap={'1rem'}
       >
@@ -52,10 +56,9 @@ export function CheckoutOrderSummary({ product }: Props) {
               </Text>
               <Spacer />
               <Text>
-                {formatRupiah(
-                  product.selected_combination!.price *
-                    product.checkout_quantity!
-                )}
+                {product.selected_combination
+                  ? formatRupiah(product.selected_combination.price)
+                  : formatRupiah(product.price * product.checkout_quantity!)}
               </Text>
             </Flex>
             <Flex>

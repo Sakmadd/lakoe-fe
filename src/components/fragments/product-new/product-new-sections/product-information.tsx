@@ -1,7 +1,7 @@
 import { Field } from '@/components/ui/field';
 import { ProductType } from '@/types/types';
 import { Flex, Group, Input, InputAddon, Text } from '@chakra-ui/react';
-import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { ContentContainer } from '../../container/contentContainer';
 import { FieldInput } from '../product-new-fields/field-input';
 import CategoryInput from './category-input';
@@ -9,9 +9,14 @@ import CategoryInput from './category-input';
 interface Props {
   register: UseFormRegister<ProductType>;
   setValue: UseFormSetValue<ProductType>;
+  errors: FieldErrors<ProductType>;
 }
 
-export function ProductInformationSection({ register, setValue }: Props) {
+export function ProductInformationSection({
+  register,
+  setValue,
+  errors,
+}: Props) {
   return (
     <>
       <ContentContainer>
@@ -27,7 +32,13 @@ export function ProductInformationSection({ register, setValue }: Props) {
               register={register}
               registerName="name"
             />
-            <Field label={'Product URL'} required color={'gray'}>
+            <Field
+              label={'Product URL'}
+              required
+              color={'gray'}
+              invalid={!!errors.url}
+              errorText={errors.url?.message}
+            >
               <Group attached width="100%">
                 leftAddon && <InputAddon>lakoe.store/</InputAddon>
                 <Input placeholder={'product-url-name'} {...register('url')} />

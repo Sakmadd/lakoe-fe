@@ -37,13 +37,18 @@ export function ProductDetailContainer({ product }: Props) {
 
     const checkoutProduct: Product = {
       ...preparedProduct,
+      price: selectedCombination?.price || preparedProduct.price,
+      sku: selectedCombination?.sku || preparedProduct.sku,
+      stock: selectedCombination?.stock || preparedProduct.stock,
+      weight: selectedCombination?.weight || preparedProduct.weight,
       selected_variant: selectedVariantOption,
-      selected_combination: selectedCombination,
       checkout_quantity: data.checkout_quantity,
     };
 
     delete checkoutProduct.Variant;
     delete checkoutProduct.VariantOptionCombinations;
+
+    console.log(checkoutProduct.selected_variant);
 
     navigate('/checkout', { state: { checkoutProduct } });
   };

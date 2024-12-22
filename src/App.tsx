@@ -70,7 +70,6 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path="/:productName" element={<ProductDetailPage />} />
             <Route path="/products/new" element={<ProductNewPage />} />
-            {/* <Route path="/orders/:orderId" element={<OrderItem} /> */}
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/products" element={<ProductPage />} />
             <Route path="/orders" element={<OrderPage />} />
@@ -81,6 +80,7 @@ function App() {
             <Route path="/profile/shop/:id" element={<ProfileShop />} />
             <Route path="/profile/shop" element={<ProfileShopMe />} />
             <Route path="/profile/shop/:id" element={<ProfileShop />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
           </Route>
         </Routes>
       );

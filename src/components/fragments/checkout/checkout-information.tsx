@@ -1,45 +1,22 @@
-import {
-  AccordionItem,
-  AccordionItemContent,
-  AccordionItemTrigger,
-  AccordionRoot,
-} from '@/components/ui/accordion';
-import {
-  DialogBody,
-  DialogCloseTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { ProductType, recipientType } from '@/types/types';
-import { formatRupiah } from '@/utils/format-rp';
-import {
-  Box,
-  Button,
-  Flex,
-  Icon,
-  Image,
-  Separator,
-  Spacer,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
+import { Product } from '@/types/product-type';
+import { recipientType } from '@/types/types';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import {
   SubmitHandler,
   UseFormHandleSubmit,
   UseFormRegister,
   UseFormSetValue,
 } from 'react-hook-form';
-import { LuTags } from 'react-icons/lu';
 import { FieldInput } from '../product-new/product-new-fields/field-input';
 import { FieldInputAddon } from '../product-new/product-new-fields/field-input-addon';
 import { FieldInputDescription } from '../product-new/product-new-fields/field-input-description';
 import { LocationInputGroup } from './location-input/location-input-group';
+import { CheckoutOrderDetail } from './checkout-courier-rates/checkout-order-detail';
+import { RatesResponseDTO } from '@/types/rates-type';
 
 interface Props {
-  product: ProductType;
+  product: Product;
+  courierRates: RatesResponseDTO[];
   setValue: UseFormSetValue<recipientType>;
   register: UseFormRegister<recipientType>;
   onSubmit: SubmitHandler<recipientType>;
@@ -52,6 +29,7 @@ export function CheckoutInformation({
   onSubmit,
   handleSubmit,
   setValue,
+  courierRates,
 }: Props) {
   return (
     <>
@@ -110,6 +88,13 @@ export function CheckoutInformation({
             type="number"
           />
           <LocationInputGroup setValue={setValue} />
+          <FieldInput
+            required
+            register={register}
+            registerName={'postal_code'}
+            label="Postal Code"
+            type="number"
+          />
           <FieldInputDescription
             registerName="address"
             label="Address Detail"
@@ -119,120 +104,7 @@ export function CheckoutInformation({
             register={register}
           />
         </Flex>
-        <Stack width="full">
-          <AccordionRoot
-            collapsible
-            defaultValue={['info']}
-            border={'1px solid red'}
-            borderRadius={'.5rem'}
-            overflow={'hidden'}
-          >
-            <AccordionItem key={'info'} value={'info'}>
-              <AccordionItemTrigger
-                cursor={'pointer'}
-                backgroundColor={'red.100'}
-                padding={'1rem'}
-              >
-                <Icon fontSize="lg">
-                  <LuTags />
-                </Icon>
-                Order
-              </AccordionItemTrigger>
-              <AccordionItemContent padding={'1rem'}>
-                <Flex flexDir={'column'} gap={'1rem'}>
-                  <Text>Jakarta Barat</Text>
-                  <Flex gap={'1rem'}>
-                    <Image src={product.images[0].src} maxWidth={'100px'} />
-                    <Flex flexDir={'column'}>
-                      <Text>{product.name}</Text>
-                      <Text fontWeight={'thin'} fontSize={'sm'}>
-                        - {product.checkout_quantity} Items (
-                        {product.selected_combination!.weight *
-                          product.checkout_quantity!}
-                        gr)
-                      </Text>
-                      <Text fontWeight={'semibold'}>
-                        {formatRupiah(
-                          product.selected_combination!.price *
-                            product.checkout_quantity!
-                        )}
-                      </Text>
-                    </Flex>
-                  </Flex>
-                  <Flex flexDir={'column'} gap={'1rem'}>
-                    <Separator />
-                    <DialogRoot
-                      key={'md'}
-                      size={'md'}
-                      scrollBehavior={'inside'}
-                      motionPreset={'slide-in-bottom'}
-                    >
-                      <DialogTrigger asChild>
-                        <Button
-                          maxWidth={'30%'}
-                          backgroundColor={'blue.500'}
-                          fontWeight={'bold'}
-                          type="submit"
-                        >
-                          Select Your Shipments
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent>
-                        <DialogHeader>
-                          <DialogTitle textAlign={'center'}>
-                            <Text paddingBottom={'1rem'}>
-                              Choose Your Shipments
-                            </Text>
-                            <Separator size={'md'} />
-                          </DialogTitle>
-                        </DialogHeader>
-                        <DialogBody>shitmen</DialogBody>
-                        <DialogCloseTrigger />
-                      </DialogContent>
-                    </DialogRoot>
-
-                    <Separator />
-                  </Flex>
-                  <Flex flexDir={'column'}>
-                    <AccordionRoot
-                      collapsible
-                      defaultValue={['info']}
-                      borderRadius={'.5rem'}
-                      overflow={'hidden'}
-                    >
-                      <AccordionItem key={'info'} value={'info'}>
-                        <AccordionItemTrigger cursor={'pointer'}>
-                          Subtotal
-                          <Spacer />
-                          {formatRupiah(
-                            product.selected_combination!.price *
-                              product.checkout_quantity!
-                          )}
-                        </AccordionItemTrigger>
-                        <AccordionItemContent padding={'1rem'}>
-                          <Flex
-                            backgroundColor={'rgb(249, 250, 251)'}
-                            padding={'1rem'}
-                            borderRadius={'.5rem'}
-                          >
-                            <Text color={'grey'}>Subtotal (Items)</Text>
-                            <Spacer />
-                            <Text color={'grey'}>
-                              {formatRupiah(
-                                product.selected_combination!.price *
-                                  product.checkout_quantity!
-                              )}
-                            </Text>
-                          </Flex>
-                        </AccordionItemContent>
-                      </AccordionItem>
-                    </AccordionRoot>
-                  </Flex>
-                </Flex>
-              </AccordionItemContent>
-            </AccordionItem>
-          </AccordionRoot>
-        </Stack>
+        <CheckoutOrderDetail courierRates={courierRates} product={product} />
       </form>
     </>
   );
