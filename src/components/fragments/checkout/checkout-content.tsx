@@ -1,3 +1,4 @@
+import api from '@/networks/api';
 import { RatesRequestDTO, RatesResponseDTO } from '@/types/rates-type';
 import { recipientType } from '@/types/types';
 import { Flex, Text } from '@chakra-ui/react';
@@ -6,7 +7,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CheckoutInformation } from './checkout-information';
 import { CheckoutOrderSummary } from './checkout-order-summary';
-import api from '@/networks/api';
 
 export function CheckoutContent() {
   const { register, handleSubmit, setValue } = useForm<recipientType>();

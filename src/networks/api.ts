@@ -201,6 +201,7 @@ class API {
   async CREATE_PRODUCT(data: FormData) {
     try {
       const response = await axios.post('/products', data);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {

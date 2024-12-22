@@ -8,8 +8,17 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { RatesResponseDTO } from '@/types/rates-type';
-import { Button, Flex, Image, Separator, Text } from '@chakra-ui/react';
-import { useState } from 'react';
+import { formatRupiah } from '@/utils/format-rp';
+import {
+  Button,
+  Flex,
+  Image,
+  Separator,
+  Spacer,
+  Spinner,
+  Text,
+} from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
 interface Props {
   courierRates: RatesResponseDTO[];
@@ -21,9 +30,13 @@ export function CheckoutRatesDialog({ setShipSelect, courierRates }: Props) {
   const [selectedCourierRates, setSelectedCourierRates] =
     useState<RatesResponseDTO | null>(null);
 
+  useEffect(() => {
+    console.log(selectedCourierRates);
+  });
+
   const handleSelectCourier = (rate: RatesResponseDTO) => {
     setSelectedCourierRates(rate);
-    setShipSelect(false); // Menutup dialog setelah memilih kurir
+    setShipSelect(false);
   };
 
   return (
@@ -39,11 +52,9 @@ export function CheckoutRatesDialog({ setShipSelect, courierRates }: Props) {
             maxWidth={'30%'}
             backgroundColor={'blue.500'}
             fontWeight={'bold'}
-            type="button"
+            type="submit"
           >
-            {selectedCourierRates
-              ? `Selected: ${selectedCourierRates.courier_name} (${selectedCourierRates.courier_type})`
-              : 'Select Your Shipments'}
+            Select Your Shipments
           </Button>
         </DialogTrigger>
         <DialogContent>
@@ -54,43 +65,39 @@ export function CheckoutRatesDialog({ setShipSelect, courierRates }: Props) {
             </DialogTitle>
           </DialogHeader>
           <DialogBody>
-            <Flex gap={'1rem'} flexDir={'column'}>
-              {courierRates.map((rate) => (
-                <Button
-                  key={rate.courier_code + rate.courier_type}
-                  onClick={() => handleSelectCourier(rate)}
-                  backgroundColor={
-                    selectedCourierRates?.courier_code === rate.courier_code &&
-                    selectedCourierRates?.courier_type === rate.courier_type
-                      ? 'green.200'
-                      : 'gray.100'
-                  }
-                  border="1px solid"
-                  borderColor="gray.300"
-                  padding="1rem"
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  textAlign="left"
-                >
-                  <Flex alignItems="center" gap={3}>
-                    <Image
-                      src={rate.courier_image}
-                      alt={rate.courier_name}
-                      boxSize="50px"
-                    />
-                    <Flex flexDir="column">
-                      <Text fontWeight="bold">{rate.courier_name}</Text>
-                      <Text fontSize="sm" color="gray.600">
-                        {rate.courier_type}
+            <Flex flexDir={'column'} gap={'.5rem'}>
+              {courierRates.length < 1 ? (
+                <Spinner />
+              ) : (
+                courierRates.map((item) => (
+                  <Flex
+                    alignItems={'center'}
+                    height={'5rem'}
+                    padding={'1rem'}
+                    transition={'ease-in-out 100ms'}
+                    cursor={'pointer'}
+                    borderRadius={'md'}
+                    onClick={() => handleSelectCourier(item)}
+                    _hover={{
+                      border: '1px solid black',
+                      backgroundColor: 'gray.200',
+                      shadow: 'md',
+                    }}
+                  >
+                    <Image src={item.courier_image} width={'6rem'} />
+                    <Flex flexDir={'column'} paddingX={'1rem'}>
+                      <Text fontWeight={'bold'} fontSize={'md'} color={'gray'}>
+                        {item.courier_name}
                       </Text>
+                      <Text>{item.courier_type}</Text>
                     </Flex>
+                    <Spacer />
+                    <Text fontWeight={'semibold'}>
+                      {formatRupiah(item.price)}
+                    </Text>
                   </Flex>
-                  <Text fontWeight="bold" color="blue.500">
-                    Rp {rate.price.toLocaleString('id-ID')}
-                  </Text>
-                </Button>
-              ))}
+                ))
+              )}
             </Flex>
           </DialogBody>
           <DialogCloseTrigger />

@@ -48,8 +48,6 @@ export function ProductDetailContainer({ product }: Props) {
     delete checkoutProduct.Variant;
     delete checkoutProduct.VariantOptionCombinations;
 
-    console.log(checkoutProduct.selected_variant);
-
     navigate('/checkout', { state: { checkoutProduct } });
   };
 
