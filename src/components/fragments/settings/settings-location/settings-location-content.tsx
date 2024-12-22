@@ -68,6 +68,7 @@ export default function SettingsLocationContent() {
               borderRadius="2rem"
               height="2rem"
               fontSize="0.8rem"
+              _active={{ transform: 'scale(0.95)' }}
               onClick={() => locationDialog.onOpenDialog('add')}
             >
               Add Location
@@ -82,6 +83,9 @@ export default function SettingsLocationContent() {
             >
               <DialogHeader>
                 <DialogTitle>
+                  {locationDialog.dialogMode == 'add'
+                    ? 'Add new location'
+                    : 'Edit location'}
                   {locationDialog.dialogMode == 'add'
                     ? 'Add new location'
                     : 'Edit location'}
@@ -104,11 +108,9 @@ export default function SettingsLocationContent() {
                   />
                 </Field>
                 <SettingsLocationSelectGroup
-                  setValue={locationForm.setValue}
                   errors={locationForm.errors}
                   watch={locationForm.watch}
                   control={locationForm.control}
-                  getValues={locationForm.getValues}
                 />
                 <Field
                   label="Postal Code"
@@ -153,6 +155,7 @@ export default function SettingsLocationContent() {
                       variant="outline"
                       borderRadius="2rem"
                       height="2rem"
+                      _active={{ transform: 'scale(0.95)' }}
                       onClick={() =>
                         locationMutation.handleMain(locationState.id)
                       }
@@ -171,6 +174,7 @@ export default function SettingsLocationContent() {
                     variant="outline"
                     borderRadius="2rem"
                     height="2rem"
+                    _active={{ transform: 'scale(0.95)' }}
                     onClick={locationDialog.onCloseDialog}
                   >
                     Cancel
@@ -180,6 +184,7 @@ export default function SettingsLocationContent() {
                     type="submit"
                     borderRadius="2rem"
                     height="2rem"
+                    _active={{ transform: 'scale(0.95)' }}
                     loading={locationForm.addIsPending}
                   >
                     Save
@@ -218,10 +223,19 @@ export default function SettingsLocationContent() {
                       Location Name
                     </Text>
                     <Text fontFamily="sans-serif" fontSize="0.8rem">
-                      Address
+                      Province
                     </Text>
                     <Text fontFamily="sans-serif" fontSize="0.8rem">
-                      City / Subdistrict
+                      City
+                    </Text>
+                    <Text fontFamily="sans-serif" fontSize="0.8rem">
+                      District
+                    </Text>
+                    <Text fontFamily="sans-serif" fontSize="0.8rem">
+                      Subdistrict
+                    </Text>
+                    <Text fontFamily="sans-serif" fontSize="0.8rem">
+                      Address
                     </Text>
                     <Text fontFamily="sans-serif" fontSize="0.8rem">
                       Postal Code
@@ -250,10 +264,19 @@ export default function SettingsLocationContent() {
                       )}
                     </Box>
                     <Text fontFamily="sans-serif" fontSize="0.8rem">
-                      {data.address}
+                      {data.province}
                     </Text>
                     <Text fontFamily="sans-serif" fontSize="0.8rem">
                       {data.city}
+                    </Text>
+                    <Text fontFamily="sans-serif" fontSize="0.8rem">
+                      {data.district}
+                    </Text>
+                    <Text fontFamily="sans-serif" fontSize="0.8rem">
+                      {data.subdistrict}
+                    </Text>
+                    <Text fontFamily="sans-serif" fontSize="0.8rem">
+                      {data.address}
                     </Text>
                     <Text fontFamily="sans-serif" fontSize="0.8rem">
                       {data.postal_code}
@@ -270,6 +293,7 @@ export default function SettingsLocationContent() {
                     border="1px solid #e6e6e6"
                     borderRadius="50%"
                     width="1rem"
+                    _active={{ transform: 'scale(0.95)' }}
                     onClick={() => {
                       locationDialog.setOpenDeleteDialog(true);
                       locationState.setLocationTitle(data.name);
@@ -284,6 +308,7 @@ export default function SettingsLocationContent() {
                     border="1px solid #e6e6e6"
                     borderRadius="50%"
                     width="1rem"
+                    _active={{ transform: 'scale(0.95)' }}
                     onClick={() => {
                       locationDialog.onOpenDialog('edit');
                       locationForm.reset(data);
@@ -306,11 +331,16 @@ export default function SettingsLocationContent() {
             location={locationState.location}
             PinPoint={locationComponents.PinPoint}
           />
+          <SettingsLocationMaps
+            location={locationState.location}
+            PinPoint={locationComponents.PinPoint}
+          />
           <DialogFooter>
             <Button
               variant="outline"
               borderRadius="2rem"
               height="2rem"
+              _active={{ transform: 'scale(0.95)' }}
               onClick={() => locationDialog.setOpenMap(false)}
             >
               Save

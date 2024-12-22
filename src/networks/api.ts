@@ -61,6 +61,21 @@ class API {
     }
   }
 
+  async GETSHOP() {
+    try {
+      const loggedUser = await this.GET_LOGGED_USER();
+      const response: AxiosResponse = await axios.get(
+        `/shops/${loggedUser.shop_id}`
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
   async UPDATESHOP(data: SettingsInformationType) {
     try {
       const loggedUser = await this.GET_LOGGED_USER();
@@ -118,6 +133,20 @@ class API {
       const response: AxiosResponse = await axios.patch(
         `/shops/locations/${data.id}`,
         data
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async UPDATEMAINLOCATION(id: string | undefined) {
+    try {
+      const response: AxiosResponse = await axios.patch(
+        `/shops/location/${id}`
       );
       return response.data;
     } catch (error) {
@@ -190,6 +219,30 @@ class API {
         `/template-message/delete/${id}`
       );
       return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async GETDASHBOARDSELLER() {
+    try {
+      const response: AxiosResponse = await axios.get(`/seller`);
+      return response.data.data.payload;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async GETDASHBOARDGRAPHS() {
+    try {
+      const response: AxiosResponse = await axios.get(`/seller/graphs`);
+      return response.data.data.payload;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw error;

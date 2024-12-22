@@ -29,7 +29,8 @@ export default function SettingsTemplateMessageBox({
         borderRadius="1rem"
         display="flex"
         flexDirection="column"
-        gap="0.5rem"
+        gap="0.9rem"
+        height="9rem"
       >
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Text fontWeight="semibold" fontSize="0.9rem">

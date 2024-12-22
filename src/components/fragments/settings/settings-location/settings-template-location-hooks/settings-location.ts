@@ -13,6 +13,7 @@ import {
   useCreateLocation,
   useUpdateLocation,
   useDeleteLocation,
+  useUpdateMainLocation,
 } from './tanstack-location';
 import { resetForm } from '../../constant/form';
 
@@ -33,7 +34,6 @@ export function useSettLocation() {
     watch,
     reset,
     control,
-    getValues,
     formState: { errors },
   } = useForm<SettingsLocationType>({
     defaultValues: resetForm,
@@ -41,18 +41,6 @@ export function useSettLocation() {
   });
 
   const location = watch('location');
-
-  function PinPoint() {
-    useMapEvents({
-      click(e) {
-        const newLocation = e.latlng;
-        setValue('location', newLocation);
-        setValue('longitude', String(newLocation.lng));
-        setValue('latitude', String(newLocation.lat));
-      },
-    });
-    return null;
-  }
 
   const { data: LocationData, isFetching: FetchingLocationData } =
     useGetLocation({ setStore });
@@ -108,6 +96,31 @@ export function useSettLocation() {
     },
   });
 
+  const { mutateAsync: updateMainMutateAsync } = useUpdateMainLocation({
+    onSuccess: () => {
+      reset(resetForm);
+      setOpenDialog(false);
+      queryClient.invalidateQueries({ queryKey: ['locations'] });
+      toaster.dismiss();
+      toaster.success({
+        title: 'Success setting new main location',
+      });
+    },
+    onError: () => {
+      setOpenDialog(true);
+      toaster.dismiss();
+      toaster.error({
+        title: 'Failed setting main location',
+      });
+    },
+    onMutate: () => {
+      toaster.dismiss();
+      toaster.loading({
+        title: 'Updating main location',
+      });
+    },
+  });
+
   const { mutateAsync: deleteMutateAsync, isPending: pendingDelete } =
     useDeleteLocation({
       onSuccess: () => {
@@ -132,8 +145,31 @@ export function useSettLocation() {
       },
     });
 
+  function PinPoint() {
+    useMapEvents({
+      click(e) {
+        const newLocation = e.latlng;
+        setValue('location', newLocation);
+        setValue('longitude', String(newLocation.lng));
+        setValue('latitude', String(newLocation.lat));
+      },
+    });
+    return null;
+  }
+
+  const handleDelete = (id: string | undefined) => {
+    store?.filter((data) => {
+      if (data.id != id && data.is_main == false) {
+        updateMainMutateAsync(data.id);
+        return;
+      }
+    });
+    deleteMutateAsync(id);
+  };
+
   const handleSubmitStore: SubmitHandler<SettingsLocationType> = (data) => {
     if (dialogMode != 'add') {
+      console.log(data);
       updateMutateAsync(data);
       return;
     }
@@ -142,26 +178,6 @@ export function useSettLocation() {
     }
     addMutateAsync(data);
   };
-
-  function handleMain(id: string | undefined) {
-    setStore((current) =>
-      current?.filter((data) => {
-        if (data.id == id) {
-          data.is_main = true;
-          updateMutateAsync(data);
-          return data;
-        } else {
-          data.is_main = false;
-          updateMutateAsync(data);
-          return data;
-        }
-      })
-    );
-  }
-
-  function handleDelete(id: string | undefined) {
-    deleteMutateAsync(id);
-  }
 
   function onOpenDialog(mode: string) {
     setDialogMode(mode);
@@ -190,7 +206,7 @@ export function useSettLocation() {
     },
     locationMutation: {
       handleDelete,
-      handleMain,
+      handleMain: updateMainMutateAsync,
     },
     locationData: {
       store,
@@ -210,9 +226,7 @@ export function useSettLocation() {
     },
     locationForm: {
       addIsPending,
-      getValues,
       control,
-      setValue,
       watch,
       handleSubmitStore,
       handleSubmit,

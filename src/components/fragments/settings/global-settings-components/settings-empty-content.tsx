@@ -10,7 +10,7 @@ export default function SettingsEmptyContent({ content }: Props) {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      height="10rem"
+      height="9rem"
     >
       <Text
         as="h1"

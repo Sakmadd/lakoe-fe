@@ -1,7 +1,3 @@
-import { FaMoneyBill1Wave } from 'react-icons/fa6';
-import { FiPackage } from 'react-icons/fi';
-import { StatsCard } from './stats-card';
-// import { Flex } from '@chakra-ui/react';
 import { Button } from '@/components/ui/button';
 import { Field } from '@/components/ui/field';
 import {
@@ -10,12 +6,11 @@ import {
   PaginationPrevTrigger,
   PaginationRoot,
 } from '@/components/ui/pagination';
-import { Data } from '@/dummy-data/dummyChartData';
 import { tableData } from '@/dummy-data/dummyData';
 import {
   Box,
-  HStack,
   Heading,
+  HStack,
   Input,
   Stack,
   Table,
@@ -24,34 +19,18 @@ import {
 } from '@chakra-ui/react';
 import { CategoryScale } from 'chart.js';
 import Chart from 'chart.js/auto';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ContentContainer } from '../../../fragments/container/contentContainer';
-import { OrderStatus } from '../../order/order-status';
-import DashboardChart from './dashboard-chart';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  withdrawSchema,
-  WithdrawType,
-} from '@/validators/dashboard/dashboard-withdraw';
+import { FaMoneyBill1Wave } from 'react-icons/fa6';
+import { FiPackage } from 'react-icons/fi';
+import { ContentContainer } from '../container/contentContainer';
+import { OrderStatus } from '../order/order-status';
+import useDashboardHooks from './dashboard-hooks/dashboard-hooks';
+import DashboardChart from './dashboardStats/dashboard-chart';
+import { StatsCard } from './dashboardStats/stats-card';
 
 Chart.register(CategoryScale);
 
-export function DashboardStats() {
-  const [chartData] = useState(Data);
-  const [table, setTable] = useState(1);
-  const navigate = useNavigate();
-  const startRange = (table - 1) * 4;
-  const endRange = startRange + 4;
-  const rangedData = tableData.slice(startRange, endRange);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<WithdrawType>({
-    resolver: zodResolver(withdrawSchema),
-  });
+export function DashboardContent() {
+  const { chart, table, router, form, pagination, stats } = useDashboardHooks();
 
   return (
     <>
@@ -92,24 +71,24 @@ export function DashboardStats() {
                   color="white"
                   icon={<FiPackage />}
                   text="All Products"
-                  stats="546"
+                  stats={stats.statsData?.products.toString()}
                 />
                 <StatsCard
                   color="white"
                   icon={<FiPackage />}
                   text="Unproccessed Order"
-                  stats="233"
+                  stats={stats.statsData?.products.toString()}
                 />
                 <StatsCard
                   color="white"
                   icon={<FaMoneyBill1Wave />}
                   text="Current Balance"
-                  stats="Rp. 500.456.000"
+                  stats={stats.statsData?.products.toString()}
                 />
               </Box>
             </ContentContainer>
             <ContentContainer>
-              <DashboardChart chartData={chartData} />
+              <DashboardChart chartData={chart.chartData} />
             </ContentContainer>
             <ContentContainer>
               <Stack width="full" gap="1rem">
@@ -137,11 +116,11 @@ export function DashboardStats() {
                       </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                      {rangedData.map((item) => (
+                      {pagination.rangedData.map((item) => (
                         <Table.Row
                           key={item.id}
                           cursor="pointer"
-                          onClick={() => navigate(`/orders/${item.id}`)}
+                          onClick={() => router.navigate(`/orders/${item.id}`)}
                         >
                           <Table.Cell>
                             <Text fontFamily="sans-serif" fontWeight="semibold">
@@ -172,8 +151,8 @@ export function DashboardStats() {
                   <PaginationRoot
                     count={tableData.length}
                     pageSize={5}
-                    page={table}
-                    onPageChange={(e) => setTable(e.page)}
+                    page={table.table}
+                    onPageChange={(e) => table.setTable(e.page)}
                   >
                     <HStack wrap="wrap">
                       <PaginationPrevTrigger />
@@ -193,7 +172,7 @@ export function DashboardStats() {
           >
             <ContentContainer>
               <Box>
-                <form onSubmit={handleSubmit((data) => console.log(data))}>
+                <form onSubmit={form.handleSubmit((data) => console.log(data))}>
                   <Box
                     display="flex"
                     flexDirection="column"
@@ -202,10 +181,14 @@ export function DashboardStats() {
                   >
                     <Field
                       label="Amount to withdraw"
-                      errorText={errors.amount?.message}
-                      invalid={!!errors.amount}
+                      errorText={form.errors.amount?.message}
+                      invalid={!!form.errors.amount}
                     >
-                      <Input type="text" width="100%" {...register('amount')} />
+                      <Input
+                        type="text"
+                        width="100%"
+                        {...form.register('amount')}
+                      />
                     </Field>
                     <Button
                       width="fit-content"

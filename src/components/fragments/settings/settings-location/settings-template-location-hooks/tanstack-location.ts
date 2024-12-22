@@ -56,6 +56,22 @@ export const useUpdateLocation = ({
   });
 };
 
+export const useUpdateMainLocation = ({
+  onSuccess,
+  onMutate,
+  onError,
+}: StatusProps) => {
+  return useMutation({
+    mutationKey: ['locations'],
+    mutationFn: async (id: string | undefined) => {
+      return await api.UPDATEMAINLOCATION(id);
+    },
+    onSuccess,
+    onMutate,
+    onError,
+  });
+};
+
 export const useDeleteLocation = ({
   onSuccess,
   onMutate,
