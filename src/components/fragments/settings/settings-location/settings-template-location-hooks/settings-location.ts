@@ -33,7 +33,6 @@ export function useSettLocation() {
     watch,
     reset,
     control,
-    getValues,
     formState: { errors },
   } = useForm<SettingsLocationType>({
     defaultValues: resetForm,
@@ -134,6 +133,7 @@ export function useSettLocation() {
 
   const handleSubmitStore: SubmitHandler<SettingsLocationType> = (data) => {
     if (dialogMode != 'add') {
+      console.log(data);
       updateMutateAsync(data);
       return;
     }
@@ -210,9 +210,7 @@ export function useSettLocation() {
     },
     locationForm: {
       addIsPending,
-      getValues,
       control,
-      setValue,
       watch,
       handleSubmitStore,
       handleSubmit,

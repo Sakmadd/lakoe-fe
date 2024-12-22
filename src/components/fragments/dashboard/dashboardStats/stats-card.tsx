@@ -3,7 +3,7 @@ import { Flex, Text, Box } from '@chakra-ui/react';
 interface StatsCardProps {
   icon: React.ReactNode;
   text: string;
-  stats: string;
+  stats: string | undefined;
   color: string;
 }
 

@@ -1,39 +1,40 @@
 import { toaster } from '@/components/ui/toaster';
 import api from '@/networks/api';
-import { StoreState } from '@/redux/store';
 import {
   settingsInformationSchema,
   SettingsInformationType,
 } from '@/validators/settings/settings-information';
 import { FileUploadFileAcceptDetails } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import {
+  useCreateInformation,
+  useGetInformation,
+} from './tanstack-information';
 
 export function useSettInfo() {
   const [image, setImage] = useState<File>();
-  const User = useSelector((state: StoreState) => state.loggedUser.value);
-  const [imageReader, setImageReader] = useState<string | undefined>(
-    User?.Shop.logo
-  );
-
+  const [imageReader, setImageReader] = useState<string | undefined>();
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<SettingsInformationType>({
     defaultValues: {
-      slogan: User?.Shop.slogan,
-      name: User?.Shop.name,
-      phone: User?.Shop.phone,
-      description: User?.Shop.description,
-      logo: image,
+      slogan: '',
+      name: '',
+      phone: '',
+      description: '',
+      logo: '',
     },
     resolver: zodResolver(settingsInformationSchema),
   });
+  const { isFetching, data } = useGetInformation({ reset, setImageReader });
 
   function handleFile(detail: FileUploadFileAcceptDetails) {
     if (detail) {
@@ -61,13 +62,10 @@ export function useSettInfo() {
     mutateAsync(data);
   };
 
-  const { mutateAsync, isPending } = useMutation({
-    mutationKey: ['store'],
-    mutationFn: async (data: SettingsInformationType) => {
-      const response = await informationSubmit(data);
-      return response;
-    },
+  const { mutateAsync, isPending } = useCreateInformation({
+    informationSubmit,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['store'] });
       toaster.dismiss();
       toaster.success({
         title: 'Store information is saved',
@@ -87,6 +85,7 @@ export function useSettInfo() {
   });
 
   return {
+    isFetching,
     isPending,
     onSubmit,
     handleFile,
@@ -95,5 +94,6 @@ export function useSettInfo() {
     handleSubmit,
     imageReader,
     image,
+    data,
   };
 }

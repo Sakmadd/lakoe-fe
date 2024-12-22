@@ -5,7 +5,7 @@ import {
   SelectContent,
   SelectItem,
 } from '@/components/ui/select';
-import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { UseFormWatch } from 'react-hook-form';
 import { SettingsLocationType } from '@/validators/settings/settings-location';
 import { createListCollection } from '@chakra-ui/react/collection';
 import { Control, Controller } from 'react-hook-form';
@@ -18,7 +18,6 @@ interface Props {
   control: Control<SettingsLocationType>;
   id: number;
   setId: (a: number) => void;
-  setValue: UseFormSetValue<SettingsLocationType>;
 }
 
 export default function SettingsLocationSelectDistrict({
@@ -26,7 +25,6 @@ export default function SettingsLocationSelectDistrict({
   control,
   id,
   setId,
-  setValue,
 }: Props) {
   const regency = watch('city');
 
@@ -73,7 +71,6 @@ export default function SettingsLocationSelectDistrict({
                   key={data.id}
                   onClick={() => {
                     setId(data.id);
-                    setValue('district_id', data.id);
                   }}
                 >
                   {data.nama}

@@ -104,11 +104,9 @@ export default function SettingsLocationContent() {
                   />
                 </Field>
                 <SettingsLocationSelectGroup
-                  setValue={locationForm.setValue}
                   errors={locationForm.errors}
                   watch={locationForm.watch}
                   control={locationForm.control}
-                  getValues={locationForm.getValues}
                 />
                 <Field
                   label="Postal Code"

@@ -10,17 +10,15 @@ import { SettingsLocationType } from '@/validators/settings/settings-location';
 import { createListCollection } from '@chakra-ui/react/collection';
 import axios from 'axios';
 import { useEffect, useMemo } from 'react';
-import { Controller, Control, UseFormSetValue } from 'react-hook-form';
+import { Controller, Control } from 'react-hook-form';
 import { useState } from 'react';
 
 export default function SettingsLocationSelectProvince({
   control,
   setId,
-  setValue,
 }: {
   control: Control<SettingsLocationType>;
   setId: (a: number) => void;
-  setValue: UseFormSetValue<SettingsLocationType>;
 }) {
   const [province, setProvince] = useState<ProvinceType>();
   useEffect(() => {
@@ -62,7 +60,6 @@ export default function SettingsLocationSelectProvince({
                   key={data.id}
                   onClick={() => {
                     setId(data.id);
-                    setValue('province_id', data.id);
                   }}
                 >
                   {data.nama}

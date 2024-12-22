@@ -3,38 +3,40 @@ import { Tabs } from '@chakra-ui/react';
 import SettingsLocation from './settings-location';
 import SettingsTemplateMessage from './settings-template-message';
 import SettingsInformation from './settings-information';
-import { StoreState } from '@/redux/store';
-import { useSelector } from 'react-redux';
+import { useSettInfo } from './settings-information/settings-information-hooks/settings-information2';
 
 export default function SettingsShopContent() {
-  const User = useSelector((state: StoreState) => state.loggedUser.value);
+  const { data } = useSettInfo();
 
   return (
     <Box>
-      <Text
-        marginBottom="0.5rem"
-        as="h1"
-        fontWeight="semibold"
-        fontFamily="sans-serif"
-      >
-        {User?.Shop.name} Store
-      </Text>
-      <Tabs.Root defaultValue="information">
-        <Tabs.List>
-          <Tabs.Trigger value="information">Information</Tabs.Trigger>
-          <Tabs.Trigger value="location">Location</Tabs.Trigger>
-          <Tabs.Trigger value="template">Template</Tabs.Trigger>
-        </Tabs.List>
-        <Tabs.Content value="information">
-          <SettingsInformation />
-        </Tabs.Content>
-        <Tabs.Content value="location">
-          <SettingsLocation />
-        </Tabs.Content>
-        <Tabs.Content value="template">
-          <SettingsTemplateMessage />
-        </Tabs.Content>
-      </Tabs.Root>
+      <>
+        <Text
+          marginBottom="0.5rem"
+          as="h1"
+          fontWeight="semibold"
+          fontFamily="sans-serif"
+        >
+          {data?.name}
+        </Text>
+        <Tabs.Root defaultValue="information">
+          <Tabs.List>
+            <Tabs.Trigger value="information">Information</Tabs.Trigger>
+            <Tabs.Trigger value="location">Location</Tabs.Trigger>
+            <Tabs.Trigger value="template">Template</Tabs.Trigger>
+          </Tabs.List>
+          <Tabs.Content value="information">
+            <SettingsInformation />
+          </Tabs.Content>
+          <Tabs.Content value="location">
+            <SettingsLocation />
+          </Tabs.Content>
+          <Tabs.Content value="template">
+            <SettingsTemplateMessage />
+          </Tabs.Content>
+        </Tabs.Root>
+      </>
+      {/* )} */}
     </Box>
   );
 }
