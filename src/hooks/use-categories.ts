@@ -1,27 +1,29 @@
 import api from '@/networks/api';
 import { Category } from '@/types/product-type';
 import { sortAndCleanCategories } from '@/utils/sort-and-clean-categories';
+import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 export function useCategories() {
-  const [, setCategories] = useState<Category[]>([]);
   const [selectedPath, setSelectedPath] = useState<string[]>([]);
   const [selectedId, setSelectedId] = useState<string | undefined>(undefined);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [currentLevels, setCurrentLevels] = useState<Category[][]>([]);
 
+  const {
+    data: categories,
+    isLoading,
+    isError,
+  } = useQuery<Category[]>({
+    queryKey: ['categories'],
+    queryFn: api.GET_ALL_CATEGORIES,
+  });
+
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await api.GET_ALL_CATEGORIES();
-        setCategories(sortAndCleanCategories(response));
-        setCurrentLevels([sortAndCleanCategories(response)]);
-      } catch (error) {
-        console.error('Failed to fetch categories:', error);
-      }
-    };
-    fetchCategories();
-  }, []);
+    if (!isLoading && !isError && categories) {
+      setCurrentLevels([sortAndCleanCategories(categories)]);
+    }
+  }, [categories, isLoading, isError]);
 
   const handleCategoryClick = (category: Category, levelIndex: number) => {
     setSelectedPath((prev) => {
@@ -53,5 +55,8 @@ export function useCategories() {
     setDropdownVisible,
     handleCategoryClick,
     getSelectedValue,
+    isLoading,
+    isError,
+    categories,
   };
 }

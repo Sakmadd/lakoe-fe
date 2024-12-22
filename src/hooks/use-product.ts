@@ -85,21 +85,55 @@ export function useProduct() {
   async function onPost(data: FormData): Promise<void> {
     Swal.fire({
       title: 'Are you done?',
-      html: 'Check before its too late! ',
+      html: 'Check before it’s too late!',
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Yes, Create!',
       cancelButtonText: 'Cancel',
     }).then((result) => {
       if (result.isConfirmed) {
-        createProduct.mutate(data);
         Swal.fire({
-          title: 'Product Added!',
-          html: 'Lets check the latest product! ',
-          icon: 'success',
-          confirmButtonText: 'Go!',
-        }).then(() => {
-          navigate('/products');
+          title: 'Creating Product...',
+          html: 'Please wait while we create your product.',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          showConfirmButton: false,
+          didOpen: () => {
+            Swal.showLoading(null);
+          },
+        });
+
+        createProduct.mutate(data, {
+          onSuccess: (response) => {
+            Swal.close();
+
+            if (response.message === 'The url_name already exists.') {
+              Swal.fire({
+                title: 'Error!',
+                html: 'The <strong>Product Url</strong> already exists!',
+                icon: 'warning',
+                confirmButtonText: 'Change!',
+              });
+              return;
+            }
+            Swal.fire({
+              title: 'Product Added!',
+              html: `Product <strong>${response.data.name}</strong> created successfully!`,
+              icon: 'success',
+              confirmButtonText: 'Go!',
+            }).then(() => {
+              navigate('/products');
+            });
+          },
+          onError: () => {
+            Swal.close();
+            Swal.fire({
+              title: 'Error!',
+              html: 'Something Went Wrong!',
+              icon: 'error',
+              confirmButtonText: 'OK',
+            });
+          },
         });
       }
     });

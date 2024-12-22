@@ -35,6 +35,7 @@ export interface recipientType {
   city: string;
   district: string;
   subdistrict: string;
+  postal_code: string;
   longitude: string;
   latitude: string;
 }

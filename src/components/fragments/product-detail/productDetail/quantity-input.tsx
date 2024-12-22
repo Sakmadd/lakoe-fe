@@ -16,6 +16,7 @@ export function QuantityInput({
   setvalue,
 }: Props) {
   const [quantity, setQuantity] = useState<number>(product.minimum_order);
+  const hasVariants = product.Variant && product.Variant.length > 0;
 
   useEffect(() => {
     setvalue('checkout_quantity', quantity);
@@ -69,7 +70,7 @@ export function QuantityInput({
             onClick={handleDecrement}
             disabled={
               quantity <= product.minimum_order ||
-              selectedVariantOption.length < 2
+              (hasVariants && selectedVariantOption.length < 2)
             }
           >
             -
@@ -81,13 +82,14 @@ export function QuantityInput({
             type="text"
             onChange={handleChange}
             onBlur={handleBlur}
-            disabled={selectedVariantOption.length < 2}
+            disabled={hasVariants && selectedVariantOption.length < 2}
           />
           <Button
             variant={'outline'}
             onClick={handleIncrement}
             disabled={
-              quantity >= product.stock || selectedVariantOption.length < 2
+              quantity >= product.stock ||
+              (hasVariants && selectedVariantOption.length < 2)
             }
           >
             +

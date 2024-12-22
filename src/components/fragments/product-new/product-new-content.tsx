@@ -20,7 +20,12 @@ export function ProductNewContent() {
   const [images, setImages] = useState<File[]>([]);
   const variantsHooks = useVariants();
   const { onPost } = useProduct();
-  const { register, handleSubmit, setValue } = useForm<ProductType>({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<ProductType>({
     resolver: zodResolver(ProductSchema),
     defaultValues: {
       images: [],
@@ -36,7 +41,11 @@ export function ProductNewContent() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Flex flexDir={'column'} gap={'.5rem'}>
-        <ProductInformationSection register={register} setValue={setValue} />
+        <ProductInformationSection
+          errors={errors}
+          register={register}
+          setValue={setValue}
+        />
         <ProductDetailSection register={register} setImages={setImages} />
         <ProductVariantSection hooks={variantsHooks} />
         <ProductPriceSection register={register} />

@@ -1,6 +1,7 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { ContentContainer } from '../../container/contentContainer';
 import { Product } from '@/types/product-type';
+import { ProductCategoryText } from './product-category-text';
 
 interface Props {
   product: Product;
@@ -33,7 +34,7 @@ export function ProductSpecification({ product }: Props) {
               <Text color={'grey'}>SKU</Text>
             </Flex>
             <Flex paddingX={'1rem'} flexDir={'column'} gap={'1rem'}>
-              <Text>{product.category_id}</Text>
+              <ProductCategoryText id={product.category_id} />
               <Text>{product.stock}</Text>
               <Text>{product.weight} Gr</Text>
               <Text>{product.length} Cm</Text>

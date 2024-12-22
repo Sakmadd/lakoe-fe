@@ -49,6 +49,7 @@ export function ProductItem({
       <Box display="flex" justifyContent="space-between">
         <Box padding=".7rem" display="flex" gap="0.5rem" width={'100%'}>
           <Image
+            loading="lazy"
             width="6rem"
             height="6rem"
             borderRadius=".3rem"
