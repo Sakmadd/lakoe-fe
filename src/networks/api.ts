@@ -1,4 +1,5 @@
 import { CONFIGS } from '@/configs/configs';
+import { RatesRequestDTO } from '@/types/rates-type';
 import { LoginType, RegisterType, UserType } from '@/types/types';
 import { SettingsInformationType } from '@/validators/settings/settings-information';
 import { SettingsLocationType } from '@/validators/settings/settings-location';
@@ -253,9 +254,8 @@ class API {
   async CREATE_PRODUCT(data: FormData) {
     try {
       const response = await axios.post('/products', data);
-      console.log(response);
-
-      return response.data.data;
+      console.log(response.data);
+      return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw error;
@@ -353,7 +353,7 @@ class API {
       const response = await axios.delete(`/products/batch-delete`, {
         data: id,
       });
-      console.log(response.data.data);
+      console.log(response.data);
 
       return response.data.data;
     } catch (error) {
@@ -368,6 +368,19 @@ class API {
     try {
       const respone = await axios.get('/products/categories');
       return respone.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      throw error;
+    }
+  }
+  async GET_COURIER_RATES(data: RatesRequestDTO) {
+    try {
+      const response = await axios.post('/orders/rates', data);
+
+      return response.data.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw error;

@@ -35,6 +35,7 @@ export default function CategoryInput({ setValue }: Props) {
           value={getSelectedValue()}
           onClick={() => setDropdownVisible((prev) => !prev)}
           cursor="pointer"
+          autoComplete="off"
         />
       </Field>
       <AnimatePresence>
@@ -54,7 +55,7 @@ export default function CategoryInput({ setValue }: Props) {
               borderRadius="sm"
               zIndex={1000}
               overflowX="hidden"
-              maxHeight={'220px'}
+              maxHeight={'255px'}
             >
               {currentLevels.map((level, levelIndex) => (
                 <Flex
@@ -63,6 +64,13 @@ export default function CategoryInput({ setValue }: Props) {
                   key={levelIndex}
                   w="33%"
                   p={2}
+                  overflowX={'auto'}
+                  css={{
+                    scrollbarWidth: 'none',
+                    '&::-webkit-scrollbar': {
+                      display: 'none',
+                    },
+                  }}
                 >
                   {level.map((category) => (
                     <Box

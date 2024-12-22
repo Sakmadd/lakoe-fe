@@ -86,6 +86,9 @@ export default function SettingsLocationContent() {
                   {locationDialog.dialogMode == 'add'
                     ? 'Add new location'
                     : 'Edit location'}
+                  {locationDialog.dialogMode == 'add'
+                    ? 'Add new location'
+                    : 'Edit location'}
                 </DialogTitle>
               </DialogHeader>
               <DialogBody
@@ -324,6 +327,10 @@ export default function SettingsLocationContent() {
           <DialogHeader>
             <DialogTitle>Set your location pin point</DialogTitle>
           </DialogHeader>
+          <SettingsLocationMaps
+            location={locationState.location}
+            PinPoint={locationComponents.PinPoint}
+          />
           <SettingsLocationMaps
             location={locationState.location}
             PinPoint={locationComponents.PinPoint}
