@@ -1,3 +1,4 @@
+import { Flex, Text } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
@@ -58,7 +59,11 @@ function App() {
   if (isPreloaded) {
     return (
       <>
-        <>LOAD DULU BANH</>
+        <Flex alignItems={'center'} justifyContent={'center'} height={'80vh'}>
+          <Text fontSize={'8xl'} fontWeight={'bold'}>
+            {'SABAR BANG >:('}
+          </Text>
+        </Flex>
       </>
     );
   }

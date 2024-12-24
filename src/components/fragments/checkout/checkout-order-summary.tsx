@@ -1,4 +1,5 @@
 import { StoreState } from '@/redux/store';
+import { RatesResponseDTO } from '@/types/rates-type';
 import { ProductType } from '@/types/types';
 import { formatRupiah } from '@/utils/format-rp';
 import {
@@ -17,9 +18,19 @@ import { useSelector } from 'react-redux';
 
 interface Props {
   product: ProductType;
+  selectedCourierRates: RatesResponseDTO | null;
+  onCheckout(): void;
 }
 
-export function CheckoutOrderSummary({ product }: Props) {
+export function CheckoutOrderSummary({
+  product,
+  selectedCourierRates,
+  onCheckout,
+}: Props) {
+  const price = product.selected_combination
+    ? product.selected_combination.price
+    : product.price * product.checkout_quantity!;
+
   const loggedUser = useSelector((state: StoreState) => state.loggedUser.value);
 
   const [charCount, setCharCount] = useState(0);
@@ -55,22 +66,24 @@ export function CheckoutOrderSummary({ product }: Props) {
                 Total Price ({product.checkout_quantity})
               </Text>
               <Spacer />
-              <Text>
-                {product.selected_combination
-                  ? formatRupiah(product.selected_combination.price)
-                  : formatRupiah(product.price * product.checkout_quantity!)}
-              </Text>
+              <Text>{formatRupiah(price)}</Text>
             </Flex>
-            <Flex>
-              <Text color={'grey'}>Shipment Costs</Text>
-              <Spacer />
-              <Text>Rp. 100.000</Text>
-            </Flex>
+            {selectedCourierRates && (
+              <Flex>
+                <Text color={'grey'}>Shipment Costs</Text>
+                <Spacer />
+                <Text>{formatRupiah(selectedCourierRates.price)}</Text>
+              </Flex>
+            )}
             <Separator size={'md'} />
             <Flex>
               <Text color={'grey'}>Total Payment</Text>
               <Spacer />
-              <Text>Rp. 100.000</Text>
+              <Text>
+                {selectedCourierRates
+                  ? formatRupiah(price + selectedCourierRates.price)
+                  : formatRupiah(price)}
+              </Text>
             </Flex>
           </Flex>
         </Flex>
@@ -111,7 +124,7 @@ export function CheckoutOrderSummary({ product }: Props) {
           backgroundColor={'#4d4c4c'}
           fontSize={'md'}
           fontWeight={'normal'}
-          type="submit"
+          onClick={onCheckout}
         >
           <Flex gap={'1rem'}>
             <Text paddingBottom={'.2rem'}>Checkout</Text>

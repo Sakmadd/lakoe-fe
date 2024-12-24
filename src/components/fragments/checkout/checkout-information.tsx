@@ -1,4 +1,5 @@
 import { Product } from '@/types/product-type';
+import { RatesResponseDTO } from '@/types/rates-type';
 import { recipientType } from '@/types/types';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import {
@@ -10,9 +11,8 @@ import {
 import { FieldInput } from '../product-new/product-new-fields/field-input';
 import { FieldInputAddon } from '../product-new/product-new-fields/field-input-addon';
 import { FieldInputDescription } from '../product-new/product-new-fields/field-input-description';
-import { LocationInputGroup } from './location-input/location-input-group';
 import { CheckoutOrderDetail } from './checkout-courier-rates/checkout-order-detail';
-import { RatesResponseDTO } from '@/types/rates-type';
+import { LocationInputGroup } from './location-input/location-input-group';
 
 interface Props {
   product: Product;
@@ -21,6 +21,12 @@ interface Props {
   register: UseFormRegister<recipientType>;
   onSubmit: SubmitHandler<recipientType>;
   handleSubmit: UseFormHandleSubmit<recipientType, undefined>;
+  setSelectedCourierRates: React.Dispatch<
+    React.SetStateAction<RatesResponseDTO | null>
+  >;
+  selectedCourierRates: RatesResponseDTO | null;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function CheckoutInformation({
@@ -30,6 +36,10 @@ export function CheckoutInformation({
   handleSubmit,
   setValue,
   courierRates,
+  selectedCourierRates,
+  setSelectedCourierRates,
+  isOpen,
+  setIsOpen,
 }: Props) {
   return (
     <>
@@ -104,7 +114,14 @@ export function CheckoutInformation({
             register={register}
           />
         </Flex>
-        <CheckoutOrderDetail courierRates={courierRates} product={product} />
+        <CheckoutOrderDetail
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          selectedCourierRates={selectedCourierRates}
+          setSelectedCourierRates={setSelectedCourierRates}
+          courierRates={courierRates}
+          product={product}
+        />
       </form>
     </>
   );

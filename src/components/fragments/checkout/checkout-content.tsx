@@ -7,6 +7,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CheckoutInformation } from './checkout-information';
 import { CheckoutOrderSummary } from './checkout-order-summary';
+import Swal from 'sweetalert2';
 
 export function CheckoutContent() {
   const { register, handleSubmit, setValue } = useForm<recipientType>();
@@ -14,6 +15,9 @@ export function CheckoutContent() {
   const navigate = useNavigate();
   const [courierRates, setCourierRates] = useState<RatesResponseDTO[]>([]);
   const { checkoutProduct } = location.state || {};
+  const [selectedCourierRates, setSelectedCourierRates] =
+    useState<RatesResponseDTO | null>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (!checkoutProduct) {
@@ -25,7 +29,7 @@ export function CheckoutContent() {
     return input.replace(/^(KAB\.\s*|KOTA\s*)/i, '').toLowerCase();
   }
 
-  const onSubmit: SubmitHandler<recipientType> = async (data) => {
+  const onSelectCourier: SubmitHandler<recipientType> = async (data) => {
     const body: RatesRequestDTO = {
       name: data.name,
       email: data.email,
@@ -49,9 +53,33 @@ export function CheckoutContent() {
         width: checkoutProduct.width,
       },
     };
+    if (!data) {
+      Swal.fire({
+        title: 'Please Fill Your Informations!',
+        html: 'Fill your information before select your shipment method!',
+        icon: 'warning',
+        confirmButtonText: 'Go!',
+      }).then(() => {
+        return;
+      });
+    }
     const response = await api.GET_COURIER_RATES(body);
     setCourierRates(response);
   };
+
+  function onCheckout() {
+    if (!selectedCourierRates) {
+      Swal.fire({
+        title: 'Please Select Courier!',
+        html: 'Pick the best price for you!',
+        icon: 'warning',
+        confirmButtonText: 'Go!',
+      }).then(() => {
+        return;
+      });
+    }
+    console.log('bisa');
+  }
 
   return (
     <>
@@ -60,14 +88,22 @@ export function CheckoutContent() {
       </Text>
       <Flex gap={'1rem'} paddingBottom={'3rem'}>
         <CheckoutInformation
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          selectedCourierRates={selectedCourierRates}
+          setSelectedCourierRates={setSelectedCourierRates}
           courierRates={courierRates}
           setValue={setValue}
-          onSubmit={onSubmit}
+          onSubmit={onSelectCourier}
           handleSubmit={handleSubmit}
           product={checkoutProduct}
           register={register}
         />
-        <CheckoutOrderSummary product={checkoutProduct} />
+        <CheckoutOrderSummary
+          onCheckout={onCheckout}
+          selectedCourierRates={selectedCourierRates}
+          product={checkoutProduct}
+        />
       </Flex>
     </>
   );
