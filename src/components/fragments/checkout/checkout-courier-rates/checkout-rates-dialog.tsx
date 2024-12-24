@@ -39,6 +39,7 @@ export function CheckoutRatesDialog({
 }: Props) {
   const handleSelectCourier = (rate: RatesResponseDTO) => {
     setSelectedCourierRates(rate);
+    setIsOpen(!isOpen);
     setShipSelect(false);
   };
 

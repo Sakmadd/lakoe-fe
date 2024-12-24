@@ -1,4 +1,8 @@
 import { CONFIGS } from '@/configs/configs';
+import {
+  CreateOrderRequestDTO,
+  CreateOrderResponseDTO,
+} from '@/types/order-types';
 import { RatesRequestDTO } from '@/types/rates-type';
 import { LoginType, RegisterType, UserType } from '@/types/types';
 import { SettingsInformationType } from '@/validators/settings/settings-information';
@@ -380,6 +384,20 @@ class API {
     try {
       const response = await axios.post('/orders/rates', data);
 
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      throw error;
+    }
+  }
+  async CREATE_ORDER(
+    data: CreateOrderRequestDTO
+  ): Promise<CreateOrderResponseDTO> {
+    try {
+      const response = await axios.post('/orders', data);
       return response.data.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {

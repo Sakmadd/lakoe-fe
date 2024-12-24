@@ -1,25 +1,32 @@
 import api from '@/networks/api';
+import { CreateOrderRequestDTO } from '@/types/order-types';
 import { RatesRequestDTO, RatesResponseDTO } from '@/types/rates-type';
 import { recipientType } from '@/types/types';
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Tabs, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { FaRegCreditCard } from 'react-icons/fa';
+import { LiaShippingFastSolid } from 'react-icons/lia';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { CheckoutInformation } from './checkout-information';
 import { CheckoutOrderSummary } from './checkout-order-summary';
-import Swal from 'sweetalert2';
+import { CheckoutPayments } from './checkout-payments';
 
 export function CheckoutContent() {
-  const { register, handleSubmit, setValue } = useForm<recipientType>();
   const location = useLocation();
   const navigate = useNavigate();
-  const [courierRates, setCourierRates] = useState<RatesResponseDTO[]>([]);
   const { checkoutProduct } = location.state || {};
+  const { register, handleSubmit, setValue } = useForm<recipientType>();
+  const [courierRates, setCourierRates] = useState<RatesResponseDTO[]>([]);
   const [selectedCourierRates, setSelectedCourierRates] =
     useState<RatesResponseDTO | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [recipient, setRecipient] = useState<recipientType | null>(null);
+  const [tabs, setTabs] = useState<'shipping' | 'payments'>('shipping');
 
   useEffect(() => {
+    console.log(checkoutProduct);
     if (!checkoutProduct) {
       navigate('/');
     }
@@ -30,6 +37,8 @@ export function CheckoutContent() {
   }
 
   const onSelectCourier: SubmitHandler<recipientType> = async (data) => {
+    setIsOpen(!isOpen);
+    setRecipient(data);
     const body: RatesRequestDTO = {
       name: data.name,
       email: data.email,
@@ -53,21 +62,15 @@ export function CheckoutContent() {
         width: checkoutProduct.width,
       },
     };
-    if (!data) {
-      Swal.fire({
-        title: 'Please Fill Your Informations!',
-        html: 'Fill your information before select your shipment method!',
-        icon: 'warning',
-        confirmButtonText: 'Go!',
-      }).then(() => {
-        return;
-      });
+    try {
+      const response = await api.GET_COURIER_RATES(body);
+      setCourierRates(response);
+    } catch (error) {
+      console.log(error);
     }
-    const response = await api.GET_COURIER_RATES(body);
-    setCourierRates(response);
   };
 
-  function onCheckout() {
+  async function onCheckout() {
     if (!selectedCourierRates) {
       Swal.fire({
         title: 'Please Select Courier!',
@@ -78,7 +81,43 @@ export function CheckoutContent() {
         return;
       });
     }
-    console.log('bisa');
+    const body: CreateOrderRequestDTO = {
+      name: recipient!.name,
+      email: recipient!.email,
+      phone: recipient!.phone,
+      address: recipient!.address,
+      province: recipient!.province,
+      city: recipient!.city,
+      district: recipient!.district,
+      subdistrict: recipient!.subdistrict,
+      postal_code: recipient!.postal_code,
+      longitude: '0000123',
+      latitude: '00021030213',
+      origin_area_id: selectedCourierRates!.origin_area_id,
+      destination_area_id: selectedCourierRates!.destination_area_id,
+      courier_price: selectedCourierRates!.price,
+      courier_company: selectedCourierRates!.company,
+      courier_code: selectedCourierRates!.courier_code,
+      courier_type: selectedCourierRates!.courier_type,
+      items: {
+        variant_combination_id:
+          checkoutProduct.variant_option_combination_id || undefined,
+        product_id: checkoutProduct.id,
+        price: checkoutProduct.price,
+        quantity: checkoutProduct.checkout_quantity,
+      },
+    };
+    try {
+      const response = await api.CREATE_ORDER(body);
+      setTabs('payments');
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function onPayment() {
+    console.log('kontol');
   }
 
   return (
@@ -87,19 +126,45 @@ export function CheckoutContent() {
         Checkout
       </Text>
       <Flex gap={'1rem'} paddingBottom={'3rem'}>
-        <CheckoutInformation
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          selectedCourierRates={selectedCourierRates}
-          setSelectedCourierRates={setSelectedCourierRates}
-          courierRates={courierRates}
-          setValue={setValue}
-          onSubmit={onSelectCourier}
-          handleSubmit={handleSubmit}
-          product={checkoutProduct}
-          register={register}
-        />
+        <Tabs.Root value={tabs} width={'65%'}>
+          <Tabs.List>
+            <Tabs.Trigger
+              value="shipping"
+              disabled={tabs === 'payments' && true}
+            >
+              <LiaShippingFastSolid size={'sm'} style={{ width: '20px' }} />
+              Shipping Information
+            </Tabs.Trigger>
+            <Tabs.Trigger
+              value="payments"
+              disabled={tabs === 'shipping' && true}
+            >
+              <FaRegCreditCard size={'sm'} style={{ width: '20px' }} />
+              Payments
+            </Tabs.Trigger>
+          </Tabs.List>
+          <Tabs.Content value="shipping">
+            <CheckoutInformation
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              selectedCourierRates={selectedCourierRates}
+              setSelectedCourierRates={setSelectedCourierRates}
+              courierRates={courierRates}
+              setValue={setValue}
+              onSubmit={onSelectCourier}
+              handleSubmit={handleSubmit}
+              product={checkoutProduct}
+              register={register}
+            />
+          </Tabs.Content>
+          <Tabs.Content value="payments">
+            <CheckoutPayments />
+          </Tabs.Content>
+        </Tabs.Root>
+
         <CheckoutOrderSummary
+          onPayment={onPayment}
+          tabs={tabs}
           onCheckout={onCheckout}
           selectedCourierRates={selectedCourierRates}
           product={checkoutProduct}

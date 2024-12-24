@@ -46,7 +46,6 @@ export function CheckoutInformation({
       <form
         onSubmit={handleSubmit(onSubmit)}
         style={{
-          width: '65%',
           display: 'flex',
           flexDirection: 'column',
           gap: '1rem',
