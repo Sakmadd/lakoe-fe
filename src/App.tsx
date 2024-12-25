@@ -8,6 +8,7 @@ import { HomePage } from './components/pages/home-page';
 import { LoginPage } from './components/pages/login-page';
 import OrderDetail from './components/pages/order-detail';
 import { OrderPage } from './components/pages/order-page';
+import OrderStatusPage from './components/pages/order-status-page';
 import { ProductDetailPage } from './components/pages/product-detail-page';
 import { ProductNewPage } from './components/pages/product-new-page';
 import { ProductPage } from './components/pages/product-page';
@@ -109,7 +110,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/:productName" element={<ProductDetailPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/orders/:orderId" element={<OrderDetail />} />
+        <Route path="/orders/status/:orderId" element={<OrderStatusPage />} />
         <Route path="/profile/shop/:id" element={<ProfileShop />} />
         <Route path="/profile/shop/:id" element={<ProfileShop />} />
       </Route>
