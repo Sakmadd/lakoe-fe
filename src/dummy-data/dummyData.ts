@@ -1,5 +1,39 @@
 import { Product } from '@/types/product-type';
 import { CategoryType, SellerProductListType } from '@/types/types';
+export const dummyOrder = {
+  id: '90e5f3e3-6d92-49fc-8e6c-4ebd3d30138d',
+  total_price: 14370000,
+  created_at: '2024-12-24T10:32:04.702Z',
+  updated_at: '2024-12-24T10:32:04.702Z',
+  OrderItem: {
+    id: '4045b2c2-7339-46bf-970e-19b43417032a',
+    product_id: '03d5b658-2bc6-45ed-a51c-41d0d2073e2e',
+    quantity: 2,
+    Product: {
+      id: '03d5b658-2bc6-45ed-a51c-41d0d2073e2e',
+      name: 'PRODUK BARU PALING MANTAP',
+      description: 'ini adalah product detail untu kPRODUK BARU PALING MANTAP ',
+      price: 10,
+      image:
+        'https://res.cloudinary.com/dxkoqosa0/image/upload/v1734925068/n2h18ma7p1icdtrkyt1p.jpg',
+    },
+  },
+  Payment: {
+    id: '4095a578-94b4-4775-b697-51008e9cfb7f',
+    url: 'https://app.sandbox.midtrans.com/snap/v4/redirection/2379895a-6a01-4e3d-9585-cad50b9c7a0e',
+  },
+  Recipient: {
+    id: '3ccb9b83-6483-4331-b645-295b018244fd',
+    name: 'John Doe',
+    email: 'johndoe@example.com',
+    address: 'Jl. Contoh No. 123',
+    phone: '+628123456789',
+    district: 'Coblong',
+    city: 'Bandung',
+    longitude: '107.6191228',
+    latitude: '-6.9034497',
+  },
+};
 
 export const dummyOrders = [
   {

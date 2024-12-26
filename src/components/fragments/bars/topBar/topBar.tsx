@@ -54,13 +54,7 @@ export function TopBar({ display }: Props) {
           <Link to="/">
             <Flex alignItems={'center'}>
               <RiShoppingBag4Line size={'40px'} />
-              <Text
-                fontWeight={'bold'}
-                fontSize={'2xl'}
-                textDecoration={'underline'}
-                textUnderlineOffset={3}
-                textDecorationColor={'rgba(230, 230, 230, 1)'}
-              >
+              <Text fontWeight={'bold'} fontSize={'2xl'} pt={'5px'}>
                 Lakoe
               </Text>
             </Flex>

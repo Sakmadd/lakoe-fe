@@ -1,9 +1,11 @@
+import { Flex, Text } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { AdminPage } from './components/pages/admin-page';
 import { CheckoutPage } from './components/pages/checkout-page';
 import { HomePage } from './components/pages/home-page';
+import InvoiceStatusPage from './components/pages/invoice-status.page';
 import { LoginPage } from './components/pages/login-page';
 import OrderDetail from './components/pages/order-detail';
 import { OrderPage } from './components/pages/order-page';
@@ -43,6 +45,7 @@ function App() {
           return;
         }
         const loggedUser: UserType = await api.GET_LOGGED_USER();
+        console.log(loggedUser);
         if (loggedUser) {
           dispatch(setLoggeduser(loggedUser));
         }
@@ -58,7 +61,11 @@ function App() {
   if (isPreloaded) {
     return (
       <>
-        <>LOAD DULU BANH</>
+        <Flex alignItems={'center'} justifyContent={'center'} height={'80vh'}>
+          <Text fontSize={'8xl'} fontWeight={'bold'}>
+            {'SABAR BANG >:('}
+          </Text>
+        </Flex>
       </>
     );
   }
@@ -104,7 +111,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/:productName" element={<ProductDetailPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/orders/:orderId" element={<OrderDetail />} />
+        <Route path="/invoice/:id" element={<InvoiceStatusPage />} />
         <Route path="/profile/shop/:id" element={<ProfileShop />} />
         <Route path="/profile/shop/:id" element={<ProfileShop />} />
       </Route>

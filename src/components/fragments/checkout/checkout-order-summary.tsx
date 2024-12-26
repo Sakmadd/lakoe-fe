@@ -1,4 +1,5 @@
 import { StoreState } from '@/redux/store';
+import { RatesResponseDTO } from '@/types/rates-type';
 import { ProductType } from '@/types/types';
 import { formatRupiah } from '@/utils/format-rp';
 import {
@@ -17,9 +18,23 @@ import { useSelector } from 'react-redux';
 
 interface Props {
   product: ProductType;
+  selectedCourierRates: RatesResponseDTO | null;
+  onCheckout(): void;
+  onPayment(): void;
+  tabs: 'shipping' | 'payments';
 }
 
-export function CheckoutOrderSummary({ product }: Props) {
+export function CheckoutOrderSummary({
+  product,
+  selectedCourierRates,
+  onCheckout,
+  tabs,
+  onPayment,
+}: Props) {
+  const price = product.selected_combination
+    ? product.selected_combination.price
+    : product.price * product.checkout_quantity!;
+
   const loggedUser = useSelector((state: StoreState) => state.loggedUser.value);
 
   const [charCount, setCharCount] = useState(0);
@@ -33,7 +48,7 @@ export function CheckoutOrderSummary({ product }: Props) {
         width={'35%'}
         maxHeight={'50vh'}
         position={'sticky'}
-        top={loggedUser ? '6rem' : '1rem'}
+        top={loggedUser ? '6rem' : '2rem'}
         flexDir={'column'}
         gap={'1rem'}
       >
@@ -55,69 +70,90 @@ export function CheckoutOrderSummary({ product }: Props) {
                 Total Price ({product.checkout_quantity})
               </Text>
               <Spacer />
-              <Text>
-                {product.selected_combination
-                  ? formatRupiah(product.selected_combination.price)
-                  : formatRupiah(product.price * product.checkout_quantity!)}
-              </Text>
+              <Text>{formatRupiah(price)}</Text>
             </Flex>
             <Flex>
               <Text color={'grey'}>Shipment Costs</Text>
               <Spacer />
-              <Text>Rp. 100.000</Text>
+              <Text>
+                {selectedCourierRates
+                  ? formatRupiah(selectedCourierRates.price)
+                  : '(Not selected yet)'}
+              </Text>
             </Flex>
             <Separator size={'md'} />
             <Flex>
               <Text color={'grey'}>Total Payment</Text>
               <Spacer />
-              <Text>Rp. 100.000</Text>
+              <Text>
+                {selectedCourierRates
+                  ? formatRupiah(price + selectedCourierRates.price)
+                  : formatRupiah(price)}
+              </Text>
             </Flex>
           </Flex>
         </Flex>
-        <Flex
-          border={'1px solid #e6e6e6'}
-          padding={'1.5rem'}
-          borderRadius={'.5rem'}
-          width={'100%'}
-          flexDirection={'column'}
-          gap={'.8rem'}
-        >
-          <Text fontSize={'1.2rem'} fontWeight={'semibold'}>
-            Notes
-            <Span color={'grey'} fontWeight={'normal'}>
-              (Optionals)
-            </Span>
-          </Text>
-          <Flex flexDir={'column'} fontWeight={'semibold'} gap={'.5rem'}>
-            <Textarea
-              fontWeight={'thin'}
-              placeholder="Write your order notes or intstructions"
-              minHeight="150px"
-              maxLength={150}
-              resize="none"
-              onChange={handleInputChange}
-            />
-            <Box alignSelf="flex-end">
-              <Text
-                fontSize="sm"
-                color={charCount === 150 ? 'red.500' : 'gray.500'}
-              >
-                {`${charCount}/${150}`}
-              </Text>
-            </Box>
+        {tabs === 'shipping' && (
+          <Flex
+            border={'1px solid #e6e6e6'}
+            padding={'1.5rem'}
+            borderRadius={'.5rem'}
+            width={'100%'}
+            flexDirection={'column'}
+            gap={'.8rem'}
+          >
+            <Text fontSize={'1.2rem'} fontWeight={'semibold'}>
+              Notes
+              <Span color={'grey'} fontWeight={'normal'}>
+                (Optionals)
+              </Span>
+            </Text>
+            <Flex flexDir={'column'} fontWeight={'semibold'} gap={'.5rem'}>
+              <Textarea
+                fontWeight={'thin'}
+                placeholder="Write your order notes or intstructions"
+                minHeight="150px"
+                maxLength={150}
+                resize="none"
+                onChange={handleInputChange}
+              />
+              <Box alignSelf="flex-end">
+                <Text
+                  fontSize="sm"
+                  color={charCount === 150 ? 'red.500' : 'gray.500'}
+                >
+                  {`${charCount}/${150}`}
+                </Text>
+              </Box>
+            </Flex>
           </Flex>
-        </Flex>
-        <Button
-          backgroundColor={'#4d4c4c'}
-          fontSize={'md'}
-          fontWeight={'normal'}
-          type="submit"
-        >
-          <Flex gap={'1rem'}>
-            <Text paddingBottom={'.2rem'}>Checkout</Text>
-            <FaArrowRightLong />
-          </Flex>
-        </Button>
+        )}
+
+        {tabs === 'payments' ? (
+          <Button
+            backgroundColor={'#4d4c4c'}
+            fontSize={'md'}
+            fontWeight={'normal'}
+            onClick={onPayment}
+          >
+            <Flex gap={'1rem'}>
+              <Text paddingBottom={'.2rem'}>Complete Payments</Text>
+              <FaArrowRightLong />
+            </Flex>
+          </Button>
+        ) : (
+          <Button
+            backgroundColor={'#4d4c4c'}
+            fontSize={'md'}
+            fontWeight={'normal'}
+            onClick={onCheckout}
+          >
+            <Flex gap={'1rem'}>
+              <Text paddingBottom={'.2rem'}>Payments</Text>
+              <FaArrowRightLong />
+            </Flex>
+          </Button>
+        )}
       </Flex>
     </>
   );

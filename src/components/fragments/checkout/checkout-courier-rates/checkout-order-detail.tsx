@@ -5,8 +5,10 @@ import {
   AccordionRoot,
 } from '@/components/ui/accordion';
 import { Product } from '@/types/product-type';
+import { RatesResponseDTO } from '@/types/rates-type';
 import { formatRupiah } from '@/utils/format-rp';
 import {
+  Button,
   Flex,
   Icon,
   Image,
@@ -18,15 +20,27 @@ import {
 import { useState } from 'react';
 import { LuTags } from 'react-icons/lu';
 import { CheckoutRatesDialog } from './checkout-rates-dialog';
-import { RatesResponseDTO } from '@/types/rates-type';
 
 interface Props {
   courierRates: RatesResponseDTO[];
+  selectedCourierRates: RatesResponseDTO | null;
+  setSelectedCourierRates: React.Dispatch<
+    React.SetStateAction<RatesResponseDTO | null>
+  >;
   product: Product;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function CheckoutOrderDetail({ product, courierRates }: Props) {
-  const [shipSelect, setShipSelect] = useState<boolean>(false);
+export function CheckoutOrderDetail({
+  product,
+  courierRates,
+  selectedCourierRates,
+  setSelectedCourierRates,
+  isOpen,
+  setIsOpen,
+}: Props) {
+  const [shipSelect, setShipSelect] = useState<boolean>(true);
 
   return (
     <>
@@ -34,14 +48,14 @@ export function CheckoutOrderDetail({ product, courierRates }: Props) {
         <AccordionRoot
           collapsible
           defaultValue={['info']}
-          border={shipSelect ? '1px solid green' : '1px solid red'}
+          border={shipSelect ? '1px solid red' : '1px solid green'}
           borderRadius={'.5rem'}
           overflow={'hidden'}
         >
           <AccordionItem key={'info'} value={'info'}>
             <AccordionItemTrigger
               cursor={'pointer'}
-              backgroundColor={shipSelect ? 'green.100' : 'red.100'}
+              backgroundColor={shipSelect ? 'red.100' : 'green.100'}
               padding={'1rem'}
             >
               <Icon fontSize="lg">
@@ -75,8 +89,19 @@ export function CheckoutOrderDetail({ product, courierRates }: Props) {
                 </Flex>
                 <Flex flexDir={'column'} gap={'1rem'}>
                   <Separator />
-
+                  <Button
+                    maxWidth={'30%'}
+                    backgroundColor={'blue.500'}
+                    fontWeight={'bold'}
+                    type="submit"
+                  >
+                    Select Your Shipments
+                  </Button>
                   <CheckoutRatesDialog
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    selectedCourierRates={selectedCourierRates}
+                    setSelectedCourierRates={setSelectedCourierRates}
                     courierRates={courierRates}
                     setShipSelect={setShipSelect}
                     shipSelect={shipSelect}
@@ -96,7 +121,10 @@ export function CheckoutOrderDetail({ product, courierRates }: Props) {
                         Subtotal
                         <Spacer />
                         {formatRupiah(
-                          product.price * product.checkout_quantity!
+                          product.price * product.checkout_quantity! +
+                            (selectedCourierRates
+                              ? selectedCourierRates.price
+                              : 0)
                         )}
                       </AccordionItemTrigger>
                       <AccordionItemContent padding={'1rem'}>
@@ -113,6 +141,22 @@ export function CheckoutOrderDetail({ product, courierRates }: Props) {
                             )}
                           </Text>
                         </Flex>
+                        {selectedCourierRates && (
+                          <Flex
+                            backgroundColor={'rgb(249, 250, 251)'}
+                            padding={'1rem'}
+                            borderRadius={'.5rem'}
+                          >
+                            <Text color={'grey'}>
+                              Courier rates ({selectedCourierRates.courier_name}
+                              )
+                            </Text>
+                            <Spacer />
+                            <Text color={'grey'}>
+                              {formatRupiah(selectedCourierRates.price)}
+                            </Text>
+                          </Flex>
+                        )}
                       </AccordionItemContent>
                     </AccordionItem>
                   </AccordionRoot>

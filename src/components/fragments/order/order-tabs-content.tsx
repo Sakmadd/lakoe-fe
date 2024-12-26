@@ -22,6 +22,9 @@ export function TabsOrderContent({
   const [selectedCourier, setSelectedCourier] = useState<string>('');
   const [selectedSort, setSelectedSort] = useState<string>('');
   const [searchInput, setSearchInput] = useState<string>('');
+  // const [openDialog, setOpenDialog] = useState(false);
+  // const [contact, setContact] = useState(false);
+  // const [delivery, setDelivery] = useState(false);
 
   const { filteredOrders } = useFilterOrderContent({
     orders,

@@ -33,6 +33,8 @@ export function finalProductFormGenerator({
     VariantOptionCombination: variantsHooks.getValues().variants,
   };
 
+  console.log(body);
+
   const formData = new FormData();
 
   formData.append('name', body.name);
