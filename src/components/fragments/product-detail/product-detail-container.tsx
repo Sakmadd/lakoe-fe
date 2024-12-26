@@ -3,7 +3,7 @@ import { useProductDetail } from '@/hooks/use-product-detail';
 import { MainContent } from '@/layouts/mainContent';
 import { Product } from '@/types/product-type';
 import { Flex } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { ProductDetailContent } from './product-content';
@@ -24,6 +24,10 @@ export function ProductDetailContainer({ product }: Props) {
     selectedVariantOption,
   });
 
+  useEffect(() => {
+    console.log(preparedProduct);
+  });
+
   const onSubmit: SubmitHandler<Product> = (data) => {
     if (selectedVariantOption.length < preparedProduct.Variant!.length) {
       toaster.create({
@@ -35,7 +39,7 @@ export function ProductDetailContainer({ product }: Props) {
       return;
     }
 
-    const checkoutProduct: Product = {
+    const checkoutProduct = {
       ...preparedProduct,
       price: selectedCombination?.price || preparedProduct.price,
       sku: selectedCombination?.sku || preparedProduct.sku,
@@ -43,6 +47,7 @@ export function ProductDetailContainer({ product }: Props) {
       weight: selectedCombination?.weight || preparedProduct.weight,
       selected_variant: selectedVariantOption,
       checkout_quantity: data.checkout_quantity,
+      variant_option_combination_id: selectedCombination?.id,
     };
 
     delete checkoutProduct.Variant;

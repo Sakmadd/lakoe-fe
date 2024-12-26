@@ -22,7 +22,9 @@ export function BuyerLayout() {
           <GridItem
             colSpan={2}
             display={{ base: 'none', xl: 'block' }}
-            backgroundColor={'rgb(248, 248, 248)'}
+            backgroundColor={
+              location.pathname === '/checkout' ? 'white' : 'rgb(248, 248, 248)'
+            }
           ></GridItem>
           <GridItem colSpan={16}>
             <Outlet />
@@ -30,7 +32,9 @@ export function BuyerLayout() {
           <GridItem
             colSpan={2}
             display={{ base: 'none', lg: 'block' }}
-            backgroundColor={'rgb(248, 248, 248)'}
+            backgroundColor={
+              location.pathname === '/checkout' ? 'white' : 'rgb(248, 248, 248)'
+            }
           ></GridItem>
         </Grid>
       </Box>

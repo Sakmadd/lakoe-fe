@@ -1,57 +1,28 @@
-import api from '@/networks/api';
-import { RatesRequestDTO, RatesResponseDTO } from '@/types/rates-type';
-import { recipientType } from '@/types/types';
-import { Flex, Text } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useCheckout } from '@/hooks/use-checkout';
+import { Flex, Tabs, Text } from '@chakra-ui/react';
+import { FaRegCreditCard } from 'react-icons/fa';
+import { LiaShippingFastSolid } from 'react-icons/lia';
 import { CheckoutInformation } from './checkout-information';
 import { CheckoutOrderSummary } from './checkout-order-summary';
+import { CheckoutPayments } from './checkout-payments';
 
 export function CheckoutContent() {
-  const { register, handleSubmit, setValue } = useForm<recipientType>();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [courierRates, setCourierRates] = useState<RatesResponseDTO[]>([]);
-  const { checkoutProduct } = location.state || {};
-
-  useEffect(() => {
-    if (!checkoutProduct) {
-      navigate('/');
-    }
-  }, [checkoutProduct, navigate]);
-
-  function formatCityName(input: string) {
-    return input.replace(/^(KAB\.\s*|KOTA\s*)/i, '').toLowerCase();
-  }
-
-  const onSubmit: SubmitHandler<recipientType> = async (data) => {
-    const body: RatesRequestDTO = {
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      latitude: data.latitude,
-      longitude: data.longitude,
-      province: data.province.toLowerCase(),
-      city: formatCityName(data.city),
-      district: data.district.toLowerCase(),
-      subdistrict: data.subdistrict.toLowerCase(),
-      postal_code: data.postal_code,
-      address: data.address,
-      quantity: checkoutProduct.checkout_quantity,
-      items: {
-        id: checkoutProduct.id,
-        name: checkoutProduct.name,
-        price: checkoutProduct.price,
-        height: checkoutProduct.height,
-        length: checkoutProduct.length,
-        weight: checkoutProduct.weight,
-        width: checkoutProduct.width,
-      },
-    };
-    const response = await api.GET_COURIER_RATES(body);
-    setCourierRates(response);
-  };
+  const {
+    tabs,
+    isOpen,
+    courierRates,
+    selectedCourierRates,
+    checkoutProduct,
+    setIsOpen,
+    setSelectedCourierRates,
+    register,
+    handleSubmit,
+    setValue,
+    onSelectCourier,
+    onPayment,
+    onCheckout,
+    order,
+  } = useCheckout();
 
   return (
     <>
@@ -59,15 +30,49 @@ export function CheckoutContent() {
         Checkout
       </Text>
       <Flex gap={'1rem'} paddingBottom={'3rem'}>
-        <CheckoutInformation
-          courierRates={courierRates}
-          setValue={setValue}
-          onSubmit={onSubmit}
-          handleSubmit={handleSubmit}
+        <Tabs.Root value={tabs} width={'65%'}>
+          <Tabs.List>
+            <Tabs.Trigger
+              value="shipping"
+              disabled={tabs === 'payments' && true}
+            >
+              <LiaShippingFastSolid size={'sm'} style={{ width: '20px' }} />
+              Shipping Information
+            </Tabs.Trigger>
+            <Tabs.Trigger
+              value="payments"
+              disabled={tabs === 'shipping' && true}
+            >
+              <FaRegCreditCard size={'sm'} style={{ width: '20px' }} />
+              Payments
+            </Tabs.Trigger>
+          </Tabs.List>
+          <Tabs.Content value="shipping">
+            <CheckoutInformation
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              selectedCourierRates={selectedCourierRates}
+              setSelectedCourierRates={setSelectedCourierRates}
+              courierRates={courierRates}
+              setValue={setValue}
+              onSubmit={onSelectCourier}
+              handleSubmit={handleSubmit}
+              product={checkoutProduct}
+              register={register}
+            />
+          </Tabs.Content>
+          <Tabs.Content value="payments">
+            {order && <CheckoutPayments order={order.order} />}
+          </Tabs.Content>
+        </Tabs.Root>
+
+        <CheckoutOrderSummary
+          onPayment={onPayment}
+          tabs={tabs}
+          onCheckout={onCheckout}
+          selectedCourierRates={selectedCourierRates}
           product={checkoutProduct}
-          register={register}
         />
-        <CheckoutOrderSummary product={checkoutProduct} />
       </Flex>
     </>
   );
