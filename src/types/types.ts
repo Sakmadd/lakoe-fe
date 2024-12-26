@@ -62,7 +62,7 @@ export interface OrderDetailType {
   createdAt: string;
   address: string;
   courier: string;
-  images: ImageType[];
+  image: ImageType;
   quantity: number;
   total_price: number;
 }

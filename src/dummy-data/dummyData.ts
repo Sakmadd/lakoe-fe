@@ -5,7 +5,7 @@ export const dummyOrders = [
   {
     id: 1,
     name: 'Order 1',
-    status: 'new',
+    status: 'new_order',
     invoice: 'INV/20230809/MPL/00000239',
     quantity: 4,
     total_price: 2200000,
@@ -50,7 +50,7 @@ export const dummyOrders = [
   {
     id: 4,
     name: 'Order 4',
-    status: 'new',
+    status: 'new_order',
     invoice: 'INV/20230809/MPL/00000239',
     quantity: 4,
     total_price: 2200000,
@@ -65,7 +65,7 @@ export const dummyOrders = [
   {
     id: 5,
     name: 'Order 5',
-    status: 'ready',
+    status: 'done',
     invoice: 'INV/20230809/MPL/00000239',
     quantity: 4,
     total_price: 2200000,
@@ -80,7 +80,7 @@ export const dummyOrders = [
   {
     id: 6,
     name: 'Order 6',
-    status: 'ready',
+    status: 'ready_to_ship',
     invoice: 'INV/20230809/MPL/00000239',
     quantity: 4,
     total_price: 2200000,
@@ -95,7 +95,7 @@ export const dummyOrders = [
   {
     id: 7,
     name: 'Order 7',
-    status: 'delivery',
+    status: 'on_delivery',
     invoice: 'INV/20230809/MPL/00000239',
     quantity: 4,
     total_price: 2200000,
@@ -110,7 +110,7 @@ export const dummyOrders = [
   {
     id: 8,
     name: 'Order 8',
-    status: 'delivery',
+    status: 'on_delivery',
     invoice: 'INV/20230809/MPL/00000239',
     quantity: 4,
     total_price: 2200000,
@@ -143,7 +143,7 @@ export const dummyOrderDetail = [
   {
     id: 1,
     name: 'Order 1',
-    status: 'new',
+    status: 'new_order',
     invoice: 'INV/20241201/MPL/000001',
     customer: 'John Doe',
     createdAt: '2024-12-01',
@@ -191,7 +191,7 @@ export const dummyOrderDetail = [
   {
     id: 4,
     name: 'Order 4',
-    status: 'new',
+    status: 'new_order',
     invoice: 'INV/20241207/MPL/000004',
     customer: 'Bob Brown',
     createdAt: '2024-12-07',
@@ -207,7 +207,7 @@ export const dummyOrderDetail = [
   {
     id: 5,
     name: 'Order 5',
-    status: 'ready',
+    status: 'done',
     invoice: 'INV/20241208/MPL/000005',
     customer: 'Charlie White',
     createdAt: '2024-12-08',
@@ -223,7 +223,7 @@ export const dummyOrderDetail = [
   {
     id: 6,
     name: 'Order 6',
-    status: 'ready',
+    status: 'ready_to_ship',
     invoice: 'INV/20241209/MPL/000006',
     customer: 'Diana Prince',
     createdAt: '2024-12-09',
@@ -239,7 +239,7 @@ export const dummyOrderDetail = [
   {
     id: 7,
     name: 'Order 7',
-    status: 'delivery',
+    status: 'on_delivery',
     invoice: 'INV/20241210/MPL/000007',
     customer: 'Clark Kent',
     createdAt: '2024-12-10',
@@ -255,7 +255,23 @@ export const dummyOrderDetail = [
   {
     id: 8,
     name: 'Order 8',
-    status: 'delivery',
+    status: 'on_delivery',
+    invoice: 'INV/20241211/MPL/000008',
+    customer: 'Bruce Wayne',
+    createdAt: '2024-12-11',
+    address: '505 Walnut St, Gotham',
+    courier: 'anteraja',
+    quantity: 4,
+    total_price: 2200000,
+    image: {
+      src: 'https://down-id.img.susercontent.com/file/sg-11134201-22110-xhtlq7aviojvf9',
+      alt: 'gambar keren nih',
+    },
+  },
+  {
+    id: 10,
+    name: 'Order 10',
+    status: 'canceled',
     invoice: 'INV/20241211/MPL/000008',
     customer: 'Bruce Wayne',
     createdAt: '2024-12-11',
@@ -1957,7 +1973,7 @@ export const tableData = [
     price: 2200000,
     date: '2024-12-01',
     customer: 'John Doe',
-    status: 'new',
+    status: 'new_order',
   },
   {
     id: 2,
@@ -1987,7 +2003,7 @@ export const tableData = [
     price: 2200000,
     date: '2024-12-07',
     customer: 'Bob Brown',
-    status: 'new',
+    status: 'new_order',
   },
   {
     id: 5,
@@ -1997,7 +2013,7 @@ export const tableData = [
     price: 2200000,
     date: '2024-12-08',
     customer: 'Charlie White',
-    status: 'ready',
+    status: 'ready_to_ship',
   },
   {
     id: 6,
@@ -2007,7 +2023,7 @@ export const tableData = [
     price: 2200000,
     date: '2024-12-09',
     customer: 'Diana Prince',
-    status: 'ready',
+    status: 'ready_to_ship',
   },
   {
     id: 7,
@@ -2017,7 +2033,7 @@ export const tableData = [
     price: 2200000,
     date: '2024-12-10',
     customer: 'Clark Kent',
-    status: 'delivery',
+    status: 'on_delivery',
   },
   {
     id: 8,
@@ -2027,7 +2043,7 @@ export const tableData = [
     price: 2200000,
     date: '2024-12-11',
     customer: 'Bruce Wayne',
-    status: 'delivery',
+    status: 'on_delivery',
   },
 ];
 

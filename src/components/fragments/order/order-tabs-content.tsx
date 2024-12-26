@@ -3,6 +3,7 @@ import { CourierType, OrderType } from '@/types/types';
 import { Tabs } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FilterBar } from '../common/filter-bar';
+import OrderActionDialog from './order-action-dialog';
 import OrderList from './order-list';
 
 interface Props {
@@ -21,9 +22,6 @@ export function TabsOrderContent({
   const [selectedCourier, setSelectedCourier] = useState<string>('');
   const [selectedSort, setSelectedSort] = useState<string>('');
   const [searchInput, setSearchInput] = useState<string>('');
-  // const [openDialog, setOpenDialog] = useState(false);
-  // const [contact, setContact] = useState(false);
-  // const [delivery, setDelivery] = useState(false);
 
   const { filteredOrders } = useFilterOrderContent({
     orders,
@@ -32,14 +30,17 @@ export function TabsOrderContent({
     searchInput,
   });
 
-  // const { control, watch } = useForm({
-  //   resolver: zodResolver(orderTemplateSchema),
-  // });
+  const [openDialog, setOpenDialog] = useState(false);
+  const [contact, setContact] = useState(false);
+  const [delivery, setDelivery] = useState(false);
 
   return (
     <>
       <Tabs.Content value={tabs_value}>
         <OrderList
+          setContact={setContact}
+          setDelivery={setDelivery}
+          setOpenDialog={setOpenDialog}
           filter={
             <FilterBar
               filterFor="Orders"
@@ -54,6 +55,14 @@ export function TabsOrderContent({
             />
           }
           orders={filteredOrders}
+        />
+        <OrderActionDialog
+          setContact={setContact}
+          setOpenDialog={setOpenDialog}
+          delivery={delivery}
+          openDialog={openDialog}
+          contact={contact}
+          setDelivery={setDelivery}
         />
       </Tabs.Content>
     </>

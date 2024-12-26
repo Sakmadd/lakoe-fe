@@ -1,5 +1,6 @@
 import { Box, Button } from '@chakra-ui/react';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   order: {
@@ -19,34 +20,50 @@ export function OrderActionButton({
   setDelivery,
   setOpenDialog,
 }: Props) {
-  const handlerNewOrder = () => console.log('Processing the order...');
+  const navigate = useNavigate();
+  const handlerNewOrder = () => {
+    navigate(`/orders/${order.id}`);
+    console.log('Processing the order...');
+  };
   const handlerUnpaidOrder = () => {
-    console.log('Contacting customer for payment...');
     setOpenDialog(true);
     setContact(true);
+    console.log('Contacting customer for payment...');
   };
   const handlerReadyOrder = () => {
-    console.log('Informing customer...');
     setOpenDialog(true);
     setContact(true);
+    console.log('Informing customer...');
   };
   const handlerDeliveryOrder = () => {
-    console.log('Tracking shipment...');
     setOpenDialog(true);
     setDelivery(true);
+    console.log('Tracking shipment...');
   };
-  const handlerCompletedOrder = () => console.log('Contacting customer...');
+  const handlerCompletedOrder = () => {
+    setOpenDialog(true);
+    setContact(true);
+    console.log('Contacting customer...');
+  };
   const handlerCanceledOrder = () => {
+    setOpenDialog(true);
+    setContact(true);
     console.log('Handling canceled order...');
   };
 
   const actionMap: Record<string, { handler: () => void; buttonText: string }> =
     {
-      new: { handler: handlerNewOrder, buttonText: 'Process The Order' },
+      new_order: { handler: handlerNewOrder, buttonText: 'Process The Order' },
       unpaid: { handler: handlerUnpaidOrder, buttonText: 'Contact Customer' },
-      ready: { handler: handlerReadyOrder, buttonText: 'Contact Customer' },
-      delivery: { handler: handlerDeliveryOrder, buttonText: 'Track Shipment' },
-      completed: {
+      ready_to_ship: {
+        handler: handlerReadyOrder,
+        buttonText: 'Contact Customer',
+      },
+      on_delivery: {
+        handler: handlerDeliveryOrder,
+        buttonText: 'Track Shipment',
+      },
+      done: {
         handler: handlerCompletedOrder,
         buttonText: 'Contact Customer',
       },
@@ -69,8 +86,6 @@ export function OrderActionButton({
   return (
     <>
       <Box display="flex" alignItems="center">
-        {/* <DialogRoot> */}
-        {/* <DialogTrigger asChild> */}
         <Button
           _hover={{ backgroundColor: '#e6e6e6' }}
           backgroundColor="transparent"
@@ -83,71 +98,6 @@ export function OrderActionButton({
         >
           {buttonText}
         </Button>
-        {/* </DialogTrigger> */}
-        {/* {contact && (
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Select message to send</DialogTitle>
-              </DialogHeader>
-              <DialogBody>
-                <form>
-                  <Controller
-                    name="value"
-                    control={control}
-                    render={({ field }) => (
-                      <RadioGroup
-                        defaultValue="react"
-                        spaceX="8"
-                        name={field.name}
-                        value={field.value}
-                        onValueChange={({ value }) => {
-                          field.onChange(value);
-                          console.log(value);
-                        }}
-                      >
-                        <Box
-                          display="flex"
-                          justifyContent="space-between"
-                          padding="1rem"
-                          onClick={() => console.log('tes')}
-                        >
-                        <Text>Blalala</Text>
-                        <Radio value="react">React</Radio>
-                        </Box>
-                        <Box
-                          display="flex"
-                          justifyContent="space-between"
-                          padding="1rem"
-                        >
-                        <Text>Blalala</Text>
-                        <Radio value="apa">React</Radio>
-                        </Box>
-                        <Box
-                          display="flex"
-                          justifyContent="space-between"
-                          padding="1rem"
-                        >
-                        <Text>Blalala</Text>
-                        <Radio value="aja">React</Radio>
-                        </Box>
-                      </RadioGroup>
-                    )}
-                  />
-                </form>
-              </DialogBody>
-            </DialogContent>
-          )}
-          {delivery && (
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Tracking Reciept</DialogTitle>
-              </DialogHeader>
-              <DialogBody>
-                <Text>Tracking</Text>
-              </DialogBody>
-            </DialogContent>
-          )}
-        </DialogRoot> */}
       </Box>
     </>
   );

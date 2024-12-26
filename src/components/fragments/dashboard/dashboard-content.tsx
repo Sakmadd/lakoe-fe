@@ -1,5 +1,3 @@
-// import { Button } from '@/components/ui/button';
-// import { Field } from '@/components/ui/field';
 import {
   PaginationItems,
   PaginationNextTrigger,
@@ -7,6 +5,7 @@ import {
   PaginationRoot,
 } from '@/components/ui/pagination';
 import { tableData } from '@/dummy-data/dummyData';
+import { formatRupiah } from '@/utils/format-rp';
 import {
   Box,
   Heading,
@@ -21,17 +20,17 @@ import Chart from 'chart.js/auto';
 import { ContentContainer } from '../container/contentContainer';
 import { OrderStatus } from '../order/order-status';
 import useDashboardHooks from './dashboard-hooks/dashboard-hooks';
+import DashboardWithdraw from './dashboard-withdraw';
 import DashboardChart from './dashboardStats/dashboard-chart';
 import StatsCard from './dashboardStats/stats-card';
-import DashboardWithdraw from './dashboard-withdraw';
-import { formatRupiah } from '@/utils/format-rp';
+import { useGetDashboardStats } from './dashboard-hooks/dashboard-tanstack';
 
 Chart.register(CategoryScale);
 
 export function DashboardContent() {
-  const { chart, table, router, pagination, stats } = useDashboardHooks();
+  const { chart, table, router, pagination } = useDashboardHooks();
 
-  console.log(stats.statsData);
+  const { data: statsData, isFetching } = useGetDashboardStats();
 
   return (
     <>
@@ -60,23 +59,19 @@ export function DashboardContent() {
               <Box display="flex" justifyContent="space-between" gap="1rem">
                 <>
                   <StatsCard
-                    isFetching={stats.isFetching}
+                    isFetching={isFetching}
                     title={'Total Product'}
-                    amount={stats.statsData?.products.toString()}
+                    amount={statsData?.products.toString()}
                   />
                   <StatsCard
-                    isFetching={stats.isFetching}
+                    isFetching={isFetching}
                     title={'Unprocessed Product'}
-                    amount={stats.statsData?.porductUnpaid.toString()}
+                    amount={statsData?.porductUnpaid.toString()}
                   />
                   <StatsCard
-                    isFetching={stats.isFetching}
+                    isFetching={isFetching}
                     title={'Current Balance'}
-                    amount={
-                      stats.statsData
-                        ? formatRupiah(stats.statsData?.balance)
-                        : 'Rp 0'
-                    }
+                    amount={formatRupiah(statsData?.balance)}
                   />
                 </>
               </Box>
@@ -166,43 +161,7 @@ export function DashboardContent() {
               flexDirection="column"
               gap="1rem"
             >
-              {/* <ContentContainer> */}
-              {/* <Box>
-                <form onSubmit={form.handleSubmit((data) => console.log(data))}>
-                <Box
-                display="flex"
-                    flexDirection="column"
-                    alignItems="end"
-                    gap="1rem"
-                  >
-                    <Field
-                      label="Amount to withdraw"
-                      errorText={form.errors.amount?.message}
-                      invalid={!!form.errors.amount}
-                    >
-                      <Input
-                        type="text"
-                        width="100%"
-                        {...form.register('amount')}
-                      />
-                    </Field>
-                    <Button
-                      width="fit-content"
-                      backgroundColor="transparent"
-                      color="black"
-                      border="1px solid gray"
-                      borderRadius="2rem"
-                      height="2rem"
-                      fontSize="0.8rem"
-                      type="submit"
-                    >
-                      Request Withdraw
-                    </Button>
-                  </Box>
-                </form>
-              </Box> */}
               <DashboardWithdraw />
-              {/* </ContentContainer> */}
             </Tabs.Content>
           </Tabs.Root>
         </ContentContainer>

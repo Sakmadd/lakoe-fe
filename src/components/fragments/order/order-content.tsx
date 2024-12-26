@@ -36,19 +36,21 @@ export function OrderContent() {
         <TabsOrderContent
           couriers={dummyCouriers}
           sorts={dummySorts}
-          orders={groupedOrders.new ? groupedOrders.new : []}
+          orders={groupedOrders.new_order ? groupedOrders.new_order : []}
           tabs_value={'new'}
         />
         <TabsOrderContent
           couriers={dummyCouriers}
           sorts={dummySorts}
-          orders={groupedOrders.ready ? groupedOrders.ready : []}
+          orders={
+            groupedOrders.ready_to_ship ? groupedOrders.ready_to_ship : []
+          }
           tabs_value={'ready'}
         />
         <TabsOrderContent
           couriers={dummyCouriers}
           sorts={dummySorts}
-          orders={groupedOrders.delivery ? groupedOrders.delivery : []}
+          orders={groupedOrders.on_delivery ? groupedOrders.on_delivery : []}
           tabs_value={'delivery'}
         />
         <TabsOrderContent
@@ -60,7 +62,7 @@ export function OrderContent() {
         <TabsOrderContent
           couriers={dummyCouriers}
           sorts={dummySorts}
-          orders={groupedOrders.completed ? groupedOrders.completed : []}
+          orders={groupedOrders.done ? groupedOrders.done : []}
           tabs_value={'completed'}
         />
       </Tabs.Root>

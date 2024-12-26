@@ -48,7 +48,7 @@ export default function StatsCard({
             fontFamily="sans-serif"
             fontSize="1.1rem"
           >
-            {amount ? amount : '0'}
+            {amount}
           </Text>
         </>
       )}
