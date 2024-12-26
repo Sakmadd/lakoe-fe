@@ -5,10 +5,10 @@ import { Route, Routes } from 'react-router-dom';
 import { AdminPage } from './components/pages/admin-page';
 import { CheckoutPage } from './components/pages/checkout-page';
 import { HomePage } from './components/pages/home-page';
+import InvoiceStatusPage from './components/pages/invoice-status.page';
 import { LoginPage } from './components/pages/login-page';
 import OrderDetail from './components/pages/order-detail';
 import { OrderPage } from './components/pages/order-page';
-import OrderStatusPage from './components/pages/order-status-page';
 import { ProductDetailPage } from './components/pages/product-detail-page';
 import { ProductNewPage } from './components/pages/product-new-page';
 import { ProductPage } from './components/pages/product-page';
@@ -45,6 +45,7 @@ function App() {
           return;
         }
         const loggedUser: UserType = await api.GET_LOGGED_USER();
+        console.log(loggedUser);
         if (loggedUser) {
           dispatch(setLoggeduser(loggedUser));
         }
@@ -110,7 +111,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/:productName" element={<ProductDetailPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/orders/status/:orderId" element={<OrderStatusPage />} />
+        <Route path="/invoice/:id" element={<InvoiceStatusPage />} />
         <Route path="/profile/shop/:id" element={<ProfileShop />} />
         <Route path="/profile/shop/:id" element={<ProfileShop />} />
       </Route>

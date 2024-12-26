@@ -1,5 +1,6 @@
-import { dummyOrderDetail } from '@/dummy-data/dummyData';
 import { MainContent } from '@/layouts/mainContent';
+import api from '@/networks/api';
+import { InvoiceType } from '@/types/invoice-types';
 import { formatRupiah } from '@/utils/format-rp';
 import {
   Box,
@@ -11,6 +12,7 @@ import {
   Spacer,
   Text,
 } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import { LuCopy } from 'react-icons/lu';
 import { useParams } from 'react-router-dom';
 import { ContentContainer } from '../fragments/container/contentContainer';
@@ -18,20 +20,21 @@ import { OrderStatus } from '../fragments/order/order-status';
 import OrderTextStatusBuyer from '../fragments/order/order-text-status-buyer';
 import { Button } from '../ui/button';
 
-export default function OrderStatusPage() {
-  const params = useParams();
-  console.log(params);
+export default function InvoiceStatusPage() {
+  const { id } = useParams();
+  const [invoice, setInvoice] = useState<InvoiceType>();
 
-  function orderById(id: number) {
-    for (const order of dummyOrderDetail) {
-      if (order.id == id) {
-        return order;
+  useEffect(() => {
+    async function init() {
+      try {
+        const response = await api.GET_INVOICE(id!.toString());
+        setInvoice(response);
+      } catch (error) {
+        console.log(error);
       }
     }
-    throw new Error(`Order with ID ${id} not found`);
-  }
-
-  const order = orderById(Number(params.orderId));
+    init();
+  });
 
   return (
     <MainContent>
@@ -39,11 +42,16 @@ export default function OrderStatusPage() {
         <ContentContainer>
           <Flex alignItems={'center'}>
             <Flex gap="0.8rem" flexDirection="column">
-              <OrderStatus status={order.status} />
-              <OrderTextStatusBuyer status={order.status} />
+              <OrderStatus status={'unpaid'} />
+              <OrderTextStatusBuyer status={'unpaid'} />
             </Flex>
             <Spacer />
-            <Button colorPalette={'green'}>Complete Payments</Button>
+            <Button
+              colorPalette={'green'}
+              onClick={() => window.open(invoice?.Payment.url, '_blank')}
+            >
+              Complete Payments
+            </Button>
           </Flex>
         </ContentContainer>
         <ContentContainer>
@@ -73,13 +81,13 @@ export default function OrderStatusPage() {
               width="50%"
             >
               <Text fontWeight="light" fontSize="0.8rem">
-                {order.createdAt}
+                {invoice?.created_at}
               </Text>
               <Text fontWeight="light" fontSize="0.8rem">
-                {order.invoice}
+                {invoice?.invoice_number}
               </Text>
               <Text fontWeight="light" fontSize="0.8rem">
-                {order.customer}
+                {invoice?.Recipient.name}
               </Text>
             </Box>
           </Box>
@@ -99,17 +107,22 @@ export default function OrderStatusPage() {
               cursor="pointer"
             >
               <Box display="flex" gap="0.5rem">
-                <Image src={order.image.src} width="3rem" height="3rem" />
+                <Image
+                  src={invoice?.Product.image}
+                  width="3rem"
+                  height="3rem"
+                />
                 <Box
                   display="flex"
                   flexDirection="column"
                   justifyContent="center"
                 >
                   <Text fontWeight="semibold" fontSize="0.9rem">
-                    {order.name}
+                    {invoice?.Product.name}
                   </Text>
                   <Text fontSize="0.8rem">
-                    {order.quantity} x {formatRupiah(order.total_price)}
+                    {invoice?.Product.quantity} x{' '}
+                    {formatRupiah(invoice?.Product.total_price)}
                   </Text>
                 </Box>
               </Box>
@@ -123,7 +136,7 @@ export default function OrderStatusPage() {
                   Total expenditure
                 </Text>
                 <Text fontWeight="semibold" fontSize="0.8rem">
-                  {formatRupiah(order.total_price)}
+                  {formatRupiah(invoice?.price)}
                 </Text>
               </Box>
             </Box>
@@ -173,12 +186,12 @@ export default function OrderStatusPage() {
                 gap="0.5rem"
               >
                 <Text fontSize="0.8rem" fontWeight="semibold">
-                  {order.courier}
+                  {invoice?.Courier.courier_company}
                 </Text>
                 <Text fontSize="0.8rem" fontWeight="semibold">
                   -
                 </Text>
-                <Text fontSize="0.8rem">{order.address}</Text>
+                <Text fontSize="0.8rem">{invoice?.Recipient.address}</Text>
               </Box>
             </Box>
           </Box>
@@ -215,7 +228,7 @@ export default function OrderStatusPage() {
                 justifyContent="center"
               >
                 <Text fontWeight="semibold" fontSize="0.8rem">
-                  {formatRupiah(order.total_price)}
+                  {formatRupiah(invoice?.price)}
                 </Text>
                 <Text fontWeight="semibold" fontSize="0.8rem">
                   Rp 0
@@ -236,7 +249,7 @@ export default function OrderStatusPage() {
             >
               <Text fontWeight="semibold">Total</Text>
               <Text fontWeight="semibold">
-                {formatRupiah(order.total_price)}
+                {formatRupiah(invoice?.Price.total)}
               </Text>
             </Box>
           </Box>

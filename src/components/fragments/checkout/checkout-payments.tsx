@@ -1,4 +1,4 @@
-import { dummyOrder } from '@/dummy-data/dummyData';
+import { OrderResponseType } from '@/types/order-types';
 import {
   Badge,
   Box,
@@ -9,9 +9,11 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-const order = dummyOrder;
+interface Props {
+  order: OrderResponseType;
+}
 
-export function CheckoutPayments() {
+export function CheckoutPayments({ order }: Props) {
   return (
     <Box borderRadius="lg">
       <Box mb={6} p={4} borderWidth={1} borderRadius="md" bg="white">
@@ -57,9 +59,7 @@ export function CheckoutPayments() {
             <Text fontWeight="semibold" fontSize="md">
               {order.OrderItem.Product.name}
             </Text>
-            <Text fontSize="sm" color="gray.600">
-              {order.OrderItem.Product.description}
-            </Text>
+
             <HStack>
               <Badge colorScheme="green">
                 Price: Rp{order.OrderItem.Product.price}

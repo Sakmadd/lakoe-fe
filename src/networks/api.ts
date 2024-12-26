@@ -407,6 +407,18 @@ class API {
       throw error;
     }
   }
+  async GET_INVOICE(id: string) {
+    try {
+      const response = await axios.get(`/invoice/${id}`);
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      throw error;
+    }
+  }
 }
 
 export default new API();

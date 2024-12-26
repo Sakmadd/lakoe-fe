@@ -21,6 +21,7 @@ export function CheckoutContent() {
     onSelectCourier,
     onPayment,
     onCheckout,
+    order,
   } = useCheckout();
 
   return (
@@ -61,7 +62,7 @@ export function CheckoutContent() {
             />
           </Tabs.Content>
           <Tabs.Content value="payments">
-            <CheckoutPayments />
+            {order && <CheckoutPayments order={order.order} />}
           </Tabs.Content>
         </Tabs.Root>
 

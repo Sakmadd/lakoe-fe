@@ -113,10 +113,12 @@ export function useCheckout() {
   }
 
   async function onPayment() {
+    navigate(`/invoice/${order?.order.Recipient.Invoices.id}`);
     window.open(order?.redirect_url, '_blank');
   }
 
   return {
+    order,
     register,
     handleSubmit,
     setValue,
