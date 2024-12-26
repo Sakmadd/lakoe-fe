@@ -1,14 +1,13 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Data } from '@/dummy-data/dummyChartData';
 import { tableData } from '@/dummy-data/dummyData';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
   withdrawSchema,
   WithdrawType,
 } from '@/validators/dashboard/dashboard-withdraw';
-import { useGetDashboardStats } from './dashboard-tanstack';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 interface StatType {
   products: number;
@@ -18,7 +17,7 @@ interface StatType {
 
 export default function useDashboardHooks() {
   const [chartData] = useState(Data);
-  const [statsData, setStatsData] = useState<StatType>();
+  const [statsData] = useState<StatType | undefined>();
   const [table, setTable] = useState(1);
   const navigate = useNavigate();
   const startRange = (table - 1) * 4;
@@ -27,18 +26,17 @@ export default function useDashboardHooks() {
   const {
     register,
     handleSubmit,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm<WithdrawType>({
     resolver: zodResolver(withdrawSchema),
   });
 
-  console.log(`Hooks: ${statsData}`);
-
-  const { isFetching } = useGetDashboardStats({ setStatsData });
-
   return {
+    statsData,
     stats: {
-      isFetching,
+      // isFetching,
       statsData,
     },
     chart: {
@@ -52,6 +50,8 @@ export default function useDashboardHooks() {
       navigate,
     },
     form: {
+      setValue,
+      getValues,
       register,
       handleSubmit,
       errors,

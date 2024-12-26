@@ -6,11 +6,11 @@ interface Props {
 
 export function OrderStatus({ status }: Props) {
   const statusMap: Record<string, { color: string; text: string }> = {
-    new: { color: 'green', text: 'New Order' },
+    new_order: { color: 'green', text: 'New Order' },
     unpaid: { color: 'yellow', text: 'Unpaid' },
-    ready: { color: 'blue', text: 'Ready To Ship' },
-    delivery: { color: 'orange', text: 'On Delivery' },
-    completed: { color: 'grey', text: 'Order Completed' },
+    ready_to_ship: { color: 'blue', text: 'Ready To Ship' },
+    on_delivery: { color: 'orange', text: 'On Delivery' },
+    done: { color: 'grey', text: 'Order Completed' },
     canceled: { color: 'red', text: 'Order Canceled' },
   };
 
