@@ -4,6 +4,7 @@ import SettingsLocation from './settings-location';
 import SettingsTemplateMessage from './settings-template-message';
 import SettingsInformation from './settings-information';
 import { useSettInfo } from './settings-information/settings-information-hooks/settings-information2';
+import SettingsWithdrawal from './settings-withdrawal';
 
 export default function SettingsShopContent() {
   const { data } = useSettInfo();
@@ -24,6 +25,7 @@ export default function SettingsShopContent() {
             <Tabs.Trigger value="information">Information</Tabs.Trigger>
             <Tabs.Trigger value="location">Location</Tabs.Trigger>
             <Tabs.Trigger value="template">Template</Tabs.Trigger>
+            <Tabs.Trigger value="withdrawal">Withdrawal</Tabs.Trigger>
           </Tabs.List>
           <Tabs.Content value="information">
             <SettingsInformation />
@@ -34,9 +36,11 @@ export default function SettingsShopContent() {
           <Tabs.Content value="template">
             <SettingsTemplateMessage />
           </Tabs.Content>
+          <Tabs.Content value="withdrawal">
+            <SettingsWithdrawal />
+          </Tabs.Content>
         </Tabs.Root>
       </>
-      {/* )} */}
     </Box>
   );
 }

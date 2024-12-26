@@ -65,7 +65,7 @@ export function useSettInfo() {
   const { mutateAsync, isPending } = useCreateInformation({
     informationSubmit,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['store'] });
+      queryClient.invalidateQueries({ queryKey: ['shop'] });
       toaster.dismiss();
       toaster.success({
         title: 'Store information is saved',

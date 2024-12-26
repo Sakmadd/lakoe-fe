@@ -71,7 +71,7 @@ class API {
       const response: AxiosResponse = await axios.get(
         `/shops/${loggedUser.shop_id}`
       );
-      return response.data;
+      return response.data.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw error;
@@ -123,7 +123,7 @@ class API {
       const response: AxiosResponse = await axios.get(
         `/shops/${loggedUser.shop_id}`
       );
-      return response.data;
+      return response.data.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw error;

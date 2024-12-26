@@ -17,8 +17,8 @@ export const useGetLocation = ({
     queryKey: ['locations'],
     queryFn: async () => {
       const response = await api.GETLOCATION();
-      setStore(response.data.payload.location);
-      return response.data.payload.location;
+      setStore(response.location);
+      return response.location;
     },
     refetchOnWindowFocus: false,
   });
