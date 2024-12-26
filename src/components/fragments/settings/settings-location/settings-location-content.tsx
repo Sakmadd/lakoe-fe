@@ -331,10 +331,6 @@ export default function SettingsLocationContent() {
             location={locationState.location}
             PinPoint={locationComponents.PinPoint}
           />
-          <SettingsLocationMaps
-            location={locationState.location}
-            PinPoint={locationComponents.PinPoint}
-          />
           <DialogFooter>
             <Button
               variant="outline"

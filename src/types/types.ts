@@ -47,7 +47,7 @@ export interface OrderType {
   invoice: string;
   quantity: number;
   total_price: number;
-  images: ImageType[];
+  image: ImageType;
   courier: string;
   createdAt: string;
   updatedAt: string;

@@ -32,11 +32,13 @@ export default function useDashboardHooks() {
     resolver: zodResolver(withdrawSchema),
   });
 
-  useGetDashboardStats({ setStatsData });
-  // useGetDashboardGraphs({ setChartData });
+  console.log(`Hooks: ${statsData}`);
+
+  const { isFetching } = useGetDashboardStats({ setStatsData });
 
   return {
     stats: {
+      isFetching,
       statsData,
     },
     chart: {

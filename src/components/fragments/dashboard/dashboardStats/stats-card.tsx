@@ -1,39 +1,57 @@
-import { Flex, Text, Box } from '@chakra-ui/react';
+import { Box, Spinner, Text } from '@chakra-ui/react';
 
-interface StatsCardProps {
-  icon: React.ReactNode;
-  text: string;
-  stats: string | undefined;
-  color: string;
-}
-
-export function StatsCard({ icon, text, stats, color }: StatsCardProps) {
+export default function StatsCard({
+  amount,
+  title,
+  isFetching,
+}: {
+  amount: string | undefined;
+  title: string;
+  isFetching: boolean;
+}) {
   return (
-    <>
-      <Flex
-        cursor="pointer"
-        _hover={{ shadow: 'xl', transition: '0.5s' }}
-        flexDir={'column'}
-        // alignItems={'center'}
-        width={'32%'}
-        backgroundColor={color}
-        padding={'2rem'}
-        borderRadius="1rem"
-        shadow="lg"
-        gap="0.8rem"
-      >
-        <Box display="flex" alignItems="center" gap="0.5rem">
-          {icon}
-          <Text fontSize="0.8rem" fontWeight="semibold" fontFamily="sans-serif">
-            {text}
-          </Text>
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap="0.4rem"
+      border="1px solid #e6e6e6"
+      padding="1rem"
+      width="50%"
+      borderRadius="1rem"
+      justifyContent="center"
+      alignItems="center"
+    >
+      {isFetching && (
+        <Box
+          height="3.3rem"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Spinner />
         </Box>
-        <Box>
-          <Text fontSize="1.5rem" fontWeight="semibold" fontFamily="sans-serif">
-            {stats}
+      )}
+      {!isFetching && (
+        <>
+          <Text
+            as="h1"
+            fontWeight="medium"
+            fontFamily="sans-serif"
+            color="black"
+            fontSize="0.8rem"
+          >
+            {title}
           </Text>
-        </Box>
-      </Flex>
-    </>
+          <Text
+            as="h1"
+            fontWeight="semibold"
+            fontFamily="sans-serif"
+            fontSize="1.1rem"
+          >
+            {amount ? amount : '0'}
+          </Text>
+        </>
+      )}
+    </Box>
   );
 }

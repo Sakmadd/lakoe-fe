@@ -3,7 +3,12 @@ import { Box, Text } from '@chakra-ui/react';
 
 export default function DashboardChart({ chartData }) {
   return (
-    <Box shadow="xl" borderRadius="1rem" padding="2rem" marginTop="1rem">
+    <Box
+      border="1px solid #e6e6e6"
+      borderRadius="1rem"
+      padding="2rem"
+      marginTop="1rem"
+    >
       <Text fontWeight="semibold" fontSize="0.8rem" fontFamily="sans-serif">
         Product Sold
       </Text>
