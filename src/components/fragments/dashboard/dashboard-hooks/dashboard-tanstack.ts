@@ -17,22 +17,9 @@ export function useGetDashboardStats({
     queryFn: async () => {
       const response = await api.GETDASHBOARDSELLER();
       setStatsData(response);
+      console.log(`Tanstack : ${response}`);
       return response.data.data.payload;
     },
+    refetchOnWindowFocus: false,
   });
 }
-
-// export function useGetDashboardGraphs({
-//   setChartData,
-// }: {
-//   setChartData: (a) => void;
-// }) {
-//   return useQuery({
-//     queryKey: ['dashboard-graphs'],
-//     queryFn: async () => {
-//       const response = await api.GETDASHBOARDGRAPHS();
-//       console.log(response);
-//       return response;
-//     },
-//   });
-// }

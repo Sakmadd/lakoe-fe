@@ -18,18 +18,18 @@ export function useGetInformation({
   setImageReader: (a: string | undefined) => void;
 }) {
   return useQuery({
-    queryKey: ['store'],
+    queryKey: ['shop'],
     queryFn: async () => {
       const response = await api.GETSHOP();
       const values = {
-        slogan: response?.data?.payload?.slogan,
-        name: response?.data?.payload?.name,
-        phone: response?.data?.payload?.phone,
-        description: response?.data?.payload?.description,
+        slogan: response.slogan,
+        name: response.name,
+        phone: response.phone,
+        description: response.description,
       };
       reset(values);
-      setImageReader(response.data.payload.logo);
-      return response.data.payload;
+      setImageReader(response.logo);
+      return response;
     },
     refetchOnWindowFocus: false,
   });
@@ -42,7 +42,7 @@ export function useCreateInformation({
   informationSubmit,
 }: CreateProps) {
   return useMutation({
-    mutationKey: ['store'],
+    mutationKey: ['shop'],
     mutationFn: async (data: SettingsInformationType) => {
       const response = await informationSubmit(data);
       return response;

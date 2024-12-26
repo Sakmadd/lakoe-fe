@@ -51,6 +51,7 @@ export default function OrderItem({ order }: Props) {
   });
 
   const value = watch('value');
+  console.log(value);
 
   return (
     <Box
