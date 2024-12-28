@@ -53,6 +53,29 @@ export interface OrderType {
   updatedAt: string;
 }
 
+export interface DashboardTable {
+  product: string;
+  category: string;
+  payment: number;
+  recipient: string;
+  status: string;
+  timestamp: string;
+}
+
+export interface OrderItemTypeAPI {
+  invoice_id: string;
+  status: string;
+  invoice_number: string;
+  created_at: string;
+  courier: string;
+  product: {
+    name: string;
+    image: string;
+    quantity: number;
+    total_price: number;
+  };
+}
+
 export interface OrderDetailType {
   id: number;
   name: string;

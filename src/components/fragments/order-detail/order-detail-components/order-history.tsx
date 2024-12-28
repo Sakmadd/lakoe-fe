@@ -5,8 +5,13 @@ import {
   AccordionRoot,
 } from '@/components/ui/accordion';
 import OrderTimeline from './order-timeline';
+import { OrderHistoryItem } from '@/types/order-page-types';
 
-export default function OrderHistory() {
+export default function OrderHistory({
+  OrderHistory,
+}: {
+  OrderHistory: OrderHistoryItem[];
+}) {
   return (
     <AccordionRoot collapsible size="sm">
       <AccordionItem borderBottom="none" value="a">
@@ -14,6 +19,7 @@ export default function OrderHistory() {
           color="cyan.600"
           fontSize="0.8rem"
           indicatorPlacement="start"
+          cursor="pointer"
         >
           View Order History
         </AccordionItemTrigger>
@@ -23,7 +29,7 @@ export default function OrderHistory() {
           width="45%"
           padding="1rem"
         >
-          <OrderTimeline />
+          <OrderTimeline OrderHistory={OrderHistory} />
         </AccordionItemContent>
       </AccordionItem>
     </AccordionRoot>

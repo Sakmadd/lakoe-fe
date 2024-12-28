@@ -1,7 +1,10 @@
-import { OrderType } from '@/types/types';
+import {
+  OrderItemTypeAPI,
+  // OrderType
+} from '@/types/types';
 
-export function OrderGrouper({ orders }: { orders: OrderType[] }) {
-  const groupedOrders = orders.reduce(
+export function OrderGrouper({ orders }: { orders: OrderItemTypeAPI[] }) {
+  const groupedOrders = orders?.reduce(
     (acc, order) => {
       if (!acc[order.status]) {
         acc[order.status] = [];

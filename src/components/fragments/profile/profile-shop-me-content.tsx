@@ -135,7 +135,7 @@ export default function ProfileShopMeContent() {
         </Tabs.List>
         <Tabs.Content value="products">
           <Box paddingTop="1rem">
-            <ProductList />
+            <ProductList products={[]} />
           </Box>
         </Tabs.Content>
         <Tabs.Content value="category">

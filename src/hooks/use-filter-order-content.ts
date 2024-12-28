@@ -1,8 +1,8 @@
-import { OrderType } from '@/types/types';
+import { OrderItemTypeAPI } from '@/types/types';
 import { useMemo } from 'react';
 
 interface Props {
-  orders: OrderType[];
+  orders: OrderItemTypeAPI[];
   selectedCourier: string;
   selectedSort: string;
   searchInput: string;
@@ -13,7 +13,7 @@ export function useFilterOrderContent({
   selectedCourier,
   selectedSort,
   searchInput,
-}: Props): { filteredOrders: OrderType[] } {
+}: Props): { filteredOrders: OrderItemTypeAPI[] } {
   const filteredOrders = useMemo(() => {
     let filteredOrders = [...orders];
 
@@ -25,19 +25,19 @@ export function useFilterOrderContent({
 
     if (searchInput) {
       filteredOrders = filteredOrders.filter((order) =>
-        order.name.toLowerCase().includes(searchInput.toLowerCase())
+        order.product.name.toLowerCase().includes(searchInput.toLowerCase())
       );
     }
 
     if (selectedSort === 'new') {
       filteredOrders = filteredOrders.sort(
         (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
       );
     } else if (selectedSort === 'old') {
       filteredOrders = filteredOrders.sort(
         (a, b) =>
-          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
       );
     }
 

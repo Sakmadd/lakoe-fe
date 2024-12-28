@@ -15,6 +15,7 @@ import {
   UseFormRegister,
   UseFormSetValue,
 } from 'react-hook-form';
+import { usePostWithdraw } from '../dashboard-withdraw-hooks/dashboard-withdraw-tanstack';
 
 interface Props {
   openWd: boolean;
@@ -41,6 +42,8 @@ export default function DashboardWithdrawDialog({
   setOpenWd,
   setValue,
 }: Props) {
+  const { mutateAsync } = usePostWithdraw({ setOpenWd });
+
   function fromOption(text: string) {
     setValue('amount', text, {
       shouldValidate: true,
@@ -56,7 +59,7 @@ export default function DashboardWithdrawDialog({
           </Text>
         </DialogHeader>
         <DialogBody>
-          <form onSubmit={handleSubmit((data) => console.log(data))}>
+          <form onSubmit={handleSubmit((data) => mutateAsync(data))}>
             <Box display="flex" flexDirection="column" gap="1rem">
               <Box display="flex" gap="1rem">
                 {defaultAmount.map((item) => (
