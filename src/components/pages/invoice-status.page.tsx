@@ -19,41 +19,63 @@ import { ContentContainer } from '../fragments/container/contentContainer';
 import { OrderStatus } from '../fragments/order-list/order-status';
 import OrderTextStatusBuyer from '../fragments/order-list/order-text-status-buyer';
 import { Button } from '../ui/button';
+import { getLatestStatus } from '@/utils/get-latest-status';
+import OrderSkeleton from '../skeleton/skeleton-order';
+import { NotFoundPage } from './not-found-page';
 
 export default function InvoiceStatusPage() {
   const { id } = useParams();
   const [invoice, setInvoice] = useState<InvoiceType>();
+  const [loading, setLoading] = useState<boolean>();
 
   useEffect(() => {
     async function init() {
       try {
+        setLoading(true);
         const response = await api.GET_INVOICE(id!.toString());
         setInvoice(response);
+        console.log(response);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
     init();
-  });
+  }, [id]);
+
+  if (loading) {
+    return <OrderSkeleton />;
+  }
+
+  if (!invoice) {
+    return <NotFoundPage />;
+  }
 
   return (
     <MainContent>
       <Box display="flex" flexDirection="column" gap="1rem">
-        <ContentContainer>
-          <Flex alignItems={'center'}>
-            <Flex gap="0.8rem" flexDirection="column">
-              <OrderStatus status={'unpaid'} />
-              <OrderTextStatusBuyer status={'unpaid'} />
+        {invoice.OrderHistory && (
+          <ContentContainer>
+            <Flex alignItems={'center'}>
+              <Flex gap="0.8rem" flexDirection="column">
+                <OrderStatus status={getLatestStatus(invoice.OrderHistory)} />
+                <OrderTextStatusBuyer
+                  status={getLatestStatus(invoice.OrderHistory)}
+                />
+              </Flex>
+              <Spacer />
+              {getLatestStatus(invoice.OrderHistory) === 'unpaid' && (
+                <Button
+                  colorPalette={'green'}
+                  onClick={() => window.open(invoice.Payment.url, '_blank')}
+                >
+                  Complete Payments
+                </Button>
+              )}
             </Flex>
-            <Spacer />
-            <Button
-              colorPalette={'green'}
-              onClick={() => window.open(invoice?.Payment.url, '_blank')}
-            >
-              Complete Payments
-            </Button>
-          </Flex>
-        </ContentContainer>
+          </ContentContainer>
+        )}
         <ContentContainer>
           <Box display="flex">
             <Box
@@ -81,13 +103,13 @@ export default function InvoiceStatusPage() {
               width="50%"
             >
               <Text fontWeight="light" fontSize="0.8rem">
-                {invoice?.created_at}
+                {invoice.created_at}
               </Text>
               <Text fontWeight="light" fontSize="0.8rem">
-                {invoice?.invoice_number}
+                {invoice.invoice_number}
               </Text>
               <Text fontWeight="light" fontSize="0.8rem">
-                {invoice?.Recipient.name}
+                {invoice.Recipient.name}
               </Text>
             </Box>
           </Box>
@@ -107,22 +129,18 @@ export default function InvoiceStatusPage() {
               cursor="pointer"
             >
               <Box display="flex" gap="0.5rem">
-                <Image
-                  src={invoice?.Product.image}
-                  width="3rem"
-                  height="3rem"
-                />
+                <Image src={invoice.Product.image} width="3rem" height="3rem" />
                 <Box
                   display="flex"
                   flexDirection="column"
                   justifyContent="center"
                 >
                   <Text fontWeight="semibold" fontSize="0.9rem">
-                    {invoice?.Product.name}
+                    {invoice.Product.name}
                   </Text>
                   <Text fontSize="0.8rem">
-                    {invoice?.Product.quantity} x{' '}
-                    {formatRupiah(invoice?.Product.total_price)}
+                    {invoice.Product.quantity} x{' '}
+                    {formatRupiah(invoice.Product.total_price)}
                   </Text>
                 </Box>
               </Box>
@@ -136,7 +154,7 @@ export default function InvoiceStatusPage() {
                   Total expenditure
                 </Text>
                 <Text fontWeight="semibold" fontSize="0.8rem">
-                  {formatRupiah(invoice?.price)}
+                  {formatRupiah(invoice.price)}
                 </Text>
               </Box>
             </Box>
@@ -186,12 +204,12 @@ export default function InvoiceStatusPage() {
                 gap="0.5rem"
               >
                 <Text fontSize="0.8rem" fontWeight="semibold">
-                  {invoice?.Courier.courier_company}
+                  {invoice.Courier.courier_company}
                 </Text>
                 <Text fontSize="0.8rem" fontWeight="semibold">
-                  -
+                  {invoice.Courier.waybill_id}
                 </Text>
-                <Text fontSize="0.8rem">{invoice?.Recipient.address}</Text>
+                <Text fontSize="0.8rem">{invoice.Recipient.address}</Text>
               </Box>
             </Box>
           </Box>
@@ -228,16 +246,16 @@ export default function InvoiceStatusPage() {
                 justifyContent="center"
               >
                 <Text fontWeight="semibold" fontSize="0.8rem">
-                  {formatRupiah(invoice?.price)}
+                  {formatRupiah(invoice.price)}
                 </Text>
                 <Text fontWeight="semibold" fontSize="0.8rem">
-                  Rp 0
+                  {formatRupiah(invoice.Price.shipping_cost)}
                 </Text>
                 <Text fontWeight="semibold" fontSize="0.8rem">
-                  Rp 0
+                  {formatRupiah(invoice.Price.discount)}
                 </Text>
                 <Text fontWeight="semibold" fontSize="0.8rem">
-                  Rp 0
+                  {formatRupiah(invoice.Price.service_fee)}
                 </Text>
               </Box>
             </Box>
@@ -249,7 +267,7 @@ export default function InvoiceStatusPage() {
             >
               <Text fontWeight="semibold">Total</Text>
               <Text fontWeight="semibold">
-                {formatRupiah(invoice?.Price.total)}
+                {formatRupiah(invoice.Price.total)}
               </Text>
             </Box>
           </Box>

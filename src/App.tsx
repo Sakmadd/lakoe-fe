@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
@@ -18,6 +17,7 @@ import { RegisterPage } from './components/pages/register-page';
 import { DashboardPage } from './components/pages/seller-dashboard-page';
 import { SettingsPage } from './components/pages/settings-page';
 import SettingsShop from './components/pages/settings-shop';
+import { LoadingPage } from './components/skeleton/loading-page';
 import { BuyerLayout } from './layouts/buyerLayout';
 import { SellerLayout } from './layouts/sellerLayout';
 import api from './networks/api';
@@ -28,6 +28,7 @@ import {
 } from './redux/features/logged-user-slice';
 import { StoreState } from './redux/store';
 import { UserType } from './types/types';
+import { NotFoundPage } from './components/pages/not-found-page';
 
 function App() {
   const dispatch = useDispatch();
@@ -45,7 +46,6 @@ function App() {
           return;
         }
         const loggedUser: UserType = await api.GET_LOGGED_USER();
-        console.log(loggedUser);
         if (loggedUser) {
           dispatch(setLoggeduser(loggedUser));
         }
@@ -61,14 +61,11 @@ function App() {
   if (isPreloaded) {
     return (
       <>
-        <Flex alignItems={'center'} justifyContent={'center'} height={'80vh'}>
-          <Text fontSize={'8xl'} fontWeight={'bold'}>
-            {'SABAR BANG >:('}
-          </Text>
-        </Flex>
+        <LoadingPage />
       </>
     );
   }
+
   if (loggedUser) {
     if (loggedUser.role === 'seller') {
       return (
@@ -76,6 +73,7 @@ function App() {
           <Route path="/" element={<SellerLayout />}>
             <Route index element={<HomePage />} />
             <Route path="/:productName" element={<ProductDetailPage />} />
+            <Route path="/invoice/:id" element={<InvoiceStatusPage />} />
             <Route path="/products/new" element={<ProductNewPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/products" element={<ProductPage />} />
@@ -85,9 +83,8 @@ function App() {
             <Route path="/settings/shop" element={<SettingsShop />} />
             <Route path="/profile/shop" element={<ProfileShopMe />} />
             <Route path="/profile/shop/:id" element={<ProfileShop />} />
-            {/* <Route path="/profile/shop" element={<ProfileShopMe />} />
-            <Route path="/profile/shop/:id" element={<ProfileShop />} /> */}
             <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
       );
@@ -98,11 +95,12 @@ function App() {
             <Route index element={<AdminPage />} />
           </Route>
           <Route path="/profile/shop/:id" element={<ProfileShop />} />
-          <Route path="/profile/shop/:id" element={<ProfileShop />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       );
     }
   }
+
   return (
     <Routes>
       <Route path="/" element={<BuyerLayout />}>
@@ -113,7 +111,7 @@ function App() {
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/invoice/:id" element={<InvoiceStatusPage />} />
         <Route path="/profile/shop/:id" element={<ProfileShop />} />
-        <Route path="/profile/shop/:id" element={<ProfileShop />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );

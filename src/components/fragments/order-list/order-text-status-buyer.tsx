@@ -6,23 +6,23 @@ interface Props {
 
 export default function OrderTextStatusBuyer({ status }: Props) {
   const statusText: Record<string, { text: string }> = {
-    new: {
-      text: "Immediately process orders that have been received. Don't make buyers wait too long.",
+    new_order: {
+      text: 'Your order has been received. The seller will process it soon. Please wait for updates.',
     },
     unpaid: {
-      text: 'Orders will be canceled if payment is not made by 10 August 2023 - 00:00 WIB. Please complete the payment.',
+      text: 'Your order will be canceled if payment is not completed by 10 August 2023 - 00:00 WIB. Please complete the payment to proceed.',
     },
-    ready: {
-      text: 'The order has been picked up by the Courier and is ready to be sent.',
+    ready_to_ship: {
+      text: 'Your order has been picked up by the courier and is ready for delivery.',
     },
-    delivery: {
-      text: 'The order is already in the delivery process. Please wait for the buyer to receive the goods.',
+    on_delivery: {
+      text: 'Your order is on its way. Please wait for the courier to deliver it to you.',
     },
-    completed: {
-      text: 'The product has been received by the buyer and this order is completed.',
+    done: {
+      text: 'Your order has been successfully delivered. Thank you for shopping with us!',
     },
     canceled: {
-      text: 'The order was canceled because the buyer did not make payment on time.',
+      text: 'Your order has been canceled because the payment was not completed on time.',
     },
   };
 

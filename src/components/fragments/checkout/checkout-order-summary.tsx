@@ -149,7 +149,7 @@ export function CheckoutOrderSummary({
             onClick={onCheckout}
           >
             <Flex gap={'1rem'}>
-              <Text paddingBottom={'.2rem'}>Payments</Text>
+              <Text paddingBottom={'.2rem'}>Checkout</Text>
               <FaArrowRightLong />
             </Flex>
           </Button>

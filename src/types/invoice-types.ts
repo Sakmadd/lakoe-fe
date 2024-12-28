@@ -37,8 +37,10 @@ type PriceDetailsType = {
   total: number;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type OrderHistoryType = any[];
+export type OrderHistoryType = {
+  status: string;
+  timestamp: string;
+};
 
 export type InvoiceType = {
   id: string;
@@ -51,5 +53,5 @@ export type InvoiceType = {
   Shop: ShopType;
   Product: ProductType;
   Price: PriceDetailsType;
-  OrderHistory: OrderHistoryType;
+  OrderHistory: OrderHistoryType[];
 };

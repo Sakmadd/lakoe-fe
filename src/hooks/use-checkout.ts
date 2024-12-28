@@ -76,7 +76,9 @@ export function useCheckout() {
       }).then(() => {
         return;
       });
+      return;
     }
+
     const body: CreateOrderRequestDTO = {
       name: recipient!.name,
       email: recipient!.email,
@@ -103,18 +105,41 @@ export function useCheckout() {
         quantity: checkoutProduct.checkout_quantity,
       },
     };
+
     try {
+      Swal.fire({
+        title: 'Processing Your Order...',
+        html: 'Please wait while we create your order.',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading(null);
+        },
+      });
       const response = await api.CREATE_ORDER(body);
+      Swal.close();
       setTabs('payments');
       setOrder(response);
     } catch (error) {
-      console.log(error);
+      Swal.close();
+      Swal.fire({
+        title: 'Order Failed!',
+        html: 'An error occurred while creating your order. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'Retry',
+      });
+
+      console.error(error);
     }
   }
 
   async function onPayment() {
-    navigate(`/invoice/${order?.order.Recipient.Invoices.id}`);
-    window.open(order?.redirect_url, '_blank');
+    try {
+      navigate(`/invoice/${order?.order.Recipient.Invoices.id}`);
+      window.open(order?.redirect_url, '_blank');
+      api.POST_WA(order!.order.id);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return {
