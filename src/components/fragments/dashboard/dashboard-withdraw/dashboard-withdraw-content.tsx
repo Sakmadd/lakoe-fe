@@ -15,15 +15,12 @@ export default function DashboardWithdrawContent() {
   const { form, pagination } = useDashboardWithdrawHooks();
   const [openWd, setOpenWd] = useState(false);
   const { data: statsData, isFetching } = useGetDashboardStats();
-  const { data: statsData, isFetching } = useGetDashboardStats();
 
   return (
     <Box display="flex" flexDirection="column" gap="1rem">
       <Box display="flex" gap="1rem">
         <StatsCard
           title="Current balance"
-          amount={statsData ? formatRupiah(statsData?.balance) : 'Rp 0'}
-          isFetching={isFetching}
           amount={statsData ? formatRupiah(statsData?.balance) : 'Rp 0'}
           isFetching={isFetching}
         />
