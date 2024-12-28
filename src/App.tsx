@@ -82,8 +82,8 @@ function App() {
             <Route path="/settings/shop" element={<SettingsShop />} />
             <Route path="/profile/shop" element={<ProfileShopMe />} />
             <Route path="/profile/shop/:id" element={<ProfileShop />} />
-            <Route path="/profile/shop" element={<ProfileShopMe />} />
-            <Route path="/profile/shop/:id" element={<ProfileShop />} />
+            {/* <Route path="/profile/shop" element={<ProfileShopMe />} />
+            <Route path="/profile/shop/:id" element={<ProfileShop />} /> */}
             <Route path="/checkout" element={<CheckoutPage />} />
           </Route>
         </Routes>

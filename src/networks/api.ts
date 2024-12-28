@@ -255,6 +255,100 @@ class API {
     }
   }
 
+  async GETDASHBOARDTABLE() {
+    try {
+      const response: AxiosResponse = await axios.get(`/seller/all-order`);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async GETORDERLIST() {
+    try {
+      const response: AxiosResponse = await axios.get(`/invoice`);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async GETORDERDETAIL(id: string | undefined) {
+    try {
+      const response: AxiosResponse = await axios.get(`/invoice/${id}`);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async ACCEPTORDER(id: string | undefined) {
+    try {
+      console.log(id);
+      const response: AxiosResponse = await axios.post(`/invoice/accept/${id}`);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async DECLINEORDER(id: string | undefined) {
+    try {
+      const response: AxiosResponse = await axios.post(
+        `/invoice/decline/${id}`
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async GETWITHDRAWSELLER() {
+    try {
+      const response: AxiosResponse = await axios.get(`/withdraw/seller`);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async REQUESTWITHDRAW(amount: string) {
+    try {
+      const response: AxiosResponse = await axios.post(`/withdraw`, {
+        amount: amount,
+      });
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
   async CREATE_PRODUCT(data: FormData) {
     try {
       const response = await axios.post('/products', data);

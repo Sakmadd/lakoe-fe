@@ -1,5 +1,5 @@
 import { useFilterOrderContent } from '@/hooks/use-filter-order-content';
-import { CourierType, OrderType } from '@/types/types';
+import { CourierType, OrderItemTypeAPI } from '@/types/types';
 import { Tabs } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FilterBar } from '../common/filter-bar';
@@ -7,13 +7,15 @@ import OrderActionDialog from './order-action-dialog';
 import OrderList from './order-list';
 
 interface Props {
-  orders: OrderType[];
+  orders: OrderItemTypeAPI[];
   tabs_value: string;
   couriers: CourierType[];
   sorts: { label: string; value: string }[];
+  no_message: string;
 }
 
 export function TabsOrderContent({
+  no_message,
   orders,
   tabs_value,
   couriers,
@@ -22,9 +24,6 @@ export function TabsOrderContent({
   const [selectedCourier, setSelectedCourier] = useState<string>('');
   const [selectedSort, setSelectedSort] = useState<string>('');
   const [searchInput, setSearchInput] = useState<string>('');
-  // const [openDialog, setOpenDialog] = useState(false);
-  // const [contact, setContact] = useState(false);
-  // const [delivery, setDelivery] = useState(false);
 
   const { filteredOrders } = useFilterOrderContent({
     orders,
@@ -44,6 +43,7 @@ export function TabsOrderContent({
           setContact={setContact}
           setDelivery={setDelivery}
           setOpenDialog={setOpenDialog}
+          no_message={no_message}
           filter={
             <FilterBar
               filterFor="Orders"
@@ -58,6 +58,14 @@ export function TabsOrderContent({
             />
           }
           orders={filteredOrders}
+        />
+        <OrderActionDialog
+          setContact={setContact}
+          setOpenDialog={setOpenDialog}
+          delivery={delivery}
+          openDialog={openDialog}
+          contact={contact}
+          setDelivery={setDelivery}
         />
         <OrderActionDialog
           setContact={setContact}

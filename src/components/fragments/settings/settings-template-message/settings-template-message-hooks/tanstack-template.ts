@@ -17,6 +17,7 @@ export const useGetTemplate = ({
     queryKey: ['template-message'],
     queryFn: async () => {
       const response = await api.GETTEMPLATE();
+      console.log(response);
       setTemplateMessage(response.data.payload);
       return response.data.payload;
     },

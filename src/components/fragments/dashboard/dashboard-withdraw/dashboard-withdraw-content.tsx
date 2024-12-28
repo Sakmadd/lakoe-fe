@@ -1,25 +1,18 @@
 import { Button } from '@/components/ui/button';
+import { Tag } from '@/components/ui/tag';
+import { Toaster } from '@/components/ui/toaster';
 import { formatRupiah } from '@/utils/format-rp';
 import { Box, Table, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { LuPlus } from 'react-icons/lu';
-import useDashboardHooks from '../dashboard-hooks/dashboard-hooks';
-import { useGetDashboardStats } from '../dashboard-hooks/dashboard-tanstack';
+import { useGetDashboardStats } from '../dashboard-activity/dashboard-activity-hooks/dashboard-activity-tanstack';
 import StatsCard from '../dashboardStats/stats-card';
 import DashboardWithdrawDialog from './dashboard-withdraw-component/dashboard-withdraw-dialog';
 import DashboardWithdrawInformationCard from './dashboard-withdraw-component/dashboard-withdraw-information-card';
-import { Tag } from '@/components/ui/tag';
-
-const items = [
-  { id: 1, amount: '10000', date: '1-11-1111', status: 'accepted' },
-  { id: 2, amount: '10000', date: '1-11-1111', status: 'rejected' },
-  { id: 3, amount: '10000', date: '1-11-1111', status: 'rejected' },
-  { id: 4, amount: '10000', date: '1-11-1111', status: 'accepted' },
-  { id: 5, amount: '10000', date: '1-11-1111', status: 'accepted' },
-];
+import { useDashboardWithdrawHooks } from './dashboard-withdraw-hooks/dashboard-withdraw-hooks';
 
 export default function DashboardWithdrawContent() {
-  const { form } = useDashboardHooks();
+  const { form, pagination } = useDashboardWithdrawHooks();
   const [openWd, setOpenWd] = useState(false);
   const { data: statsData, isFetching } = useGetDashboardStats();
 
@@ -47,6 +40,7 @@ export default function DashboardWithdrawContent() {
         </Button>
       </Box>
       <DashboardWithdrawInformationCard />
+      <DashboardWithdrawInformationCard />
       <Box
         display="flex"
         flexDirection="column"
@@ -66,22 +60,36 @@ export default function DashboardWithdrawContent() {
               <Table.ColumnHeader textAlign="end">Status</Table.ColumnHeader>
             </Table.Row>
           </Table.Header>
-          <Table.Body>
-            {items.map((item) => (
-              <Table.Row key={item.id}>
-                <Table.Cell>{item.amount}</Table.Cell>
-                <Table.Cell>{item.date}</Table.Cell>
-                <Table.Cell textAlign="end">
-                  <Tag
-                    colorPalette={item.status != 'rejected' ? 'green' : 'red'}
-                  >
-                    {item.status}
-                  </Tag>
-                </Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
+          {pagination?.rangedData?.length != 0 && (
+            <Table.Body>
+              {pagination?.rangedData?.map((item) => (
+                <Table.Row key={item.id}>
+                  <Table.Cell>{item.amount}</Table.Cell>
+                  <Table.Cell>{item.date}</Table.Cell>
+                  <Table.Cell textAlign="end">
+                    <Tag
+                      colorPalette={item.status != 'rejected' ? 'green' : 'red'}
+                    >
+                      {item.status}
+                    </Tag>
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          )}
         </Table.Root>
+        {pagination?.rangedData?.length == 0 && (
+          <Box
+            height="8rem"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Text fontFamily="sans-serif" color="#e6e6e6">
+              No Withdraw activity yet
+            </Text>
+          </Box>
+        )}
       </Box>
       <DashboardWithdrawDialog
         setValue={form.setValue}
@@ -91,6 +99,7 @@ export default function DashboardWithdrawContent() {
         errors={form.errors}
         handleSubmit={form.handleSubmit}
       />
+      <Toaster />
     </Box>
   );
 }
