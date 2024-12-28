@@ -21,26 +21,35 @@ import OrderTextStatusBuyer from '../fragments/order-list/order-text-status-buye
 import { Button } from '../ui/button';
 import { getLatestStatus } from '@/utils/get-latest-status';
 import OrderSkeleton from '../skeleton/skeleton-order';
+import { NotFoundPage } from './not-found-page';
 
 export default function InvoiceStatusPage() {
   const { id } = useParams();
   const [invoice, setInvoice] = useState<InvoiceType>();
+  const [loading, setLoading] = useState<boolean>();
 
   useEffect(() => {
     async function init() {
       try {
+        setLoading(true);
         const response = await api.GET_INVOICE(id!.toString());
         setInvoice(response);
         console.log(response);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
     init();
   }, [id]);
 
-  if (!invoice) {
+  if (loading) {
     return <OrderSkeleton />;
+  }
+
+  if (!invoice) {
+    return <NotFoundPage />;
   }
 
   return (
