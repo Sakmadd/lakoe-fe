@@ -8,10 +8,9 @@ import { loginSchema } from '@/validators/log/login-schema';
 import { Box, Flex, Image, Input, Span, Text } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link as ReactLink, useNavigate } from 'react-router-dom';
+import { Link as ReactLink } from 'react-router-dom';
 
 export function LoginContent() {
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -21,7 +20,7 @@ export function LoginContent() {
   });
 
   const onSubmit: SubmitHandler<LoginType> = (data) => {
-    toaster.promise(registerHandler(data), {
+    toaster.promise(onLogin(data), {
       success: {
         title: 'Successfully Login!',
         description: 'Welcome Folks!',
@@ -34,9 +33,9 @@ export function LoginContent() {
     });
   };
 
-  async function registerHandler(data: LoginType) {
+  async function onLogin(data: LoginType) {
     await api.LOGIN(data);
-    navigate(0);
+    window.location.href = '/';
   }
 
   return (

@@ -28,6 +28,7 @@ import {
 } from './redux/features/logged-user-slice';
 import { StoreState } from './redux/store';
 import { UserType } from './types/types';
+import { NotFoundPage } from './components/pages/not-found-page';
 
 function App() {
   const dispatch = useDispatch();
@@ -64,15 +65,15 @@ function App() {
       </>
     );
   }
+
   if (loggedUser) {
     if (loggedUser.role === 'seller') {
       return (
         <Routes>
           <Route path="/" element={<SellerLayout />}>
             <Route index element={<HomePage />} />
-
-            <Route path="/invoice/:id" element={<InvoiceStatusPage />} />
             <Route path="/:productName" element={<ProductDetailPage />} />
+            <Route path="/invoice/:id" element={<InvoiceStatusPage />} />
             <Route path="/products/new" element={<ProductNewPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/products" element={<ProductPage />} />
@@ -82,9 +83,8 @@ function App() {
             <Route path="/settings/shop" element={<SettingsShop />} />
             <Route path="/profile/shop" element={<ProfileShopMe />} />
             <Route path="/profile/shop/:id" element={<ProfileShop />} />
-            {/* <Route path="/profile/shop" element={<ProfileShopMe />} />
-            <Route path="/profile/shop/:id" element={<ProfileShop />} /> */}
             <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
       );
@@ -95,11 +95,12 @@ function App() {
             <Route index element={<AdminPage />} />
           </Route>
           <Route path="/profile/shop/:id" element={<ProfileShop />} />
-          <Route path="/profile/shop/:id" element={<ProfileShop />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       );
     }
   }
+
   return (
     <Routes>
       <Route path="/" element={<BuyerLayout />}>
@@ -110,7 +111,7 @@ function App() {
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/invoice/:id" element={<InvoiceStatusPage />} />
         <Route path="/profile/shop/:id" element={<ProfileShop />} />
-        <Route path="/profile/shop/:id" element={<ProfileShop />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );
