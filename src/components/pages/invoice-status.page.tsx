@@ -16,8 +16,8 @@ import { useEffect, useState } from 'react';
 import { LuCopy } from 'react-icons/lu';
 import { useParams } from 'react-router-dom';
 import { ContentContainer } from '../fragments/container/contentContainer';
-import { OrderStatus } from '../fragments/order/order-status';
-import OrderTextStatusBuyer from '../fragments/order/order-text-status-buyer';
+import { OrderStatus } from '../fragments/order-list/order-status';
+import OrderTextStatusBuyer from '../fragments/order-list/order-text-status-buyer';
 import { Button } from '../ui/button';
 
 export default function InvoiceStatusPage() {

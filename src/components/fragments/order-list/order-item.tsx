@@ -1,12 +1,12 @@
-import { OrderType } from '@/types/types';
 import { formatRupiah } from '@/utils/format-rp';
 import { Box, Image, Text } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import { OrderActionButton } from './order-action-button';
 import { OrderStatus } from './order-status';
-import { useNavigate } from 'react-router-dom';
+import { OrderItemTypeAPI } from '@/types/types';
 
 interface Props {
-  order: OrderType;
+  order: OrderItemTypeAPI;
   setOpenDialog: (a: boolean) => void;
   setDelivery: (a: boolean) => void;
   setContact: (a: boolean) => void;
@@ -24,14 +24,14 @@ export default function OrderItem({
     <Box
       border="0.1rem solid #e6e6e6"
       borderRadius="0.5rem"
-      onClick={() => navigate(`/orders/${order.id}`)}
+      onClick={() => navigate(`/orders/${order.invoice_id}`)}
       cursor="pointer"
     >
       <Box display="flex" justifyContent="space-between" padding="0.8rem">
         <Box display="flex" flexDirection="column" gap="0.5rem">
           <OrderStatus status={order.status} />
           <Text color="grey" fontSize="0.8rem" fontFamily="sans-serif">
-            {order.invoice}
+            {order.invoice_number}
           </Text>
         </Box>
         <OrderActionButton
@@ -46,7 +46,7 @@ export default function OrderItem({
         display="flex"
         justifyContent="space-between"
         onClick={() => {
-          navigate(`/orders/${order.id}`);
+          navigate(`/orders/${order.invoice_id}`);
         }}
         cursor={'pointer'}
       >
@@ -57,8 +57,8 @@ export default function OrderItem({
             objectFit="cover"
             height="4rem"
             border="0.1rem solid #e6e6e6"
-            src={order.image.src}
-            alt={order.image.alt}
+            src={order.product.image}
+            alt={order.product.image}
           />
           <Box
             display="flex"
@@ -71,7 +71,7 @@ export default function OrderItem({
               fontSize="0.8rem"
               fontFamily="sans-serif"
             >
-              {order.name}
+              {order.product.name}
             </Text>
             <Text
               fontWeight="light"
@@ -79,7 +79,7 @@ export default function OrderItem({
               color="gray"
               fontFamily="sans-serif"
             >
-              {order.quantity} Items
+              {order.product.quantity} Items
             </Text>
           </Box>
         </Box>
@@ -98,7 +98,7 @@ export default function OrderItem({
             fontFamily="sans-serif"
             fontWeight="semibold"
           >
-            {formatRupiah(order.total_price)}
+            {formatRupiah(order.product.total_price)}
           </Text>
         </Box>
       </Box>

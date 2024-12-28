@@ -1,14 +1,10 @@
+import { OrderItemTypeAPI } from '@/types/types';
 import { Box, Button } from '@chakra-ui/react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
-  order: {
-    id: number;
-    name: string;
-    status: string;
-    invoice: string;
-  };
+  order: OrderItemTypeAPI;
   setContact: (a: boolean) => void;
   setDelivery: (a: boolean) => void;
   setOpenDialog: (a: boolean) => void;
@@ -22,7 +18,7 @@ export function OrderActionButton({
 }: Props) {
   const navigate = useNavigate();
   const handlerNewOrder = () => {
-    navigate(`/orders/${order.id}`);
+    navigate(`/orders/${order.invoice_id}`);
     console.log('Processing the order...');
   };
   const handlerUnpaidOrder = () => {
