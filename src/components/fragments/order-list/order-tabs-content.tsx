@@ -4,6 +4,7 @@ import { Tabs } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FilterBar } from '../common/filter-bar';
 import OrderActionDialog from './order-action-dialog';
+import OrderActionDialog from './order-action-dialog';
 import OrderList from './order-list';
 
 interface Props {
@@ -35,6 +36,9 @@ export function TabsOrderContent({
   const [openDialog, setOpenDialog] = useState(false);
   const [contact, setContact] = useState(false);
   const [delivery, setDelivery] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [contact, setContact] = useState(false);
+  const [delivery, setDelivery] = useState(false);
 
   return (
     <>
@@ -58,6 +62,14 @@ export function TabsOrderContent({
             />
           }
           orders={filteredOrders}
+        />
+        <OrderActionDialog
+          setContact={setContact}
+          setOpenDialog={setOpenDialog}
+          delivery={delivery}
+          openDialog={openDialog}
+          contact={contact}
+          setDelivery={setDelivery}
         />
         <OrderActionDialog
           setContact={setContact}
