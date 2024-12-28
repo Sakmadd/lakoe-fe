@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
@@ -18,6 +17,7 @@ import { RegisterPage } from './components/pages/register-page';
 import { DashboardPage } from './components/pages/seller-dashboard-page';
 import { SettingsPage } from './components/pages/settings-page';
 import SettingsShop from './components/pages/settings-shop';
+import { LoadingPage } from './components/skeleton/loading-page';
 import { BuyerLayout } from './layouts/buyerLayout';
 import { SellerLayout } from './layouts/sellerLayout';
 import api from './networks/api';
@@ -45,7 +45,6 @@ function App() {
           return;
         }
         const loggedUser: UserType = await api.GET_LOGGED_USER();
-        console.log(loggedUser);
         if (loggedUser) {
           dispatch(setLoggeduser(loggedUser));
         }
@@ -61,11 +60,7 @@ function App() {
   if (isPreloaded) {
     return (
       <>
-        <Flex alignItems={'center'} justifyContent={'center'} height={'80vh'}>
-          <Text fontSize={'8xl'} fontWeight={'bold'}>
-            {'SABAR BANG >:('}
-          </Text>
-        </Flex>
+        <LoadingPage />
       </>
     );
   }
@@ -75,6 +70,8 @@ function App() {
         <Routes>
           <Route path="/" element={<SellerLayout />}>
             <Route index element={<HomePage />} />
+
+            <Route path="/invoice/:id" element={<InvoiceStatusPage />} />
             <Route path="/:productName" element={<ProductDetailPage />} />
             <Route path="/products/new" element={<ProductNewPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />

@@ -419,6 +419,17 @@ class API {
       throw error;
     }
   }
+  async POST_WA(id: string) {
+    try {
+      const response = await axios.post(`/invoice/wa/${id}`);
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
 }
 
 export default new API();

@@ -7,11 +7,16 @@ import { CategoryItem } from '../fragments/buyer/category-item';
 import { ContentContainer } from '../fragments/container/contentContainer';
 import { ProductList } from '../fragments/product-detail/product-list';
 import api from '@/networks/api';
+import { useSelector } from 'react-redux';
+import { StoreState } from '@/redux/store';
 
 export function HomePage() {
   const categories = showedCategories;
   const [loading, setLoading] = useState<boolean>(true);
   const [products, setProducts] = useState<ProductsListType[] | null>(null);
+  const loggedUser = useSelector((state: StoreState) => state.loggedUser.value);
+
+  const categoryCount = loggedUser ? 16 : 20;
 
   const fetchProducts = useCallback(async () => {
     try {
@@ -32,9 +37,9 @@ export function HomePage() {
   const renderedCategories = useMemo(
     () =>
       categories
-        .slice(0, 18)
+        .slice(0, categoryCount)
         .map((cat) => <CategoryItem key={cat.id} category={cat} />),
-    [categories]
+    [categories, categoryCount]
   );
 
   return (

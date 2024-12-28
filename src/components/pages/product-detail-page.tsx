@@ -3,7 +3,7 @@ import { Product } from '@/types/product-type';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ProductDetailContainer } from '../fragments/product-detail/product-detail-container';
-import { NotFoundPage } from './not-found-page';
+import ProductSkeleton from '../skeleton/skeleton-detail-product-page';
 
 export function ProductDetailPage() {
   const [product, setProduct] = useState<Product | null>(null);
@@ -25,7 +25,7 @@ export function ProductDetailPage() {
     return product ? (
       <ProductDetailContainer product={product} />
     ) : (
-      <NotFoundPage />
+      <ProductSkeleton />
     );
   }, [product]);
 

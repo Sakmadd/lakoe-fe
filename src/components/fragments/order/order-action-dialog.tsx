@@ -61,7 +61,6 @@ export default function OrderActionDialog({
                     colorPalette="blue"
                     onValueChange={({ value }) => {
                       field.onChange(value);
-                      console.log(value);
                     }}
                   >
                     {items.map((item) => (

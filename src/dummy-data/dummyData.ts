@@ -2218,4 +2218,12 @@ export const showedCategories = [
     value: 'awdawd',
     parent_id: 'awdwa',
   },
+  {
+    id: '17',
+    label: 'Workout & Outdoor',
+    image:
+      'https://down-id.img.susercontent.com/file/b2c24b49fd96704ed80b4f45080bfcac@resize_w320_nl.webp',
+    value: 'awdawd',
+    parent_id: 'awdwa',
+  },
 ];

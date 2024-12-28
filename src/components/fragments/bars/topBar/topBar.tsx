@@ -65,9 +65,12 @@ export function TopBar({ display }: Props) {
           <MenuRoot>
             <MenuTrigger asChild>
               <Avatar
-                name="Segun Adebayo"
                 src={
-                  loggedUser ? 'https://bit.ly/dan-abramov' : '/anon-avatar.png'
+                  loggedUser
+                    ? loggedUser.Shop.logo === ''
+                      ? '/anon-avatar.png'
+                      : loggedUser.Shop.logo
+                    : '/anon-avatar.png'
                 }
                 cursor={'pointer'}
               />
@@ -78,7 +81,7 @@ export function TopBar({ display }: Props) {
                   <MenuItem
                     value="profile"
                     cursor={'pointer'}
-                    onClick={() => navigate('/profile')}
+                    onClick={() => navigate('/settings/shop')}
                   >
                     Profile
                     <Spacer />

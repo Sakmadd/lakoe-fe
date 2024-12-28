@@ -16,7 +16,6 @@ export function ProductCard({ title, price, image, url }: ProductCardProps) {
         maxW="sm"
         overflow="hidden"
         width={'190px'}
-        height={'250px'}
         cursor={'pointer'}
         boxShadow={'sm'}
         _hover={{
