@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -40,6 +43,7 @@
     "react-router-dom": "^6.28.0",
     "react-slick": "^0.30.2",
     "react-use": "^17.6.0",
+    "rollup": "^4.29.1",
     "sweetalert2": "^11.15.2",
     "sweetalert2-react-content": "^5.1.0",
     "zod": "^3.23.8"
