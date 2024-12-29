@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import CarouselBanner from './carousel-banner';
+// import CarouselBanner from './carousel-banner';
 
 export function BannerContent() {
   return (
@@ -10,7 +10,7 @@ export function BannerContent() {
         flexDir={'column'}
         alignItems={'center'}
       >
-        <CarouselBanner />
+        {/* <CarouselBanner /> */}
       </Flex>
     </>
   );
