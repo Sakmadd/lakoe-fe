@@ -1,14 +1,27 @@
-import { dummyCategories, dummySorts } from '@/dummy-data/dummyData';
+import { dummySorts } from '@/dummy-data/dummyData';
 import { useProduct } from '@/hooks/use-product';
+import { CategoryType } from '@/types/types';
+import { extractCategories } from '@/utils/extract-categories';
 import { Button, Flex, Spacer, Spinner, Tabs, Text } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { TabsProductContent } from './tabs-product-content';
 
 export function ProductContent() {
   const navigate = useNavigate();
+  const [filterCategories, setFilterCategories] = useState<CategoryType[]>([]);
 
   const { products, isLoading, groupedProducts } = useProduct();
+
+  useEffect(() => {
+    function init() {
+      if (products) {
+        setFilterCategories(extractCategories(products));
+      }
+    }
+    init();
+  }, [products]);
 
   if (isLoading) {
     return (
@@ -53,19 +66,19 @@ export function ProductContent() {
         <TabsProductContent
           products={products}
           tabs_value="all"
-          categories={dummyCategories}
+          categories={filterCategories}
           sorts={dummySorts}
         />
         <TabsProductContent
           products={groupedProducts.active}
           tabs_value="active"
-          categories={dummyCategories}
+          categories={filterCategories}
           sorts={dummySorts}
         />
         <TabsProductContent
           products={groupedProducts.unactive}
           tabs_value="unactive"
-          categories={dummyCategories}
+          categories={filterCategories}
           sorts={dummySorts}
         />
       </Tabs.Root>
