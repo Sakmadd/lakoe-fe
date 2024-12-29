@@ -2,11 +2,10 @@
 
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import image from '@rollup/plugin-image';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), image()],
+  plugins: [react()],
   resolve: {
     alias: {
       '@': '/src',
