@@ -1,7 +1,6 @@
 import { Switch } from '@/components/ui/switch';
 import { Flex, Text } from '@chakra-ui/react';
 import { useState } from 'react';
-import { FieldInputImage } from './field-input-imge';
 
 export function VariantSwitch() {
   const [addImage, setAddImage] = useState(false);
@@ -16,7 +15,6 @@ export function VariantSwitch() {
         />
         <Text fontSize={'sm'}>Add Image </Text>
       </Flex>
-      <FieldInputImage />
     </>
   );
 }

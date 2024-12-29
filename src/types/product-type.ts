@@ -5,7 +5,7 @@ export type Category = {
   label: string;
   value: string;
   parent_id: string;
-  children: Category[];
+  children?: Category[];
 };
 
 export type ProductImage = {
