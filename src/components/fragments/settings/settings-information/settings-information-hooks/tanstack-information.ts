@@ -27,6 +27,7 @@ export function useGetInformation({
         phone: response.phone,
         description: response.description,
       };
+      console.log(response);
       reset(values);
       setImageReader(response.logo);
       return response;

@@ -10,13 +10,19 @@ interface Props {
   setOpenDialog: (a: boolean) => void;
   setDelivery: (a: boolean) => void;
   setContact: (a: boolean) => void;
+  setId: (a: string) => void;
+  setPhone: (a: string) => void;
+  setCourier: (a: string | null) => void;
 }
 
 export default function OrderItem({
+  setPhone,
+  setId,
   order,
   setOpenDialog,
   setDelivery,
   setContact,
+  setCourier,
 }: Props) {
   const navigate = useNavigate();
 
@@ -35,6 +41,9 @@ export default function OrderItem({
           </Text>
         </Box>
         <OrderActionButton
+          setCourier={setCourier}
+          setPhone={setPhone}
+          setId={setId}
           order={order}
           setContact={setContact}
           setDelivery={setDelivery}

@@ -1,13 +1,20 @@
 import { dummyCouriers, dummySorts } from '@/dummy-data/dummyData';
 import { OrderGrouper } from '@/utils/order-grouper';
-import { Tabs, Text, Box, Spinner } from '@chakra-ui/react';
-import { TabsOrderContent } from './order-tabs-content';
+import { Box, Spinner, Tabs, Text } from '@chakra-ui/react';
+import { useState } from 'react';
+import OrderActionDialog from './order-action-dialog';
 import { useGetOrderList } from './order-list-hooks/order-tanstack';
+import { TabsOrderContent } from './order-tabs-content';
 
 export function OrderContent() {
   const { data, isFetching } = useGetOrderList();
   const groupedOrders = OrderGrouper({ orders: data });
-
+  const [openDialog, setOpenDialog] = useState(false);
+  const [contact, setContact] = useState(false);
+  const [delivery, setDelivery] = useState(false);
+  const [id, setId] = useState<string>('0');
+  const [phone, setPhone] = useState<string | undefined>('');
+  const [courier, setCourier] = useState<string | null>('');
   return (
     <>
       <Text as="h1" fontWeight="bold" fontFamily="sans-serif">
@@ -36,6 +43,12 @@ export function OrderContent() {
         {!isFetching && (
           <>
             <TabsOrderContent
+              setCourier={setCourier}
+              setPhone={setPhone}
+              setId={setId}
+              setContact={setContact}
+              setOpenDialog={setOpenDialog}
+              setDelivery={setDelivery}
               couriers={dummyCouriers}
               sorts={dummySorts}
               orders={data ? data : []}
@@ -43,6 +56,12 @@ export function OrderContent() {
               no_message={''}
             />
             <TabsOrderContent
+              setCourier={setCourier}
+              setPhone={setPhone}
+              setId={setId}
+              setContact={setContact}
+              setOpenDialog={setOpenDialog}
+              setDelivery={setDelivery}
               couriers={dummyCouriers}
               sorts={dummySorts}
               orders={groupedOrders?.unpaid ? groupedOrders?.unpaid : []}
@@ -50,6 +69,12 @@ export function OrderContent() {
               no_message={'Unpaid'}
             />
             <TabsOrderContent
+              setCourier={setCourier}
+              setPhone={setPhone}
+              setId={setId}
+              setContact={setContact}
+              setOpenDialog={setOpenDialog}
+              setDelivery={setDelivery}
               couriers={dummyCouriers}
               sorts={dummySorts}
               orders={groupedOrders?.new_order ? groupedOrders?.new_order : []}
@@ -57,6 +82,12 @@ export function OrderContent() {
               no_message={'New Order'}
             />
             <TabsOrderContent
+              setCourier={setCourier}
+              setPhone={setPhone}
+              setId={setId}
+              setContact={setContact}
+              setOpenDialog={setOpenDialog}
+              setDelivery={setDelivery}
               couriers={dummyCouriers}
               sorts={dummySorts}
               orders={
@@ -66,6 +97,12 @@ export function OrderContent() {
               no_message={'Ready To Ship'}
             />
             <TabsOrderContent
+              setCourier={setCourier}
+              setPhone={setPhone}
+              setId={setId}
+              setContact={setContact}
+              setOpenDialog={setOpenDialog}
+              setDelivery={setDelivery}
               couriers={dummyCouriers}
               sorts={dummySorts}
               orders={
@@ -75,6 +112,12 @@ export function OrderContent() {
               no_message={'Shipping'}
             />
             <TabsOrderContent
+              setCourier={setCourier}
+              setPhone={setPhone}
+              setId={setId}
+              setContact={setContact}
+              setOpenDialog={setOpenDialog}
+              setDelivery={setDelivery}
               couriers={dummyCouriers}
               sorts={dummySorts}
               orders={groupedOrders?.canceled ? groupedOrders?.canceled : []}
@@ -82,6 +125,12 @@ export function OrderContent() {
               no_message={'Canceled'}
             />
             <TabsOrderContent
+              setCourier={setCourier}
+              setPhone={setPhone}
+              setId={setId}
+              setContact={setContact}
+              setOpenDialog={setOpenDialog}
+              setDelivery={setDelivery}
               couriers={dummyCouriers}
               sorts={dummySorts}
               orders={groupedOrders?.done ? groupedOrders?.done : []}
@@ -91,6 +140,17 @@ export function OrderContent() {
           </>
         )}
       </Tabs.Root>
+      <OrderActionDialog
+        phone={phone}
+        id={id}
+        setContact={setContact}
+        setOpenDialog={setOpenDialog}
+        delivery={delivery}
+        openDialog={openDialog}
+        contact={contact}
+        courier={courier}
+        setDelivery={setDelivery}
+      />
     </>
   );
 }

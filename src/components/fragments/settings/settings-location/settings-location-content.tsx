@@ -58,7 +58,7 @@ export default function SettingsLocationContent() {
           id={locationState.id}
         />
       </Box>
-      {locationData.FetchingLocationData && (
+      {locationData?.FetchingLocationData && (
         <Box
           display="flex"
           justifyContent="center"
@@ -68,10 +68,11 @@ export default function SettingsLocationContent() {
           <Spinner size="xl" />
         </Box>
       )}
-      {!locationData.FetchingLocationData &&
-        locationData.store
+      {!locationData?.FetchingLocationData &&
+        locationData?.store
           ?.map((data) => (
             <SettingsLocationBox
+              key={data?.id}
               data={data}
               setOpenDeleteDialog={locationDialog.setOpenDeleteDialog}
               onOpenDialog={locationDialog.onOpenDialog}
@@ -96,7 +97,7 @@ export default function SettingsLocationContent() {
         title={locationState.locationTitle}
         deleteSubmit={locationMutation.handleDelete}
       />
-      {locationData.store?.length == 0 && (
+      {locationData?.store?.length == 0 && (
         <SettingsEmptyContent content={"You haven't set your location yet"} />
       )}
       <Toaster />

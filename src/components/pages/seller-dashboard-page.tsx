@@ -1,5 +1,5 @@
 import { MainContent } from '@/layouts/mainContent';
-import { DashboardContent } from '../fragments/dashboard/dashboard-content';
+import { DashboardContent } from '../fragments/dashboard-seller/dashboard-content';
 import { useSelector } from 'react-redux';
 import { StoreState } from '@/redux/store';
 import { UnSetShopPage } from './unset-shop-page';

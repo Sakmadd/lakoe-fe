@@ -9,16 +9,22 @@ interface Props {
   setOpenDialog: (a: boolean) => void;
   setContact: (a: boolean) => void;
   setDelivery: (a: boolean) => void;
+  setId: (a: string) => void;
   no_message: string;
+  setPhone: (a: string) => void;
+  setCourier: (a: string | null) => void;
 }
 
 export default function OrderList({
+  setPhone,
   orders,
   filter,
   setOpenDialog,
   setContact,
   setDelivery,
+  setId,
   no_message,
+  setCourier,
 }: Props) {
   return (
     <Box display="flex" flexDirection="column" gap="0.5rem">
@@ -45,6 +51,9 @@ export default function OrderList({
           orders
             .map((order) => (
               <OrderItem
+                setCourier={setCourier}
+                setPhone={setPhone}
+                setId={setId}
                 key={order.invoice_id}
                 order={order}
                 setOpenDialog={setOpenDialog}

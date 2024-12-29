@@ -7,6 +7,7 @@ interface Props {
   name: string | undefined;
   total_price: number | undefined;
   quantity: number | undefined;
+  price: number | undefined;
 }
 
 export default function OrderDetailProduct({
@@ -14,6 +15,7 @@ export default function OrderDetailProduct({
   name,
   total_price,
   quantity,
+  price,
 }: Props) {
   return (
     <ContentContainer>
@@ -51,7 +53,7 @@ export default function OrderDetailProduct({
               Total expenditure
             </Text>
             <Text fontWeight="semibold" fontSize="0.8rem">
-              {formatRupiah(total_price)}
+              {formatRupiah(price)}
             </Text>
           </Box>
         </Box>

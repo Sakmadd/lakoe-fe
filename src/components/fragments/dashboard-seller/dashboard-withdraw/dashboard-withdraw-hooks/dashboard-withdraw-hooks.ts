@@ -11,6 +11,7 @@ export function useDashboardWithdrawHooks() {
   const { data: DashboardTableData } = useGetDashboardWithdrawTable();
   console.log(DashboardTableData);
   const [table, setTable] = useState(1);
+  const size = DashboardTableData?.length * 1;
   const startRange = (table - 1) * 4;
   const endRange = startRange + 4;
   const rangedData = DashboardTableData?.slice(startRange, endRange);
@@ -28,10 +29,12 @@ export function useDashboardWithdrawHooks() {
   return {
     pagination: {
       rangedData,
+      DashboardTableData,
     },
     table: {
       table,
       setTable,
+      size,
     },
     form: {
       setValue,

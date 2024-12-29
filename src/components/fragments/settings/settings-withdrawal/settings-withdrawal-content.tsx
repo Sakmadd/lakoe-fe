@@ -7,29 +7,54 @@ import {
   SelectTrigger,
   SelectValueText,
 } from '@/components/ui/select';
-import { bankCollection } from '@/dummy-data/banks-data';
 import {
   settingsWithdrawalSchema,
   SettingsWithdrawalTypes,
 } from '@/validators/settings/settings-withdrawal';
-import { Box, Input, Text } from '@chakra-ui/react';
+import { Box, createListCollection, Input, Text } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import {
+  useGetBankInformation,
+  useGetWithdrawBank,
+  useUpdateBankInformation,
+} from './settings-withdrawal-hooks/settings-withdrawal-tanstack';
+import { Toaster } from '@/components/ui/toaster';
+
+interface Bank {
+  name: string;
+  code_bank: string;
+  bank: string;
+  balance: string;
+}
 
 export default function SettingsWithdrawalContent() {
   const {
     register,
     handleSubmit,
     control,
+    setValue,
+    reset,
     formState: { errors },
   } = useForm<SettingsWithdrawalTypes>({
     resolver: zodResolver(settingsWithdrawalSchema),
   });
 
+  const { data } = useGetWithdrawBank();
+  const { mutateAsync, isPending } = useUpdateBankInformation();
+  const [items, setItem] = useState(data || []);
+
   const banksCol = useMemo(() => {
-    return bankCollection;
-  }, []);
+    setItem(data);
+    return createListCollection({
+      items: items || [],
+      itemToString: (item: Bank) => item.name,
+      itemToValue: (item: Bank) => item.name,
+    });
+  }, [items, data]);
+
+  useGetBankInformation({ reset });
 
   return (
     <Box display="flex" flexDirection="column" gap="1.1rem">
@@ -44,10 +69,9 @@ export default function SettingsWithdrawalContent() {
               alignItems: 'center',
               flexDirection: 'column',
             }}
-            onSubmit={handleSubmit(
-              (data) => console.log(data),
-              (error) => console.log(error)
-            )}
+            onSubmit={handleSubmit((data) => {
+              mutateAsync(data);
+            })}
           >
             <Box display="flex" flexDirection="column" width="100%" gap="1rem">
               <Field
@@ -60,28 +84,35 @@ export default function SettingsWithdrawalContent() {
               <Field
                 label="Bank"
                 invalid={!!errors.name}
-                errorText={errors.bank_name?.message}
+                errorText={errors.bank?.message}
               >
                 <Controller
                   control={control}
-                  name="bank_name"
+                  name="bank"
                   render={({ field }) => (
                     <SelectRoot
                       name={field.name}
                       value={[field.value]}
                       onValueChange={({ value }) => {
                         field.onChange(value[0]);
+                        console.log(value[0]);
                       }}
                       collection={banksCol}
                       colorPalette="black"
                     >
                       <SelectTrigger>
-                        <SelectValueText placeholder="Select Bank" />
+                        <SelectValueText placeholder={'Select Bank'} />
                       </SelectTrigger>
                       <SelectContent>
-                        {banksCol.items.map((bank) => (
-                          <SelectItem item={bank.label} key={bank.value}>
-                            {bank.label}
+                        {banksCol.items.map((item) => (
+                          <SelectItem
+                            item={item?.name}
+                            key={item?.bank}
+                            onClick={() => {
+                              setValue('bank_code', item.code_bank);
+                            }}
+                          >
+                            {item?.name}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -91,10 +122,10 @@ export default function SettingsWithdrawalContent() {
               </Field>
               <Field
                 label="Bank Account"
-                invalid={!!errors.bank_account}
-                errorText={errors.bank_account?.message}
+                invalid={!!errors.account}
+                errorText={errors.account?.message}
               >
-                <Input type="text" width="100%" {...register('bank_account')} />
+                <Input type="text" width="100%" {...register('account')} />
               </Field>
               <Box display="flex" justifyContent="end">
                 <Button
@@ -106,6 +137,7 @@ export default function SettingsWithdrawalContent() {
                   width="13%"
                   height="1.8rem"
                   fontSize="0.8rem"
+                  loading={isPending}
                 >
                   Save
                 </Button>
@@ -114,6 +146,7 @@ export default function SettingsWithdrawalContent() {
           </form>
         </Box>
       </Box>
+      <Toaster />
     </Box>
   );
 }

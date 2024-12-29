@@ -92,7 +92,7 @@ function App() {
       return (
         <Routes>
           <Route path="/" element={<BuyerLayout />}>
-            <Route index element={<AdminPage />} />
+            <Route index path="/admin" element={<AdminPage />} />
           </Route>
           <Route path="/profile/shop/:id" element={<ProfileShop />} />
           <Route path="*" element={<NotFoundPage />} />

@@ -93,7 +93,7 @@ export default function SettingsTemplateMessageForm({
                         item: 'Customer Name',
                         content:
                           'Add customer name prefix to use customer name',
-                        value: '[customer name]',
+                        value: '[costumer name]',
                       },
                       {
                         item: 'Product Name',
@@ -103,7 +103,7 @@ export default function SettingsTemplateMessageForm({
                       {
                         item: 'Store Name',
                         content: 'Add store name prefix to use store name',
-                        value: '[store name]',
+                        value: '[shop name]',
                       },
                     ]}
                   >

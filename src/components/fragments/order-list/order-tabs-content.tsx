@@ -3,7 +3,6 @@ import { CourierType, OrderItemTypeAPI } from '@/types/types';
 import { Tabs } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FilterBar } from '../common/filter-bar';
-import OrderActionDialog from './order-action-dialog';
 import OrderList from './order-list';
 
 interface Props {
@@ -12,6 +11,12 @@ interface Props {
   couriers: CourierType[];
   sorts: { label: string; value: string }[];
   no_message: string;
+  setContact: (a: boolean) => void;
+  setDelivery: (a: boolean) => void;
+  setOpenDialog: (a: boolean) => void;
+  setId: (a: string) => void;
+  setPhone: (a: string) => void;
+  setCourier: (a: string | null) => void;
 }
 
 export function TabsOrderContent({
@@ -20,6 +25,12 @@ export function TabsOrderContent({
   tabs_value,
   couriers,
   sorts,
+  setCourier,
+  setContact,
+  setDelivery,
+  setOpenDialog,
+  setId,
+  setPhone,
 }: Props) {
   const [selectedCourier, setSelectedCourier] = useState<string>('');
   const [selectedSort, setSelectedSort] = useState<string>('');
@@ -32,18 +43,17 @@ export function TabsOrderContent({
     searchInput,
   });
 
-  const [openDialog, setOpenDialog] = useState(false);
-  const [contact, setContact] = useState(false);
-  const [delivery, setDelivery] = useState(false);
-
   return (
     <>
       <Tabs.Content value={tabs_value}>
         <OrderList
+          setId={setId}
+          setCourier={setCourier}
           setContact={setContact}
           setDelivery={setDelivery}
           setOpenDialog={setOpenDialog}
           no_message={no_message}
+          setPhone={setPhone}
           filter={
             <FilterBar
               filterFor="Orders"
@@ -58,22 +68,6 @@ export function TabsOrderContent({
             />
           }
           orders={filteredOrders}
-        />
-        <OrderActionDialog
-          setContact={setContact}
-          setOpenDialog={setOpenDialog}
-          delivery={delivery}
-          openDialog={openDialog}
-          contact={contact}
-          setDelivery={setDelivery}
-        />
-        <OrderActionDialog
-          setContact={setContact}
-          setOpenDialog={setOpenDialog}
-          delivery={delivery}
-          openDialog={openDialog}
-          contact={contact}
-          setDelivery={setDelivery}
         />
       </Tabs.Content>
     </>
