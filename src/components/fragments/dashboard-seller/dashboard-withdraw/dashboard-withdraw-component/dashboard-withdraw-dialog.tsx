@@ -16,6 +16,8 @@ import {
   UseFormSetValue,
 } from 'react-hook-form';
 import { usePostWithdraw } from '../dashboard-withdraw-hooks/dashboard-withdraw-tanstack';
+import { useEffect, useState } from 'react';
+import { toaster } from '@/components/ui/toaster';
 
 interface Props {
   openWd: boolean;
@@ -24,6 +26,7 @@ interface Props {
   register: UseFormRegister<WithdrawType>;
   setOpenWd: (a: boolean) => void;
   setValue: UseFormSetValue<WithdrawType>;
+  balance: number;
 }
 
 const defaultAmount = [
@@ -41,14 +44,20 @@ export default function DashboardWithdrawDialog({
   register,
   setOpenWd,
   setValue,
+  balance,
 }: Props) {
   const { mutateAsync } = usePostWithdraw({ setOpenWd });
+  const [trackBalance, setTrackBalance] = useState<number>(balance);
 
   function fromOption(text: string) {
     setValue('amount', text, {
       shouldValidate: true,
     });
   }
+
+  useEffect(() => {
+    setTrackBalance(balance);
+  }, [balance]);
 
   return (
     <DialogRoot open={openWd} size="lg">
@@ -59,7 +68,18 @@ export default function DashboardWithdrawDialog({
           </Text>
         </DialogHeader>
         <DialogBody>
-          <form onSubmit={handleSubmit((data) => mutateAsync(data))}>
+          <form
+            onSubmit={handleSubmit((data) => {
+              if (trackBalance < Number(data.amount)) {
+                toaster.dismiss();
+                toaster.error({
+                  title: 'Your balance is to low for that request',
+                });
+                return;
+              }
+              mutateAsync(data);
+            })}
+          >
             <Box display="flex" flexDirection="column" gap="1rem">
               <Box display="flex" gap="1rem">
                 {defaultAmount.map((item) => (

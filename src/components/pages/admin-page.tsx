@@ -1,6 +1,6 @@
 import { MainContent } from '@/layouts/mainContent';
 import { ContentContainer } from '../fragments/container/contentContainer';
-import AdminContent from '../fragments/admin/admin-content';
+import AdminContent from '../fragments/dashboard-admin/admin-content';
 
 export function AdminPage() {
   return (

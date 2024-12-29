@@ -1887,6 +1887,7 @@ export const dummyCouriers = [
   { id: 'courier-1', label: 'Jne', value: 'jne' },
   { id: 'courier-2', label: 'Anter aja', value: 'anteraja' },
   { id: 'courier-3', label: 'Jnt', value: 'jnt' },
+  { id: 'courier-4', label: 'Id Express', value: 'idexpress' },
 ];
 
 export const dummySorts = [

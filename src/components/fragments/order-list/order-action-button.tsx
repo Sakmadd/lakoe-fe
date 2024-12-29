@@ -8,13 +8,19 @@ interface Props {
   setContact: (a: boolean) => void;
   setDelivery: (a: boolean) => void;
   setOpenDialog: (a: boolean) => void;
+  setId: (a: string) => void;
+  setPhone: (a: string) => void;
+  setCourier: (a: string | null) => void;
 }
 
 export function OrderActionButton({
   order,
+  setPhone,
   setContact,
   setDelivery,
   setOpenDialog,
+  setCourier,
+  setId,
 }: Props) {
   const navigate = useNavigate();
   const handlerNewOrder = () => {
@@ -22,11 +28,15 @@ export function OrderActionButton({
     console.log('Processing the order...');
   };
   const handlerUnpaidOrder = () => {
+    setId(order.invoice_id);
+    setPhone(order.phone);
     setOpenDialog(true);
     setContact(true);
     console.log('Contacting customer for payment...');
   };
   const handlerReadyOrder = () => {
+    setId(order.invoice_id);
+    setPhone(order.phone);
     setOpenDialog(true);
     setContact(true);
     console.log('Informing customer...');
@@ -34,14 +44,19 @@ export function OrderActionButton({
   const handlerDeliveryOrder = () => {
     setOpenDialog(true);
     setDelivery(true);
+    setCourier(order?.courier?.waybill_id);
     console.log('Tracking shipment...');
   };
   const handlerCompletedOrder = () => {
+    setId(order.invoice_id);
+    setPhone(order.phone);
     setOpenDialog(true);
     setContact(true);
     console.log('Contacting customer...');
   };
   const handlerCanceledOrder = () => {
+    setId(order.invoice_id);
+    setPhone(order.phone);
     setOpenDialog(true);
     setContact(true);
     console.log('Handling canceled order...');

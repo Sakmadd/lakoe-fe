@@ -51,6 +51,7 @@ export default function OrderDetailContent() {
               image={order?.Product.image}
               quantity={order?.Product.quantity}
               total_price={order?.Product.total_price}
+              price={order?.Product.price}
             />
             <OrderDetailShipping
               courier_company={order?.Courier.courier_company}

@@ -1,6 +1,11 @@
+import { SettingsWithdrawalTypes } from '@/validators/settings/settings-withdrawal';
 import { Box, Text } from '@chakra-ui/react';
 
-export default function DashboardWithdrawInformationCard() {
+export default function DashboardWithdrawInformationCard({
+  data,
+}: {
+  data: SettingsWithdrawalTypes;
+}) {
   return (
     <Box
       display="flex"
@@ -15,10 +20,13 @@ export default function DashboardWithdrawInformationCard() {
       </Text>
       <Box display="flex" gap="1.5rem" alignItems="center">
         <Text fontFamily="sans-serif" fontWeight="semibold" fontSize="1rem">
-          Testing User
+          {data?.name}
         </Text>
         <Text fontFamily="sans-serif" fontSize="0.9rem">
-          1234567890123
+          {data?.account}
+        </Text>
+        <Text fontFamily="sans-serif" fontSize="0.9rem" fontWeight="semibold">
+          {data?.bank}
         </Text>
       </Box>
     </Box>

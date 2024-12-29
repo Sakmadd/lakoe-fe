@@ -62,12 +62,27 @@ export interface DashboardTable {
   timestamp: string;
 }
 
+export interface ShippingDetail {
+  biteship_order_id: string | null;
+  courier_code: string;
+  courier_company: string;
+  courier_type: string;
+  id: string;
+  invoice_id: string;
+  order_id: string;
+  origin_area_id: string;
+  price: number;
+  tracking_id: string | null;
+  waybill_id: string | null;
+}
+
 export interface OrderItemTypeAPI {
   invoice_id: string;
   status: string;
   invoice_number: string;
   created_at: string;
-  courier: string;
+  courier: ShippingDetail;
+  phone: string;
   product: {
     name: string;
     image: string;

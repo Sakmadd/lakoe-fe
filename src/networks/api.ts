@@ -8,6 +8,7 @@ import { LoginType, RegisterType, UserType } from '@/types/types';
 import { SettingsInformationType } from '@/validators/settings/settings-information';
 import { SettingsLocationType } from '@/validators/settings/settings-location';
 import { SettingsTemplateTypes } from '@/validators/settings/settings-template';
+import { SettingsWithdrawalTypes } from '@/validators/settings/settings-withdrawal';
 import axios, { AxiosResponse } from 'axios';
 
 axios.defaults.baseURL = CONFIGS.API_URL;
@@ -336,10 +337,96 @@ class API {
 
   async REQUESTWITHDRAW(amount: string) {
     try {
-      const response: AxiosResponse = await axios.post(`/withdraw`, {
+      const response: AxiosResponse = await axios.post(`/withdraw/`, {
         amount: amount,
+        notes: '',
       });
       console.log(response.data);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async GETWITHDRAWADMIN() {
+    try {
+      const response: AxiosResponse = await axios.get('/withdraw/get');
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async POSTRESPONSEADMIN(data: {
+    notes: string | undefined;
+    status: string;
+    id: string | undefined;
+  }) {
+    try {
+      console.log(data);
+      const response: AxiosResponse = await axios.patch(
+        `/withdraw/update/`,
+        data
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async GETWITHDRAWBANK() {
+    try {
+      const response: AxiosResponse = await axios.get('/bank/all');
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async GETWDINFO() {
+    try {
+      const response: AxiosResponse = await axios.get('/bank/get');
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async PATCHWDINFO(data: SettingsWithdrawalTypes) {
+    try {
+      const response: AxiosResponse = await axios.patch('/bank/update', data);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async GETFORMATEDTEMPLATE(id: string | undefined) {
+    try {
+      const shop = await this.GETSHOP();
+      const response: AxiosResponse = await axios.get(
+        `/template-message/sign?invoice_id=${id}&shop_id=${shop.id}`
+      );
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {

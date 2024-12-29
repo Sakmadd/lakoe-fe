@@ -19,7 +19,9 @@ export function useFilterOrderContent({
 
     if (selectedCourier) {
       filteredOrders = filteredOrders.filter(
-        (order) => order.courier.toLowerCase() === selectedCourier.toLowerCase()
+        (order) =>
+          order.courier.courier_code.toLowerCase() ===
+          selectedCourier.toLowerCase()
       );
     }
 
@@ -29,12 +31,12 @@ export function useFilterOrderContent({
       );
     }
 
-    if (selectedSort === 'new') {
+    if (selectedSort === 'old') {
       filteredOrders = filteredOrders.sort(
         (a, b) =>
           new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
       );
-    } else if (selectedSort === 'old') {
+    } else if (selectedSort === 'new') {
       filteredOrders = filteredOrders.sort(
         (a, b) =>
           new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
