@@ -94,7 +94,7 @@ export default function DashboardActivityContent() {
               </Table.Body>
             </Table.Root>
             <PaginationRoot
-              count={pagination?.rangedData?.length}
+              count={pagination?.rangedData?.length * 2}
               pageSize={5}
               page={table.table}
               onPageChange={(e) => table.setTable(e.page)}
